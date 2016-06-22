@@ -13,7 +13,7 @@ import java.net.URL;
 public class FetchDataTask extends AsyncTask {
 
     private final String LOG_TAG = FetchDataTask.class.getSimpleName();
-
+    private final String API_URL = "http://10.0.2.2:8080/greeting"; // this might be changed to a parameter
     public FetchDataTask() {
 
     }
@@ -26,16 +26,10 @@ public class FetchDataTask extends AsyncTask {
         // so that they can be closed in the finally block.
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
-
-        // Will contain the raw JSON response as a string.
-        String forecastJsonStr;
+        String responseStr;
 
         try {
-            // Construct the URL for the OpenWeatherMap query
-            // Possible parameters are available at OWM's forecast API page, at
-            // http://openweathermap.org/API#forecast
-
-            URL url = new URL("http://10.0.2.2:8080/greeting");
+            URL url = new URL(API_URL);
 
             // Create the request to OpenWeatherMap, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -47,7 +41,7 @@ public class FetchDataTask extends AsyncTask {
             StringBuffer buffer = new StringBuffer();
             if (inputStream == null) {
                 // Nothing to do.
-                forecastJsonStr = null;
+                responseStr = null;
             }
             reader = new BufferedReader(new InputStreamReader(inputStream));
 
@@ -63,14 +57,12 @@ public class FetchDataTask extends AsyncTask {
                 // Stream was empty.  No point in parsing.
                 return null;
             }
-            forecastJsonStr = buffer.toString();
-            Log.v(LOG_TAG, "Forecast JSON String : " + forecastJsonStr);
+            responseStr = buffer.toString();
+            Log.v(LOG_TAG, "API Greeting response : " + responseStr);
 
         } catch (IOException e) {
-            Log.e("PlaceholderFragment", "Error ", e);
-            // If the code didn't successfully get the weather data, there's no point in attempting
-            // to parse it.
-            forecastJsonStr = null;
+            Log.v(LOG_TAG,"Impossible to open nor use the stream.");
+            responseStr = null;
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -79,7 +71,7 @@ public class FetchDataTask extends AsyncTask {
                 try {
                     reader.close();
                 } catch (final IOException e) {
-                    Log.e("LandingPageFragment", "Error closing stream", e);
+                    Log.v(LOG_TAG,"Impossible to close the stream.");
                 }
             }
         }
