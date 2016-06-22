@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/res/merged/debug/menu/main.xml",
+        "source": "/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/src/main/res/menu/main.xml"
+    },
+    {
+        "merged": "/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/res/merged/debug/menu/forecastfragment.xml",
+        "source": "/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/src/main/res/menu/forecastfragment.xml"
+    }
+]
