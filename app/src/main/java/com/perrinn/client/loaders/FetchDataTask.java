@@ -1,4 +1,4 @@
-package com.perrinn.client;
+package com.perrinn.client.loaders;
 
 import android.os.AsyncTask;
 import android.util.Log;

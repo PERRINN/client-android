@@ -1,4 +1,4 @@
-package com.perrinn.client;
+package com.perrinn.client.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.app.R;
+import com.perrinn.client.FetchDataTask;
 
 import java.util.ArrayList;
 import java.util.Arrays;
