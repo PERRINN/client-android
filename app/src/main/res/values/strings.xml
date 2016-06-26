@@ -4,5 +4,8 @@
     <string name="app_name">Perrinn</string>
     <string name="action_settings">Settings</string>
     <string name="action_refresh" translatable="false">Refresh</string>
-    <string name="loading_string">Please wait while Perrinn is loading your data...</string>
+    <string name="loading_string">Welcome! Press here to enter.</string>
+    <string name="projectsButton_string">Your projects</string>
+    <string name="profileButton_string">Your profile</string>
+    <string name="title_activity_landing">Home</string>
 </resources>

@@ -2,60 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/home/benjamin/AndroidStudio/SDK/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jar="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
-        revision="21.1.2"
-        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
-        <dex dex="/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-22.2.0_86a297b02c7d8043802ec2a7457294054c8d2eeb/classes.dex" />
-    </item>
-    <item
-        jar="/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
-        jumboMode="true"
-        revision="21.1.2"
-        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-22.2.0_f08e2768b07d0374d9e3da2eeddafe70b0924dff/classes.dex" />
-    </item>
-    <item
-        jar="/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.2/jars/classes.jar"
-        jumboMode="true"
-        revision="21.1.2"
-        sha1="7ae2d38807a43b2f2185ff4089a92c790b579e54">
-        <dex dex="/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-21.0.2_87e096676c886f587fa9189a0e66817cf592533a/classes.dex" />
-    </item>
-    <item
-        jar="/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        revision="21.1.2"
-        sha1="90fa6500aae273db4e5b8c8372b1a478f18913e2">
-        <dex dex="/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_3a5be794e4ea4c64ba0a198907ec83ba01209631/classes.dex" />
-    </item>
-    <item
-        jar="/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.1.0/jars/classes.jar"
-        jumboMode="true"
-        revision="21.1.2"
-        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
-        <dex dex="/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-appindexing-8.1.0_471ebd909e599c46bc3d33e764d92a7dcefe0e97/classes.dex" />
-    </item>
-    <item
-        jar="/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
-        jumboMode="true"
-        revision="21.1.2"
-        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-22.2.0_83460bc952c9f8688b5594242306ce7be3292ab9/classes.dex" />
-    </item>
-    <item
-        jar="/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/jars/classes.jar"
-        jumboMode="true"
-        revision="21.1.2"
-        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
-        <dex dex="/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-8.1.0_40e12c6037706fa508854d5d64d19d3df78ad6e1/classes.dex" />
-    </item>
-    <item
-        jar="/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="21.1.2"
-        sha1="3ec870fd716b5eaa4cb9035468cdc611e71946df">
-        <dex dex="/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_9d857c93c0ebdc6c5e72f6d24f776baccf2146ea/classes.dex" />
+        revision="23.0.1"
+        sha1="17aa2bfa6b08f27b1e31a6d2f04b515f516c7d5a">
+        <dex dex="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_06d8184418c975168e9a511e8296d11b5d687ebe\classes.dex" />
     </item>
 
 </items>
