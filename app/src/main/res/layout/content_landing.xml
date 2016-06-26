@@ -12,4 +12,21 @@
     tools:context="com.perrinn.client.LandingActivity"
     tools:showIn="@layout/activity_landing">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/projectsButton_string"
+        android:id="@+id/projectsButton"
+        android:layout_marginTop="86dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="projectsPageIntent"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/profileButton_string"
+        android:id="@+id/profileButton"
+        android:layout_below="@+id/projectsButton"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
