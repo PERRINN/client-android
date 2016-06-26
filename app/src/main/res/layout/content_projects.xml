@@ -27,5 +27,6 @@
         android:id="@+id/listView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/createNewProjectButton" />
+        android:layout_above="@+id/createNewProjectButton"
+        android:entries="@array/sampleArray"/>
 </RelativeLayout>

@@ -13,4 +13,15 @@
     <string name="addDetailsButton_string">Add Details</string>
     <string name="addImageButton_string">Add an image</string>
     <string name="createNewProjectButton_string">Create new project</string>
+
+    <string-array name="sampleArray">
+        <item>Shuttle Badminton</item>
+        <item>Tennis</item>
+        <item>FootBall</item>
+        <item>Basket Ball</item>
+        <item>Table Tennis</item>
+        <item>Chess</item>
+        <item>Hockey</item>
+    </string-array>
+
 </resources>
