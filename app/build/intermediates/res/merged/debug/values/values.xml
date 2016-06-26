@@ -255,8 +255,11 @@
     <string name="abc_toolbar_collapse_description">Collapse</string>
     <string name="action_refresh" translatable="false">Refresh</string>
     <string name="action_settings">Settings</string>
+    <string name="addDetailsButton_string">Add Details</string>
+    <string name="addImageButton_string">Add an image</string>
     <string name="app_name">Perrinn</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="createNewProjectButton_string">Create new project</string>
     <string name="loading_string">Welcome! Press here to enter.</string>
     <string name="profileButton_string">Your profile</string>
     <string name="projectsButton_string">Your projects</string>

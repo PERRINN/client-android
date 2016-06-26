@@ -12,4 +12,20 @@
     tools:context="com.perrinn.client.projectsActivity"
     tools:showIn="@layout/activity_projects">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/createNewProjectButton_string"
+        android:id="@+id/createNewProjectButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="69dp" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/createNewProjectButton" />
 </RelativeLayout>

@@ -10,4 +10,7 @@
     <string name="title_activity_landing">Home</string>
     <string name="title_activity_projects">projectsActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="addDetailsButton_string">Add Details</string>
+    <string name="addImageButton_string">Add an image</string>
+    <string name="createNewProjectButton_string">Create new project</string>
 </resources>
