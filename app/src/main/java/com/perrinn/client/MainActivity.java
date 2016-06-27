@@ -1,9 +1,12 @@
 package com.perrinn.client;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 
 import com.perrinn.client.fragments.LoadingFragment;
@@ -54,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
+    }
+
+    /** Called after data retrieval is complete to switch to landing view */
+    public void landingPageIntent(View view) {
+        Intent intent = new Intent(this, LandingActivity.class);
+        startActivity(intent);
     }
 
     @Override

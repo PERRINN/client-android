@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/res/merged/debug/values-w480dp-v13/values-w480dp-v13.xml",
+        "outputFile": "C:\\Users\\Antreas Christofi\\Desktop\\client-android\\app\\build\\intermediates\\res\\merged\\debug\\values-w480dp-v13\\values-w480dp-v13.xml",
         "map": [
             {
                 "to": {
@@ -11,13 +11,13 @@
                     "endOffset": 112
                 },
                 "from": {
-                    "file": "/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.2/res/values-w480dp/values.xml",
+                    "file": "C:\\Users\\Antreas Christofi\\Desktop\\client-android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\values-w480dp\\values-w480dp.xml",
                     "position": {
-                        "startLine": 3,
+                        "startLine": 4,
                         "startColumn": 4,
-                        "startOffset": 56,
+                        "startOffset": 282,
                         "endColumn": 61,
-                        "endOffset": 113
+                        "endOffset": 339
                     }
                 }
             },
@@ -30,13 +30,13 @@
                     "endOffset": 184
                 },
                 "from": {
-                    "file": "/home/benjamin/Perrinn/Software Team/Application/Perrinn/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.2/res/values-w480dp/values.xml",
+                    "file": "C:\\Users\\Antreas Christofi\\Desktop\\client-android\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.0.1\\res\\values-w480dp\\values-w480dp.xml",
                     "position": {
-                        "startLine": 4,
+                        "startLine": 7,
                         "startColumn": 4,
-                        "startOffset": 118,
+                        "startOffset": 572,
                         "endColumn": 71,
-                        "endOffset": 185
+                        "endOffset": 639
                     }
                 }
             }
