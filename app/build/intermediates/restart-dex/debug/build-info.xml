@@ -4,56 +4,30 @@
     api-level="23"
     density="xxhdpi"
     format="7"
-    timestamp="151433024764812"
-    token="8507145094861171582"
-    verifier="CLASS_ADDED" >
+    timestamp="211558704402737"
+    token="8507145094861171582" >
 
     <task
         name="javac"
-        duration="734" />
+        duration="5695" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="435" />
+        duration="2647" />
     <task
         name="verifier"
-        duration="124" />
+        duration="486" />
 
     <artifact
-        location="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\res\resources-debug.ap_"
-        type="RESOURCES" />
-    <artifact
-        location="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_0\classes.dex"
-        type="DEX" />
-    <artifact
-        location="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_2\classes.dex"
-        type="DEX" />
-    <artifact
-        location="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_6\classes.dex"
-        type="DEX" />
+        location="C:\Users\Antreas Christofi\Desktop\client-android\app\build\outputs\apk\app-debug.apk"
+        type="MAIN" />
 
-    <build timestamp="147253305445626" >
+    <build timestamp="211558704402737" >
         <artifact
             location="C:\Users\Antreas Christofi\Desktop\client-android\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
-    </build>
-    <build
-        timestamp="151433024764812"
-        verifier="CLASS_ADDED" >
-        <artifact
-            location="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\res\resources-debug.ap_"
-            type="RESOURCES" />
-        <artifact
-            location="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_0\classes.dex"
-            type="DEX" />
-        <artifact
-            location="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_2\classes.dex"
-            type="DEX" />
-        <artifact
-            location="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_6\classes.dex"
-            type="DEX" />
     </build>
 
 </instant-run>

@@ -1,3 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="6fac6224c91aa81b280898f53ae69730ac1fc2af">
+        <dex dex="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_74c751dd3467ff3209a1f89838dea462bccb4a7a\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="7a084480ac8d79949976ed78f5021efefbe622a5">
+        <dex dex="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_06d8184418c975168e9a511e8296d11b5d687ebe\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Antreas Christofi\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.1\support-annotations-23.0.1.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.0.1_da6b37a868053c9d4ec0c20f0369db16f5897754\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.0.1_99ec358f15b1b16200fd0b4f8a62ed0f325eaba7\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\exploded-aar\com.android.support\design\23.0.1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
+        <dex dex="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.0.1_6794433c2224a5c6492ea185a8735c5d86f9c044\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.0.1_253d968acda606a67a3264c1cec4bced07674bd8\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.1"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="C:\Users\Antreas Christofi\Desktop\client-android\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.0.1_806429fb9fba9bcf31ded58237472019045872c6\classes.dex" />
+    </item>
+
+</items>
