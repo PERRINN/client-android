@@ -21,6 +21,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/loading_string"
-        android:onClick="replaceWithLandingFragment"/>
+        android:onClick="onClick"/>
 
 </RelativeLayout>

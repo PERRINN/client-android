@@ -1,10 +1,13 @@
 package com.perrinn.client;
 
-import android.app.Fragment;
-import android.content.Intent;
+
+import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentController;
+
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +22,6 @@ import com.perrinn.client.fragments.LandingFragment;
 import com.perrinn.client.fragments.LoadingFragment;
 import com.perrinn.client.fragments.ProfileFragment;
 import com.perrinn.client.fragments.ProjectFragment;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,12 +39,27 @@ public class MainActivity extends AppCompatActivity {
             addLoadingFragment();
 
         }
+        setContentView(R.layout.fragment_loading);
+        TextView textEnter = (TextView) findViewById(R.id.loading_progress_text);
+        textEnter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FragmentManager fm = getFragmentManager();
+                fm.beginTransaction().replace(R.id.fragment_container, LoadingFragment.newInstance()).commit();
+
+            }
+
+        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+
         return true;
     }
 
@@ -85,11 +102,9 @@ public class MainActivity extends AppCompatActivity {
      *
      *
      */
-    private void addLoadingFragment(){
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, LoadingFragment.newInstance())
-                .commit();
+    private void addLoadingFragment() {
+        FragmentManager fm = getFragmentManager();
+        fm.beginTransaction().replace(R.id.fragment_container,LoadingFragment.newInstance()).commit();
     }
+}
 
-
- }
