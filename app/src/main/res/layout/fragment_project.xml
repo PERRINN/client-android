@@ -8,9 +8,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.perrinn.client.projectsActivity"
-    tools:showIn="@layout/activity_projects">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <include layout="@layout/application_bar"
+        android:id="@+id/include" />
 
     <Button
         android:layout_width="wrap_content"
@@ -25,8 +26,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:entries="@array/sampleArray"
+        android:layout_alignTop="@+id/include"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="63dp"
         android:layout_above="@+id/createNewProjectButton"
-        android:entries="@array/sampleArray"/>
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

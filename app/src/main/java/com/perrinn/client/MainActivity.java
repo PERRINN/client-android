@@ -1,22 +1,29 @@
 package com.perrinn.client;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import com.perrinn.client.R;
 
 
+import com.perrinn.client.fragments.LandingFragment;
 import com.perrinn.client.fragments.LoadingFragment;
+import com.perrinn.client.fragments.ProfileFragment;
+import com.perrinn.client.fragments.ProjectFragment;
 
 
 public class MainActivity extends AppCompatActivity {
 
-
-
-    /*
+   /*
     * //////////////////////////////////////////////////
     * // Overrided methods
     * /////////////////////////////////////////////////
@@ -28,7 +35,53 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             addLoadingFragment();
+
         }
+    /*Set onclicklistener for the enter textview, when pressed then replace the current fragment
+     * with the landing fragment
+     */
+        View.OnClickListener enterTextView = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView message = (TextView)findViewById(R.id.loading_progress_text);
+                LandingFragment fragment = new LandingFragment();
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.fragment_container, fragment); //Container -> R.id.contentFragment
+                transaction.commit();
+                    }
+            };
+
+   /*
+    *Set onclicklistener for projects button, when pressed then replace the current fragment
+    * with the project fragment
+    */
+        View.OnClickListener projectButton = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProjectFragment fragment = new ProjectFragment();
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.fragment_container, fragment); //Container -> R.id.contentFragment
+                transaction.commit();
+            }
+        };
+
+
+   /*
+    *Set onclicklistener for projects button, when pressed then replace the current fragment
+    * with the profile fragment
+    */
+        View.OnClickListener profileButton = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProfileFragment fragment = new ProfileFragment();
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.fragment_container, fragment); //Container -> R.id.contentFragment
+                transaction.commit();
+            }
+        };
     }
 
     @Override
@@ -59,31 +112,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /** Called after data retrieval is complete to switch to landing view */
-    public void landingPageIntent(View view) {
-        Intent intent = new Intent(this, LandingActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     public void onStop() {
         super.onStop();
     }
 
-    /*
+   /*
     * //////////////////////////////////////////////////
     * // Private methods
     * /////////////////////////////////////////////////
     */
 
-    /**
+    /*
      * This method is intended to create and load the LoadingPageFragment in the main container
      * layout.
      *
-     * */
+     *
+     */
     private void addLoadingFragment(){
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, LoadingFragment.newInstance())
                 .commit();
     }
-}
+
+ }

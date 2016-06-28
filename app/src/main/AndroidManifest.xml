@@ -19,33 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LandingActivity"
-            android:label="@string/title_activity_landing"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionbar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.perrinn.client.MainActivity" />
-        </activity>
-        <activity
-            android:name=".projectsActivity"
-            android:label="@string/title_activity_projects"
-            android:parentActivityName=".LandingActivity"
-            android:theme="@style/AppTheme.NoActionbar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.perrinn.client.LandingActivity" />
-        </activity>
-        <activity
-            android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile"
-            android:parentActivityName=".LandingActivity"
-            android:theme="@style/AppTheme.NoActionbar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.perrinn.client.LandingActivity" />
-        </activity>
     </application>
 
 </manifest>
