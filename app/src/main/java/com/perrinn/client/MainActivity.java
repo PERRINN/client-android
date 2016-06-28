@@ -37,51 +37,6 @@ public class MainActivity extends AppCompatActivity {
             addLoadingFragment();
 
         }
-    /*Set onclicklistener for the enter textview, when pressed then replace the current fragment
-     * with the landing fragment
-     */
-        View.OnClickListener enterTextView = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextView message = (TextView)findViewById(R.id.loading_progress_text);
-                LandingFragment fragment = new LandingFragment();
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.fragment_container, fragment); //Container -> R.id.contentFragment
-                transaction.commit();
-                    }
-            };
-
-   /*
-    *Set onclicklistener for projects button, when pressed then replace the current fragment
-    * with the project fragment
-    */
-        View.OnClickListener projectButton = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ProjectFragment fragment = new ProjectFragment();
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.fragment_container, fragment); //Container -> R.id.contentFragment
-                transaction.commit();
-            }
-        };
-
-
-   /*
-    *Set onclicklistener for projects button, when pressed then replace the current fragment
-    * with the profile fragment
-    */
-        View.OnClickListener profileButton = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ProfileFragment fragment = new ProfileFragment();
-                FragmentManager fm = getSupportFragmentManager();
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.fragment_container, fragment); //Container -> R.id.contentFragment
-                transaction.commit();
-            }
-        };
     }
 
     @Override
@@ -135,5 +90,6 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.fragment_container, LoadingFragment.newInstance())
                 .commit();
     }
+
 
  }

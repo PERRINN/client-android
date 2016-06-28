@@ -2,6 +2,8 @@ package com.perrinn.client.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,36 @@ public class LandingFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+   /*
+    *Set onclicklistener for projects button, when pressed then replace the current fragment
+    * with the project fragment
+    */
+        View.OnClickListener projectButton = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProjectFragment fragment = new ProjectFragment();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.fragment_container, fragment); //Container -> R.id.contentFragment
+                transaction.commit();
+            }
+        };
+
+   /*
+    *Set onclicklistener for projects button, when pressed then replace the current fragment
+    * with the profile fragment
+    */
+        View.OnClickListener profileButton = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProfileFragment fragment = new ProfileFragment();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.fragment_container, fragment); //Container -> R.id.contentFragment
+                transaction.commit();
+            }
+        };
+
     }
 
 
