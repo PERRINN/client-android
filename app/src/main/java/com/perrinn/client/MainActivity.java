@@ -1,10 +1,6 @@
 package com.perrinn.client;
 
 
-import android.app.FragmentManager;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentController;
 
 import android.os.Bundle;
 
@@ -12,10 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.perrinn.client.R;
 
 
 import com.perrinn.client.fragments.LandingFragment;
@@ -23,8 +17,9 @@ import com.perrinn.client.fragments.LoadingFragment;
 import com.perrinn.client.fragments.ProfileFragment;
 import com.perrinn.client.fragments.ProjectFragment;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements LoadingFragment.LoadingFragmentInteractionListener {
+    private static final String FRAGMENT_LOADING = "com.perrinn.client.fragments.LOADING_FRAGMENT";
+    private static final String FRAGMENT_LANDING = "com.perrinn.client.fragments.LANDING_FRAGMENT";
    /*
     * //////////////////////////////////////////////////
     * // Overrided methods
@@ -39,16 +34,7 @@ public class MainActivity extends AppCompatActivity {
             addLoadingFragment();
 
         }
-
     }
-
-    public void onTextClick(View view) {//never goes into onClick, goes back to repeat function and crash
-        setContentView(R.layout.fragment_loading);
-        TextView textEnter = (TextView) findViewById(R.id.loading_progress_text);
-        FragmentManager fm = getFragmentManager();
-        fm.beginTransaction().replace(R.id.fragment_container, LoadingFragment.newInstance()).commit();
-
-}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -99,8 +85,19 @@ public class MainActivity extends AppCompatActivity {
      *
      */
     private void addLoadingFragment() {
-        FragmentManager fm = getFragmentManager();
-        fm.beginTransaction().replace(R.id.fragment_container,LoadingFragment.newInstance()).commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container,LoadingFragment.newInstance(),FRAGMENT_LOADING).commit();
+    }
+
+    private void addLandingPage(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, LandingFragment.newInstance(),FRAGMENT_LANDING)
+                .addToBackStack(FRAGMENT_LANDING).commit();
+    }
+
+    @Override
+    public void onTextInteraction() {
+        addLandingPage();
     }
 }
 
