@@ -16,7 +16,6 @@ deploy:
   skip_cleanup: true
   on: 
     branch: develop
-    tags: true
 language: android
 notifications: 
   slack: perrinn:QiSIQnmPR2DQJGwbUjjp7m7D
