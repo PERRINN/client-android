@@ -7,7 +7,7 @@ android:
     - android-23
     - extra-android-m2repository
 deploy:
-    provider: releases
+    provider: release
     api_key: $Travis_GH_TOKEN
     file: "app/build/outputs/apk/app-debug.apk"
     skip_cleanup: true
