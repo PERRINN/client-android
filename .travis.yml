@@ -6,12 +6,16 @@ android:
     - build-tools-23.0.1
     - android-23
     - extra-android-m2repository
+branches:
+  only:
+  - develop
 deploy: 
   provider: releases
   api_key: ${Travis_GH_TOKEN}
   file: "app/build/outputs/apk/app-debug.apk"
   skip_cleanup: true
   on: 
+    tags: true
     all_branches: true
 language: android
 notifications: 
