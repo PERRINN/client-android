@@ -1,17 +1,20 @@
 language: android
 android: 
-  components: 
+    components: 
     - tools
     - platform-tools
     - build-tools-23.0.1
     - android-23
     - extra-android-m2repository
-deploy:
-    provider: release
-    api_key: $Travis_GH_TOKEN
-    file: "app/build/outputs/apk/app-debug.apk"
-    skip_cleanup: true
-notifications:
+deploy: 
+  api_key: "${Travis_GH_TOKEN}"
+  file: app/build/outputs/apk/app-debug.apk
+  provider: release
+  skip_cleanup: true
+  on: 
+    all_branches: true
+language: android
+notifications: 
   slack: perrinn:QiSIQnmPR2DQJGwbUjjp7m7D
 
   
