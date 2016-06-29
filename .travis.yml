@@ -1,1 +1,4 @@
 language: java
+notifications:
+  slack: perrinn:QiSIQnmPR2DQJGwbUjjp7m7D
+  
