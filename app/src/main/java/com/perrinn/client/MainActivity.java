@@ -39,20 +39,16 @@ public class MainActivity extends AppCompatActivity {
             addLoadingFragment();
 
         }
-        setContentView(R.layout.fragment_loading);
-        TextView textEnter = (TextView) findViewById(R.id.loading_progress_text);
-        textEnter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                FragmentManager fm = getFragmentManager();
-                fm.beginTransaction().replace(R.id.fragment_container, LoadingFragment.newInstance()).commit();
-
-            }
-
-        });
     }
 
+    public void onTextClick(View view) {//never goes into onClick, goes back to repeat function and crash
+        setContentView(R.layout.fragment_loading);
+        TextView textEnter = (TextView) findViewById(R.id.loading_progress_text);
+        FragmentManager fm = getFragmentManager();
+        fm.beginTransaction().replace(R.id.fragment_container, LoadingFragment.newInstance()).commit();
+
+}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
