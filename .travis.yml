@@ -7,8 +7,9 @@ android:
     - android-23
     - extra-android-m2repository
 branches:
-  only:
-  - develop
+  except:
+  - experimental
+  - main
 deploy: 
   provider: releases
   api_key: ${Travis_GH_TOKEN}
