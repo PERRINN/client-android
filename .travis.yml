@@ -15,8 +15,8 @@ deploy:
   file: "app/build/outputs/apk/app-debug.apk"
   skip_cleanup: true
   on: 
-    branch: develop
-language: android
+    all_branches: true
+
 notifications: 
   slack: perrinn:QiSIQnmPR2DQJGwbUjjp7m7D
 
