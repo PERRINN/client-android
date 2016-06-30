@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF78ACE5</color>
+    <color name="colorPrimaryDark">#FF1A4D85</color>
+    <color name="colorAccent">#FFFFFFFF</color>
+    <color name="colorTeamListBackground">#FF434343</color>
+    <color name="colorTeamListHeader">#FFB7B7B7</color>
+</resources>
