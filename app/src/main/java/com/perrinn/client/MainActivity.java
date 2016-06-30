@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 
 import com.perrinn.client.fragments.LoadingFragment;
+import com.perrinn.client.fragments.TeamFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
-            addLoadingFragment();
+            addTeamFragment();
         }
     }
 
@@ -84,6 +85,17 @@ public class MainActivity extends AppCompatActivity {
     private void addLoadingFragment(){
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, LoadingFragment.newInstance())
+                .commit();
+    }
+
+    /**
+     * This method is intended to create and load the TeamFragment in the main container
+     * layout.
+     *
+     * */
+    private void addTeamFragment(){
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, TeamFragment.newInstance())
                 .commit();
     }
 }
