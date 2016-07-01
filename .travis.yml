@@ -11,6 +11,10 @@ branches:
   except:
   - experimental
   - main
+
+branches:
+  only:
+  - Ambitious_Artichoke_CM_Deploy_Attempt_2
   
 deploy: 
   provider: releases
@@ -18,8 +22,7 @@ deploy:
   file: "app/build/outputs/apk/app-debug.apk"
   skip_cleanup: true
   on: 
-    all_branches: true
-    tags: true
+    branch: Ambitious_Artichoke_CM_Deploy_Attempt_2
 
 notifications: 
   slack: perrinn:QiSIQnmPR2DQJGwbUjjp7m7D
