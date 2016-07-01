@@ -3,11 +3,14 @@ package com.perrinn.client;
 
 
 import android.os.Bundle;
+import com.perrinn.client.R;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -20,6 +23,8 @@ import com.perrinn.client.fragments.ProjectFragment;
 public class MainActivity extends AppCompatActivity implements LoadingFragment.LoadingFragmentInteractionListener {
     private static final String FRAGMENT_LOADING = "com.perrinn.client.fragments.LOADING_FRAGMENT";
     private static final String FRAGMENT_LANDING = "com.perrinn.client.fragments.LANDING_FRAGMENT";
+    private static final String FRAGMENT_NEW_PROJECT = "com.perrinn.client.fragments.PROJECT_FRAGMENT";
+    private static final String FRAGMENT_PROFILE = "com.perrinn.client.fragments.PROJECT_PROFILE";
    /*
     * //////////////////////////////////////////////////
     * // Overrided methods
@@ -67,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
     }
 
 
+
     @Override
     public void onStop() {
         super.onStop();
@@ -95,9 +101,27 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
                 .addToBackStack(FRAGMENT_LANDING).commit();
     }
 
+    private void addNewProjectPage(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, ProjectFragment.newInstance(), FRAGMENT_NEW_PROJECT)
+                .addToBackStack(FRAGMENT_LANDING).commit();
+    }
+
+    private void addNewProfilePage(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, ProfileFragment.newInstance(), FRAGMENT_PROFILE)
+                .addToBackStack(FRAGMENT_LANDING).commit();
+    }
     @Override
     public void onTextInteraction() {
         addLandingPage();
+    }
+
+    public void onPressProfileButtonInteraction(View v){
+        addNewProfilePage();
+    }
+    public void onPressProjectButtonInteraction(View v){
+        addNewProjectPage();
     }
 }
 
