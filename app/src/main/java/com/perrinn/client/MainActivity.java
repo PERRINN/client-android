@@ -8,13 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 
 import com.perrinn.client.adapters.DockItemAdapter;
 import com.perrinn.client.beans.DockIndicator;
 import com.perrinn.client.fragments.LoadingFragment;
+import com.perrinn.client.fragments.TeamFragment;
 import com.perrinn.client.helpers.DockItemMarginDecorator;
 
 import java.util.ArrayList;
