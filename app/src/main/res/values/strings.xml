@@ -13,7 +13,11 @@
     <string name="addDetailsButton_string">Add Details</string>
     <string name="addImageButton_string">Add an image</string>
     <string name="createNewProjectButton_string">Create new project</string>
-
+    <string name="team_list_title">TEAMS</string>
+    <string name="team_add_dialog_title">Add a new team</string>
+    <string name="team_add_dialog_name_hint">Team\'s name:</string>
+    <string name="team_add_dialog_positive">Add</string>
+    <string name="dialogs_cancel_button">Cancel</string>
     <string-array name="sampleArray">
         <item>Shuttle Badminton</item>
         <item>Tennis</item>
