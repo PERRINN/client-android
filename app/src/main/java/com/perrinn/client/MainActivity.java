@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-
+import com.perrinn.client.fragments.CreateNewProjectFragment;
 import com.perrinn.client.fragments.LandingFragment;
 import com.perrinn.client.fragments.LoadingFragment;
 import com.perrinn.client.fragments.ProfileFragment;
@@ -23,8 +23,9 @@ import com.perrinn.client.fragments.ProjectFragment;
 public class MainActivity extends AppCompatActivity implements LoadingFragment.LoadingFragmentInteractionListener {
     private static final String FRAGMENT_LOADING = "com.perrinn.client.fragments.LOADING_FRAGMENT";
     private static final String FRAGMENT_LANDING = "com.perrinn.client.fragments.LANDING_FRAGMENT";
-    private static final String FRAGMENT_NEW_PROJECT = "com.perrinn.client.fragments.PROJECT_FRAGMENT";
+    private static final String FRAGMENT_PROJECT_PAGE = "com.perrinn.client.fragments.PROJECT_FRAGMENT";
     private static final String FRAGMENT_PROFILE = "com.perrinn.client.fragments.PROJECT_PROFILE";
+    private static final String FRAGMENT_CREATE_NEW_PROJECT = "com.perrinn.client.fragments.CREATE_NEW_PROJECT_FRAGMENT";
    /*
     * //////////////////////////////////////////////////
     * // Overrided methods
@@ -101,9 +102,9 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
                 .addToBackStack(FRAGMENT_LANDING).commit();
     }
 
-    private void addNewProjectPage(){
+    private void addProjectPage(){
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, ProjectFragment.newInstance(), FRAGMENT_NEW_PROJECT)
+                .replace(R.id.fragment_container, ProjectFragment.newInstance(), FRAGMENT_PROJECT_PAGE)
                 .addToBackStack(FRAGMENT_LANDING).commit();
     }
 
@@ -112,6 +113,13 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
                 .replace(R.id.fragment_container, ProfileFragment.newInstance(), FRAGMENT_PROFILE)
                 .addToBackStack(FRAGMENT_LANDING).commit();
     }
+
+    private void addCreateNewProjectPage(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, CreateNewProjectFragment.newInstance(), FRAGMENT_CREATE_NEW_PROJECT)
+                .addToBackStack(FRAGMENT_PROJECT_PAGE).commit();
+    }
+
     @Override
     public void onTextInteraction() {
         addLandingPage();
@@ -121,7 +129,11 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
         addNewProfilePage();
     }
     public void onPressProjectButtonInteraction(View v){
-        addNewProjectPage();
+        addProjectPage();
+    }
+
+    public void onPressCreateNewProjectButtonInteraction(View v){
+        addCreateNewProjectPage();
     }
 }
 

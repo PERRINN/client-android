@@ -20,7 +20,8 @@
         android:id="@+id/CreateProjectButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick ="getOwnerName"/>
+        android:onClick="onPressCreateNewProjectButtonInteraction"
+        />
 
     <EditText
         android:layout_width="wrap_content"
@@ -57,7 +58,6 @@
         android:id="@+id/button"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:onCLick="insertMembersToProject"
         />
 
     <Button
@@ -67,7 +67,7 @@
         android:id="@+id/button2"
         android:layout_below="@+id/button"
         android:layout_centerHorizontal="true"
-        android:onClick="insertTeamsToProject"/>
+        />
 
     <TextView
         android:layout_width="wrap_content"
