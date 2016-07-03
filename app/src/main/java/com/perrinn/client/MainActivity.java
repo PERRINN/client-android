@@ -131,7 +131,9 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
     public void onPressProjectButtonInteraction(View v){
         addProjectPage();
     }
-
+    //MAKES NO SENSE, the two functions above work just fine?
+    //bug: java.lang.IllegalStateException: Could not find method addCreateNewProjectPage(View) in a parent or ancestor Context for android:onClick
+    //attribute defined on view class android.support.v7.widget.AppCompatButton with id 'createNewProjectButton'
     public void onPressCreateNewProjectButtonInteraction(View v){
         addCreateNewProjectPage();
     }
