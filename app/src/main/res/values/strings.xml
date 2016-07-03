@@ -13,6 +13,12 @@
     <string name="addDetailsButton_string">Add Details</string>
     <string name="addImageButton_string">Add an image</string>
     <string name="createNewProjectButton_string">Create new project</string>
+    <string name="CreateProjectButton_string">Create</string>
+    <string name="textView_ProjectName">Project Name</string>
+    <string name="textView_ProjectOwner">Project Owner</string>
+    <string name="insertMembersButton_string">Insert Members</string>
+    <string name="insertTeamsButton_string">Insert Teams</string>
+
 
     <string-array name="sampleArray">
         <item>Shuttle Badminton</item>
