@@ -1,34 +1,26 @@
-package com.perrinn.client;
+package com.perrinn.client.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+
+import com.perrinn.client.ChatAdapter;
+import com.perrinn.client.ChatMessage;
+import com.perrinn.client.R;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.perrinn.client.R;
-
-
-public class ChatActivity extends Fragment {
+public class ChatFragment extends Fragment {
 
     private EditText messageET;
     private ListView messagesContainer;
@@ -36,7 +28,7 @@ public class ChatActivity extends Fragment {
     private ChatAdapter adapter;
     private ArrayList<ChatMessage> chatHistory;
 
-    public ChatActivity() {
+    public ChatFragment() {
         EditText messageET;
         ListView messagesContainer;
         Button sendBtn;
@@ -156,7 +148,7 @@ public class ChatActivity extends Fragment {
         msg1.setDate(DateFormat.getDateTimeInstance().format(new Date()));
         chatHistory.add(msg1);
 
-        adapter = new ChatAdapter(ChatActivity.this, new ArrayList<ChatMessage>());
+        adapter = new ChatAdapter(ChatFragment.this, new ArrayList<ChatMessage>());
         messagesContainer.setAdapter(adapter);
 
         for(int i=0; i<chatHistory.size(); i++) {
@@ -166,8 +158,8 @@ public class ChatActivity extends Fragment {
 
     }
 
-    public static ChatActivity newInstance(){
-        ChatActivity fragment = new ChatActivity();
+    public static ChatFragment newInstance(){
+        ChatFragment fragment = new ChatFragment();
         return fragment;
     }
 }
