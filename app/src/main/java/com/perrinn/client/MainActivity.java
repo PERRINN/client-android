@@ -3,18 +3,14 @@ package com.perrinn.client;
 
 
 import android.os.Bundle;
-import com.perrinn.client.R;
 
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 
-import com.perrinn.client.ChatActivity;
+import com.perrinn.client.fragments.ChatActivity;
 import com.perrinn.client.fragments.CreateNewProjectFragment;
 import com.perrinn.client.fragments.LandingFragment;
 import com.perrinn.client.fragments.LoadingFragment;

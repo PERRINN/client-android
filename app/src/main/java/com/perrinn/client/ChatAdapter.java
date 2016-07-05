@@ -1,6 +1,5 @@
 package com.perrinn.client;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.perrinn.client.fragments.ChatActivity;
 
 import java.util.List;
 

@@ -1,8 +1,7 @@
-package com.perrinn.client;
+package com.perrinn.client.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,12 +18,8 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
+import com.perrinn.client.ChatAdapter;
+import com.perrinn.client.ChatMessage;
 import com.perrinn.client.R;
 
 
@@ -53,8 +48,7 @@ public class ChatActivity extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_chat);
-        initControls();
+        setHasOptionsMenu(true);
     }
 
     /*
@@ -67,16 +61,9 @@ public class ChatActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_chat, container, false);
 
         return rootView;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_chat, menu);
-        return true;
     }
 
     @Override
@@ -95,6 +82,7 @@ public class ChatActivity extends Fragment {
     }
 
     private void initControls() {
+/*
         messagesContainer = (ListView) findViewById(R.id.messagesContainer);
         messageET = (EditText) findViewById(R.id.messageEdit);
         sendBtn = (Button) findViewById(R.id.chatSendButton);
@@ -103,7 +91,7 @@ public class ChatActivity extends Fragment {
         TextView companionLabel = (TextView) findViewById(R.id.friendLabel);
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
         companionLabel.setText("My Buddy");
-
+*/
         loadDummyHistory();
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
