@@ -11,19 +11,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.perrinn.client.fragments.ChatFragment;
-
 import java.util.List;
 
 /**
- * Created by Antreas Christofi on 07-04-2016.
+ * Created by Technovibe on 17-04-2015.
  */
 public class ChatAdapter extends BaseAdapter {
 
     private final List<ChatMessage> chatMessages;
-    private Activity context;
+    private ChatActivity context;
 
-    public ChatAdapter(ChatFragment context, List<ChatMessage> chatMessages) {
+    public ChatAdapter(ChatActivity context, List<ChatMessage> chatMessages) {
         this.context = context;
         this.chatMessages = chatMessages;
     }
@@ -52,7 +50,12 @@ public class ChatAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(int i, View view, ViewGroup viewGroup) {
+        return null;
+    }
+
+
+    public View getView(final int position, View convertView, ViewGroup parent, Context context) {
         ViewHolder holder;
         ChatMessage chatMessage = getItem(position);
         LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
