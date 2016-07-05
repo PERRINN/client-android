@@ -3,13 +3,18 @@ package com.perrinn.client;
 
 
 import android.os.Bundle;
+import com.perrinn.client.R;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 
+import com.perrinn.client.ChatActivity;
 import com.perrinn.client.fragments.CreateNewProjectFragment;
 import com.perrinn.client.fragments.LandingFragment;
 import com.perrinn.client.fragments.LoadingFragment;
@@ -22,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
     private static final String FRAGMENT_PROJECT_PAGE = "com.perrinn.client.fragments.PROJECT_FRAGMENT";
     private static final String FRAGMENT_PROFILE = "com.perrinn.client.fragments.PROJECT_PROFILE";
     private static final String FRAGMENT_CREATE_NEW_PROJECT = "com.perrinn.client.fragments.CREATE_NEW_PROJECT_FRAGMENT";
+    private static final String FRAGMENT_CHANNEL = "com.perrinn.client.fragments.FRAGMENT_CHANNEL";
+    private static final String FRAGMENT_CHAT = "com.perrinn.client.fragments.FRAGMENT_CHAT_SCREEN";
    /*
     * //////////////////////////////////////////////////
     * // Overrided methods
@@ -115,6 +122,15 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
                 .replace(R.id.fragment_container, CreateNewProjectFragment.newInstance(), FRAGMENT_CREATE_NEW_PROJECT)
                 .addToBackStack(FRAGMENT_PROJECT_PAGE).commit();
     }
+
+    private void addChatPage(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, ChatActivity.newInstance(), FRAGMENT_CHAT)
+                .addToBackStack(FRAGMENT_LANDING).commit();
+    }
+
+
+
 
     @Override
     public void onTextInteraction() {

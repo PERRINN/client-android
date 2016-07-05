@@ -1,5 +1,6 @@
 package com.perrinn.client;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,19 +11,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.perrinn.client.fragments.ChatFragment;
-
 import java.util.List;
 
 /**
- * Created by Antreas on 07-05-2016.
+ * Created by Technovibe on 17-04-2015.
  */
 public class ChatAdapter extends BaseAdapter {
 
     private final List<ChatMessage> chatMessages;
-    private ChatFragment context;
+    private ChatActivity context;
 
-    public ChatAdapter(ChatFragment context, List<ChatMessage> chatMessages) {
+    public ChatAdapter(ChatActivity context, List<ChatMessage> chatMessages) {
         this.context = context;
         this.chatMessages = chatMessages;
     }
