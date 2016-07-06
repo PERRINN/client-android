@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.perrinn.client.fragments.ChatActivity;
+import com.perrinn.client.fragments.ChatFragment;
 
 import java.util.List;
 
@@ -20,9 +20,9 @@ import java.util.List;
 public class ChatAdapter extends BaseAdapter {
 
     private final List<ChatMessage> chatMessages;
-    private ChatActivity context;
+    private ChatFragment context;
 
-    public ChatAdapter(ChatActivity context, List<ChatMessage> chatMessages) {
+    public ChatAdapter(ChatFragment context, List<ChatMessage> chatMessages) {
         this.context = context;
         this.chatMessages = chatMessages;
     }

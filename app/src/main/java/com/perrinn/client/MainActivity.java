@@ -10,12 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-import com.perrinn.client.fragments.ChatActivity;
+import com.perrinn.client.fragments.ChatFragment;
 import com.perrinn.client.fragments.CreateNewProjectFragment;
 import com.perrinn.client.fragments.LandingFragment;
 import com.perrinn.client.fragments.LoadingFragment;
 import com.perrinn.client.fragments.ProfileFragment;
 import com.perrinn.client.fragments.ProjectFragment;
+import com.perrinn.client.fragments.TeamsFragment;
 
 public class MainActivity extends AppCompatActivity implements LoadingFragment.LoadingFragmentInteractionListener {
     private static final String FRAGMENT_LOADING = "com.perrinn.client.fragments.LOADING_FRAGMENT";
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
     private static final String FRAGMENT_PROJECT_PAGE = "com.perrinn.client.fragments.PROJECT_FRAGMENT";
     private static final String FRAGMENT_PROFILE = "com.perrinn.client.fragments.PROJECT_PROFILE";
     private static final String FRAGMENT_CREATE_NEW_PROJECT = "com.perrinn.client.fragments.CREATE_NEW_PROJECT_FRAGMENT";
-    private static final String FRAGMENT_CHANNEL = "com.perrinn.client.fragments.FRAGMENT_CHANNEL";
+    private static final String FRAGMENT_TEAMS = "com.perrinn.client.fragments.FRAGMENT_TEAMS";
     private static final String FRAGMENT_CHAT = "com.perrinn.client.fragments.FRAGMENT_CHAT_SCREEN";
    /*
     * //////////////////////////////////////////////////
@@ -121,7 +122,13 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
 
     private void addChatPage(){
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, ChatActivity.newInstance(), FRAGMENT_CHAT)
+                .replace(R.id.fragment_container, ChatFragment.newInstance(), FRAGMENT_CHAT)
+                .addToBackStack(FRAGMENT_LANDING).commit();
+    }
+
+    private void addTeamsPage(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, TeamsFragment.newInstance(), FRAGMENT_TEAMS)
                 .addToBackStack(FRAGMENT_LANDING).commit();
     }
 
@@ -146,5 +153,6 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
         addCreateNewProjectPage();
     }
     public void onPressChatButton(View v){ addChatPage(); }
+    public void onPressTeamsButton(View v){addTeamsPage();}
 }
 
