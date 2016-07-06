@@ -5,8 +5,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.perrinn.client.MainActivity;
 import com.perrinn.client.R;
 /**
  * A fragment containing a simple view.
@@ -30,9 +33,25 @@ public class TeamsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_teams, container, false);
+        ListView lv = (ListView) rootView.findViewById(R.id.listViewTeams);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            //view IDE message, implement AdapterView and setOnItemClickListener
+
+            @Override
+            public void onClick(final AdapterView<?> parent,View v, int position, long arg1) {
+                Integer taggedPosition = (Integer) v.getTag();
+                ListView lv = (ListView) v.findViewById(R.id.listViewTeams);
+                lv.performItemClick(
+                        lv.getAdapter().getView(taggedPosition, null, null),
+                        taggedPosition,
+                        lv.getAdapter().getItemId(taggedPosition));
+
+            }
+        });
         return rootView;
     }
+
 
     @Override
     public void onAttach(Context context) {
@@ -57,7 +76,7 @@ public class TeamsFragment extends Fragment {
     }
 
     public interface TeamsFragmentInteractionListener{
-        void onTextInteraction();
+        void onTeamClick(View view);
     }
 
 }
