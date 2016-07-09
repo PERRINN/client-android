@@ -1,7 +1,12 @@
 package com.perrinn.client;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +17,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 
+import com.perrinn.client.activities.SettingsActivity;
 import com.perrinn.client.adapters.DockItemAdapter;
 import com.perrinn.client.beans.DockIndicator;
 import com.perrinn.client.fragments.LoadingFragment;
@@ -50,10 +56,13 @@ public class MainActivity extends AppCompatActivity {
         initDock();
 
         if (savedInstanceState == null) {
-            addLoadingFragment();
+            //addLoadingFragment();
+            startSettingsActivity();
         }
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -121,6 +130,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void startSettingsActivity(){
+        Intent intent = new Intent(this,SettingsActivity.class);
+        startActivity(intent);
     }
 
     /**
