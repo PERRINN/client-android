@@ -27,6 +27,10 @@
     <string name="settings_profile_ti_desc">People you trust, family members, friends, that help
     you register new and cancel lost devices to make your profile very secured - you are identifier
     for them as well.</string>
+    <string-array name="settings_profile_change_picture_choices">
+        <item>Use the camera</item>
+        <item>Choose in the gallery</item>
+    </string-array>
     <string-array name="sampleArray">
         <item>Shuttle Badminton</item>
         <item>Tennis</item>
