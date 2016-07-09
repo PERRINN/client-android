@@ -40,11 +40,13 @@ public class SettingsProfileItemAdapter extends RecyclerView.Adapter<SettingsPro
     public void onBindViewHolder(ViewHolder holder, int position) {
         SettingsProfileListItem item = mItems.get(position);
         holder.mSettingsProfileListItemName.setText(item.getName());
-        holder.mSettingsProfileListItemState.setText(item.getState());
-        if(item.isImportant()){
-            holder.mSettingsProfileListItemState.setTextColor(ContextCompat.getColor(mContext,R.color.colorSettingsProfileItemImportant));
-        }else{
-            holder.mSettingsProfileListItemState.setTextColor(ContextCompat.getColor(mContext,R.color.colorSettingsProfileItem));
+        if(item.getState() != null) {
+            holder.mSettingsProfileListItemState.setText(item.getState());
+            if (item.isImportant()) {
+                holder.mSettingsProfileListItemState.setTextColor(ContextCompat.getColor(mContext, R.color.colorSettingsProfileItemImportant));
+            } else {
+                holder.mSettingsProfileListItemState.setTextColor(ContextCompat.getColor(mContext, R.color.colorSettingsProfileItem));
+            }
         }
     }
 
