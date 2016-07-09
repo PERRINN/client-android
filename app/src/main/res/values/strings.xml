@@ -18,6 +18,7 @@
     <string name="team_add_dialog_name_hint">Team\'s name:</string>
     <string name="team_add_dialog_positive">Add</string>
     <string name="dialogs_cancel_button">Cancel</string>
+    <string name="settings_profile_title">Profile</string>
     <string name="settings_profile_add_ti">Add trusted identifier</string>
     <string name="settings_profile_rd_title">Registered Devices</string>
     <string name="settings_profile_rd_desc">Your profile is accessible from these devices\nThe Main
