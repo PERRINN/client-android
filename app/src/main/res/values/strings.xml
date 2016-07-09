@@ -18,6 +18,14 @@
     <string name="team_add_dialog_name_hint">Team\'s name:</string>
     <string name="team_add_dialog_positive">Add</string>
     <string name="dialogs_cancel_button">Cancel</string>
+    <string name="settings_profile_add_ti">Add trusted identifier</string>
+    <string name="settings_profile_rd_title">Registered Devices</string>
+    <string name="settings_profile_rd_desc">Your profile is accessible from these devices\nThe Main
+    device is needed to access your profile from other devices.</string>
+    <string name="settings_profile_ti_title">Trusted Identifiers</string>
+    <string name="settings_profile_ti_desc">People you trust, family members, friends, that help
+    you register new and cancel lost devices to make your profile very secured - you are identifier
+    for them as well.</string>
     <string-array name="sampleArray">
         <item>Shuttle Badminton</item>
         <item>Tennis</item>
