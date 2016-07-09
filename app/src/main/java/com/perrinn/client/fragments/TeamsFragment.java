@@ -31,23 +31,23 @@ public class TeamsFragment extends Fragment {
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)  {
         View rootView = inflater.inflate(R.layout.fragment_teams, container, false);
         ListView lv = (ListView) rootView.findViewById(R.id.listViewTeams);
+
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            //view IDE message, implement AdapterView and setOnItemClickListener
-
             @Override
-            public void onClick(final AdapterView<?> parent,View v, int position, long arg1) {
-                Integer taggedPosition = (Integer) v.getTag();
-                ListView lv = (ListView) v.findViewById(R.id.listViewTeams);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Integer taggedPosition = (Integer) view.getTag();
+                ListView lv = (ListView) view.findViewById(R.id.listViewTeams);
                 lv.performItemClick(
                         lv.getAdapter().getView(taggedPosition, null, null),
                         taggedPosition,
                         lv.getAdapter().getItemId(taggedPosition));
-
             }
+
+            //view IDE message, implement AdapterView and setOnItemClickListener
+            
         });
         return rootView;
     }
