@@ -1,6 +1,7 @@
 package com.perrinn.client.fragments;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,16 +41,12 @@ public class TeamsFragment extends Fragment {
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
 
-                ListView lv = (ListView) rootView.findViewById(R.id.listViewTeams);
-                lv.performItemClick(
-                        lv.getAdapter().getView(i, null, null),
-                        i, lv.getAdapter().getItemId(i));
-                System.out.println("listview item click " + i + " registered");
+                String value = (String)parent.getItemAtPosition(i);
+                Log.d("val", value);
+                
             }
-
-            //view IDE message, implement AdapterView and setOnItemClickListener
 
         });
         return rootView;
