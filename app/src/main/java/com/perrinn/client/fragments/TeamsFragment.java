@@ -3,6 +3,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,15 @@ public class TeamsFragment extends Fragment {
 
                 String value = (String)parent.getItemAtPosition(i);
                 Log.d("val", value);
+
+                //todo:get members list
                 
+                ChatFragment secFrag = new ChatFragment();
+                FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
+                fragTransaction.replace(R.id.fragment_container,secFrag );
+                fragTransaction.addToBackStack(null);
+                fragTransaction.commit();
+
             }
 
         });
