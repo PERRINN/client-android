@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -79,16 +81,11 @@ public class ChatFragment extends Fragment {
     }
 
     private void initControls() {
-/*
-        messagesContainer = (ListView) findViewById(R.id.messagesContainer);
-        messageET = (EditText) findViewById(R.id.messageEdit);
-        sendBtn = (Button) findViewById(R.id.chatSendButton);
 
-        TextView meLabel = (TextView) findViewById(R.id.meLbl);
-        TextView companionLabel = (TextView) findViewById(R.id.friendLabel);
-        RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
-        companionLabel.setText("My Buddy");
-*/
+        messagesContainer = (ListView) messagesContainer.findViewById(R.id.messagesContainer);
+        messageET = (EditText) messageET.findViewById(R.id.messageEdit);
+        sendBtn = (Button) sendBtn.findViewById(R.id.chatSendButton);
+
         loadDummyHistory();
 
         sendBtn.setOnClickListener(new View.OnClickListener() {

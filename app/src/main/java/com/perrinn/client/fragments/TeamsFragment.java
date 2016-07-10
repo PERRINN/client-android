@@ -48,10 +48,10 @@ public class TeamsFragment extends Fragment {
                 Log.d("val", value);
 
                 //todo:get members list
-                
-                ChatFragment secFrag = new ChatFragment();
+
+                ChatFragment ChatFrag = new ChatFragment();
                 FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
-                fragTransaction.replace(R.id.fragment_container,secFrag );
+                fragTransaction.replace(R.id.fragment_container,ChatFrag );
                 fragTransaction.addToBackStack(null);
                 fragTransaction.commit();
 
