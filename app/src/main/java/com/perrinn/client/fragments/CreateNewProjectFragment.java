@@ -11,10 +11,10 @@ import com.perrinn.client.R;
 /**
  * A fragment containing a simple view.
  */
-public class LoadingFragment extends Fragment {
-    private LoadingFragmentInteractionListener mListener;
+public class CreateNewProjectFragment extends Fragment {
+    private CreateNewProjectFragmentInteractionListener mListener;
 
-    public LoadingFragment() {
+    public CreateNewProjectFragment() {
     }
     /*
     * //////////////////////////////////////////////////
@@ -25,30 +25,21 @@ public class LoadingFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        //on create should populate the project owner button with the current user's name/nick
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_loading, container, false);
-        TextView mTextEnter = (TextView) rootView.findViewById(R.id.loading_progress_text);
-        mTextEnter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mListener != null) mListener.onTextInteraction();
-            }
-        });
+        View rootView = inflater.inflate(R.layout.fragment_landing, container, false);
         return rootView;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof LoadingFragmentInteractionListener){
-            mListener = (LoadingFragmentInteractionListener) context;
-        }else{
-            throw new RuntimeException(context.toString()
-                    +" must implement the LoadingFragmentInteractionListener.");
-        }
+
     }
 
     /*
@@ -61,13 +52,28 @@ public class LoadingFragment extends Fragment {
      *
      * @return LoadingFragment the new fragment created.
      * */
-    public static LoadingFragment newInstance(){
-        LoadingFragment fragment = new LoadingFragment();
+    public static CreateNewProjectFragment newInstance(){
+        CreateNewProjectFragment fragment = new CreateNewProjectFragment();
 
         return fragment;
     }
 
-    public interface LoadingFragmentInteractionListener{
+    //function for inserting members
+    public void insertMembersToProject(){
+
+    }
+
+    //function for inserting team
+    public void insertTeamsToProject(){
+
+    }
+
+    //grab owner name and put as
+    public void getOwnerName(){
+
+    }
+
+    public interface CreateNewProjectFragmentInteractionListener{
         void onTextInteraction();
     }
 

@@ -11,10 +11,10 @@ import com.perrinn.client.R;
 /**
  * A fragment containing a simple view.
  */
-public class LoadingFragment extends Fragment {
-    private LoadingFragmentInteractionListener mListener;
+public class ProjectFragment extends Fragment {
+    private ProjectFragmentInteractionListener mListener;
 
-    public LoadingFragment() {
+    public ProjectFragment() {
     }
     /*
     * //////////////////////////////////////////////////
@@ -29,26 +29,15 @@ public class LoadingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_loading, container, false);
-        TextView mTextEnter = (TextView) rootView.findViewById(R.id.loading_progress_text);
-        mTextEnter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mListener != null) mListener.onTextInteraction();
-            }
-        });
+        View rootView = inflater.inflate(R.layout.fragment_project, container, false);
+
         return rootView;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof LoadingFragmentInteractionListener){
-            mListener = (LoadingFragmentInteractionListener) context;
-        }else{
-            throw new RuntimeException(context.toString()
-                    +" must implement the LoadingFragmentInteractionListener.");
-        }
+
     }
 
     /*
@@ -61,13 +50,13 @@ public class LoadingFragment extends Fragment {
      *
      * @return LoadingFragment the new fragment created.
      * */
-    public static LoadingFragment newInstance(){
-        LoadingFragment fragment = new LoadingFragment();
+    public static ProjectFragment newInstance(){
+        ProjectFragment fragment = new ProjectFragment();
 
         return fragment;
     }
 
-    public interface LoadingFragmentInteractionListener{
+    public interface ProjectFragmentInteractionListener{
         void onTextInteraction();
     }
 

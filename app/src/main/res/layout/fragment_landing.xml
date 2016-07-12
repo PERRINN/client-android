@@ -8,9 +8,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.perrinn.client.LandingActivity"
-    tools:showIn="@layout/activity_landing">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <include layout="@layout/application_bar"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -20,7 +20,7 @@
         android:layout_marginTop="86dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:onClick="projectsPageIntent"/>
+        android:onClick="onPressProjectButtonInteraction"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -29,5 +29,24 @@
         android:id="@+id/profileButton"
         android:layout_below="@+id/projectsButton"
         android:layout_centerHorizontal="true"
-        android:onClick="profilePageIntent"/>
+        android:onClick="onPressProfileButtonInteraction"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="chat"
+        android:id="@+id/button3"
+        android:layout_below="@+id/profileButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="116dp"
+        android:onClick="onPressChatButton"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Teams"
+        android:id="@+id/teamsButton"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/profileButton"
+        android:onClick="onPressTeamsButton"/>
 </RelativeLayout>

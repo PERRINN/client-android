@@ -18,6 +18,14 @@
     <string name="team_add_dialog_name_hint">Team\'s name:</string>
     <string name="team_add_dialog_positive">Add</string>
     <string name="dialogs_cancel_button">Cancel</string>
+    <string name="CreateProjectButton_string">Create</string>
+    <string name="textView_ProjectName">Project Name</string>
+    <string name="textView_ProjectOwner">Project Owner</string>
+    <string name="insertMembersButton_string">Insert Members</string>
+    <string name="insertTeamsButton_string">Insert Teams</string>
+
+
+
     <string-array name="sampleArray">
         <item>Shuttle Badminton</item>
         <item>Tennis</item>

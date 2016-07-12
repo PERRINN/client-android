@@ -1,6 +1,7 @@
 package com.perrinn.client;
 
-import android.content.Intent;
+
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,15 +9,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
 
 
-import com.perrinn.client.adapters.DockItemAdapter;
-import com.perrinn.client.beans.DockIndicator;
+import com.perrinn.client.fragments.ChatFragment;
+import com.perrinn.client.fragments.CreateNewProjectFragment;
+import com.perrinn.client.fragments.LandingFragment;
 import com.perrinn.client.fragments.LoadingFragment;
-import com.perrinn.client.helpers.DockItemMarginDecorator;
+import com.perrinn.client.fragments.ProfileFragment;
+import com.perrinn.client.fragments.ProjectFragment;
+import com.perrinn.client.fragments.TeamsFragment;
 
+public class MainActivity extends AppCompatActivity implements LoadingFragment.LoadingFragmentInteractionListener {
+    private static final String FRAGMENT_LOADING = "com.perrinn.client.fragments.LOADING_FRAGMENT";
+    private static final String FRAGMENT_LANDING = "com.perrinn.client.fragments.LANDING_FRAGMENT";
+    private static final String FRAGMENT_PROJECT_PAGE = "com.perrinn.client.fragments.PROJECT_FRAGMENT";
+    private static final String FRAGMENT_PROFILE = "com.perrinn.client.fragments.PROJECT_PROFILE";
+    private static final String FRAGMENT_CREATE_NEW_PROJECT = "com.perrinn.client.fragments.CREATE_NEW_PROJECT_FRAGMENT";
+    private static final String FRAGMENT_TEAMS = "com.perrinn.client.fragments.FRAGMENT_TEAMS";
+    private static final String FRAGMENT_CHAT = "com.perrinn.client.fragments.FRAGMENT_CHAT_SCREEN";
+   /*
 import java.util.ArrayList;
 
 
@@ -83,18 +94,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /** Called after data retrieval is complete to switch to landing view */
-    public void landingPageIntent(View view) {
-        Intent intent = new Intent(this, LandingActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     public void onStop() {
         super.onStop();
     }
 
-    /*
+   /*
     * //////////////////////////////////////////////////
     * // Private methods
     * /////////////////////////////////////////////////
@@ -133,4 +139,63 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.fragment_container, LoadingFragment.newInstance())
                 .commit();
     }
+
+    private void addLandingPage(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, LandingFragment.newInstance(),FRAGMENT_LANDING)
+                .addToBackStack(FRAGMENT_LANDING).commit();
+    }
+
+    private void addProjectPage(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, ProjectFragment.newInstance(), FRAGMENT_PROJECT_PAGE)
+                .addToBackStack(FRAGMENT_LANDING).commit();
+    }
+
+    private void addNewProfilePage(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, ProfileFragment.newInstance(), FRAGMENT_PROFILE)
+                .addToBackStack(FRAGMENT_LANDING).commit();
+    }
+
+    private void addCreateNewProjectPage(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, CreateNewProjectFragment.newInstance(), FRAGMENT_CREATE_NEW_PROJECT)
+                .addToBackStack(FRAGMENT_PROJECT_PAGE).commit();
+    }
+
+    private void addChatPage(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, ChatFragment.newInstance(), FRAGMENT_CHAT)
+                .addToBackStack(FRAGMENT_LANDING).commit();
+    }
+
+    private void addTeamsPage(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, TeamsFragment.newInstance(), FRAGMENT_TEAMS)
+                .addToBackStack(FRAGMENT_LANDING).commit();
+    }
+
+
+
+
+    @Override
+    public void onTextInteraction() {
+        addLandingPage();
+    }
+
+    public void onPressProfileButtonInteraction(View v){
+        addNewProfilePage();
+    }
+    public void onPressProjectButtonInteraction(View v){
+        addProjectPage();
+    }
+    //MAKES NO SENSE, the two functions above work just fine?
+    //bug: java.lang.IllegalStateException: Could not find method addCreateNewProjectPage(View) in a parent or ancestor Context for android:onClick
+    //attribute defined on view class android.support.v7.widget.AppCompatButton with id 'createNewProjectButton'
+    public void onPressCreateNewProjectButtonInteraction(View v){
+        addCreateNewProjectPage();
+    }
+    public void onPressChatButton(View v){ addChatPage(); }
+    public void onPressTeamsButton(View v){addTeamsPage();}
 }
