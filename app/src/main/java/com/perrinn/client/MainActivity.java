@@ -3,6 +3,9 @@ package com.perrinn.client;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 
+import com.perrinn.client.activities.SettingsActivity;
 import com.perrinn.client.adapters.DockItemAdapter;
 import com.perrinn.client.beans.DockIndicator;
 import com.perrinn.client.fragments.ChatFragment;
@@ -130,6 +134,11 @@ import java.util.ArrayList;
 
 
 
+    }
+
+    private void startSettingsActivity(){
+        Intent intent = new Intent(this,SettingsActivity.class);
+        startActivity(intent);
     }
 
     /**
