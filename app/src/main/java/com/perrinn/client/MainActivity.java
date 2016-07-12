@@ -2,6 +2,7 @@ package com.perrinn.client;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 
@@ -33,6 +35,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements LoadingFragment.LoadingFragmentInteractionListener {
     private RelativeLayout mDock;
     private RecyclerView mPagesIndicatorsList;
+    private ImageButton mPSB;
     private ArrayList<DockIndicator> mIndicators = new ArrayList<>();
     private static final String FRAGMENT_LOADING = "com.perrinn.client.fragments.LOADING_FRAGMENT";
     private static final String FRAGMENT_LANDING = "com.perrinn.client.fragments.LANDING_FRAGMENT";
@@ -57,8 +60,9 @@ import java.util.ArrayList;
         setContentView(R.layout.activity_main);
         mDock = (RelativeLayout) findViewById(R.id.dock);
         mPagesIndicatorsList = (RecyclerView) findViewById(R.id.pages_indicators_list);
+        mPSB = (ImageButton) findViewById(R.id.psb);
 
-        // setting dummy dots for the moment
+                // setting dummy dots for the moment
         mIndicators.add(new DockIndicator(true));
         mIndicators.add(new DockIndicator(false));
         mIndicators.add(new DockIndicator(false));
@@ -126,6 +130,12 @@ import java.util.ArrayList;
             @Override
             public void onClick(DockIndicator indicator, int position) {
                 // TODO: implement it
+            }
+        });
+        mPSB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startSettingsActivity();
             }
         });
         mPagesIndicatorsList.setAdapter(adapter);
@@ -208,7 +218,8 @@ import java.util.ArrayList;
     }
 
     public void onPressProfileButtonInteraction(View v){
-        addNewProfilePage();
+        //addNewProfilePage();
+        startSettingsActivity();
     }
     public void onPressProjectButtonInteraction(View v){
         addProjectPage();

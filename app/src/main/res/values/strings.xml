@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Perrinn</string>
+    <string name="app_name">PERRINN</string>
     <string name="action_settings">Settings</string>
     <string name="action_refresh" translatable="false">Refresh</string>
     <string name="loading_string">Welcome! Press here to enter.</string>
@@ -23,9 +23,6 @@
     <string name="textView_ProjectOwner">Project Owner</string>
     <string name="insertMembersButton_string">Insert Members</string>
     <string name="insertTeamsButton_string">Insert Teams</string>
-
-
-
     <string name="settings_profile_title">Profile</string>
     <string name="settings_profile_add_ti">Add trusted identifier</string>
     <string name="settings_profile_rd_title">Registered Devices</string>
