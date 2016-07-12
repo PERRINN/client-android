@@ -150,8 +150,8 @@ import java.util.ArrayList;
      * */
     private void addTeamFragment(){
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, TeamFragment.newInstance())
-                .commit();
+                .replace(R.id.fragment_container, TeamFragment.newInstance())
+                .addToBackStack(FRAGMENT_LANDING).commit();
     }
 
     private void addLandingPage(){
@@ -211,5 +211,8 @@ import java.util.ArrayList;
         addCreateNewProjectPage();
     }
     public void onPressChatButton(View v){ addChatPage(); }
-    public void onPressTeamsButton(View v){addTeamsPage();}
+    public void onPressTeamsButton(View v){
+        //addTeamsPage();
+        addTeamFragment();
+    }
 }
