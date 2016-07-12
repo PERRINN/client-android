@@ -9,8 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 
+import com.perrinn.client.adapters.DockItemAdapter;
+import com.perrinn.client.beans.DockIndicator;
 import com.perrinn.client.fragments.ChatFragment;
 import com.perrinn.client.fragments.CreateNewProjectFragment;
 import com.perrinn.client.fragments.LandingFragment;
@@ -18,8 +21,14 @@ import com.perrinn.client.fragments.LoadingFragment;
 import com.perrinn.client.fragments.ProfileFragment;
 import com.perrinn.client.fragments.ProjectFragment;
 import com.perrinn.client.fragments.TeamsFragment;
+import com.perrinn.client.helpers.DockItemMarginDecorator;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements LoadingFragment.LoadingFragmentInteractionListener {
+    private RelativeLayout mDock;
+    private RecyclerView mPagesIndicatorsList;
+    private ArrayList<DockIndicator> mIndicators = new ArrayList<>();
     private static final String FRAGMENT_LOADING = "com.perrinn.client.fragments.LOADING_FRAGMENT";
     private static final String FRAGMENT_LANDING = "com.perrinn.client.fragments.LANDING_FRAGMENT";
     private static final String FRAGMENT_PROJECT_PAGE = "com.perrinn.client.fragments.PROJECT_FRAGMENT";
@@ -32,9 +41,7 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-    private RelativeLayout mDock;
-    private RecyclerView mPagesIndicatorsList;
-    private ArrayList<DockIndicator> mIndicators = new ArrayList<>();
+
 
 
     /*
