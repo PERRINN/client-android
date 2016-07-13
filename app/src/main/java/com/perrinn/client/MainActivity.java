@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
     private static final String FRAGMENT_LANDING = "com.perrinn.client.fragments.LANDING_FRAGMENT";
     private static final String FRAGMENT_PROJECT_PAGE = "com.perrinn.client.fragments.PROJECT_FRAGMENT";
     private static final String FRAGMENT_PROFILE = "com.perrinn.client.fragments.PROJECT_PROFILE";
-    private static final String FRAGMENT_CREATE_NEW_PROJECT = "com.perrinn.client.fragments.CREATE_NEW_PROJECT_FRAGMENT";
+    private static final String FRAGMENT_CREATE_NEW_PROJECT = "com.perrinn.client.fragments.FRAGMENT_NEW_PROJECT";
     private static final String FRAGMENT_TEAMS = "com.perrinn.client.fragments.FRAGMENT_TEAMS";
     private static final String FRAGMENT_CHAT = "com.perrinn.client.fragments.FRAGMENT_CHAT_SCREEN";
    /*
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
     private void addCreateNewProjectPage(){
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, CreateNewProjectFragment.newInstance(), FRAGMENT_CREATE_NEW_PROJECT)
-                .addToBackStack(FRAGMENT_PROJECT_PAGE).commit();
+                .addToBackStack(null).commit();
     }
 
     private void addChatPage(){
@@ -147,10 +147,12 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
         addProjectPage();
     }
     //MAKES NO SENSE, the two functions above work just fine?
-    //bug: java.lang.IllegalStateException: Could not find method addCreateNewProjectPage(View) in a parent or ancestor Context for android:onClick
+    //bug: java.lang.IllegalStateException: Could not find method addCreateNewProjectPage() in a parent or ancestor Context for android:onClick
     //attribute defined on view class android.support.v7.widget.AppCompatButton with id 'createNewProjectButton'
     public void onPressCreateNewProjectButtonInteraction(View v){
+        System.out.println("got to onPressNewProjectButtonInteraction reached");
         addCreateNewProjectPage();
+        System.out.println("Exiting function");
     }
     public void onPressChatButton(View v){ addChatPage(); }
     public void onPressTeamsButton(View v){addTeamsPage();}
