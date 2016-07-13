@@ -33,6 +33,9 @@ public class CreateNewProjectFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_new_project, container, false);
+
+
+
         return rootView;
     }
 
