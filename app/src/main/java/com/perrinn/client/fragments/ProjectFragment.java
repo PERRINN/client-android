@@ -12,10 +12,9 @@ import android.widget.ListView;
 
 import com.perrinn.client.R;
 /**
- * A fragment containing a simple view.
+ * A fragment that displays the projects page.
  */
 public class ProjectFragment extends Fragment {
-    private ProjectFragmentInteractionListener mListener;
 
     public ProjectFragment() {
     }
@@ -29,6 +28,12 @@ public class ProjectFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
+    /*
+     * //////////////////////////////////////////
+     * inflate the fragment upon creating the view
+     * //////////////////////////////////////////
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,11 +51,13 @@ public class ProjectFragment extends Fragment {
                 //todo:don't know where the click should lead, for now it leads to chat but
                 //todo:will be changed once i have more info
 
+                /*
                 ChatFragment ChatFrag = new ChatFragment();
                 FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
                 fragTransaction.replace(R.id.fragment_container,ChatFrag );
                 fragTransaction.addToBackStack(null);
                 fragTransaction.commit();
+                */
 
             }
 
@@ -79,10 +86,6 @@ public class ProjectFragment extends Fragment {
         ProjectFragment fragment = new ProjectFragment();
 
         return fragment;
-    }
-
-    public interface ProjectFragmentInteractionListener{
-        void onTextInteraction();
     }
 
 }

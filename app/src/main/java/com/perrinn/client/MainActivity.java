@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-import com.perrinn.client.fragments.ChatFragment;
 import com.perrinn.client.fragments.CreateNewProjectFragment;
 import com.perrinn.client.fragments.LandingFragment;
 import com.perrinn.client.fragments.LoadingFragment;
@@ -19,6 +18,11 @@ import com.perrinn.client.fragments.ProjectFragment;
 import com.perrinn.client.fragments.TeamsFragment;
 
 public class MainActivity extends AppCompatActivity implements LoadingFragment.LoadingFragmentInteractionListener {
+    /*
+     * //////////////////////////////////////////
+     * strings for the getsupportfragmentmanagers
+     * //////////////////////////////////////////
+     */
     private static final String FRAGMENT_LOADING = "com.perrinn.client.fragments.LOADING_FRAGMENT";
     private static final String FRAGMENT_LANDING = "com.perrinn.client.fragments.LANDING_FRAGMENT";
     private static final String FRAGMENT_PROJECT_PAGE = "com.perrinn.client.fragments.PROJECT_FRAGMENT";
@@ -28,10 +32,15 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
     private static final String FRAGMENT_CHAT = "com.perrinn.client.fragments.FRAGMENT_CHAT_SCREEN";
    /*
     * //////////////////////////////////////////////////
-    * // Overrided methods
+    * Overrided methods
     * /////////////////////////////////////////////////
     */
 
+    /*
+     * //////////////////////////////////////////
+     *on create method when the view is created
+     * //////////////////////////////////////////
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +51,11 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
         }
     }
 
+    /*
+     * //////////////////////////////////////////
+     * create options menu
+     * //////////////////////////////////////////
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -51,6 +65,11 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
         return true;
     }
 
+    /*
+     * //////////////////////////////////////////
+     * options item menu
+     * //////////////////////////////////////////
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -72,23 +91,20 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
 
     }
 
-
-
     @Override
     public void onStop() {
         super.onStop();
     }
 
-   /*
-    * //////////////////////////////////////////////////
-    * // Private methods
-    * /////////////////////////////////////////////////
-    */
+    /*
+     * //////////////////////////////////////////////////
+     * // Private methods
+     * /////////////////////////////////////////////////
+     */
 
     /*
-     * This method is intended to create and load the LoadingPageFragment in the main container
-     * layout.
-     *
+     * these methods are responsible for switching fragments
+     * within one activity, main activity
      *
      */
     private void addLoadingFragment() {
@@ -120,12 +136,6 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
                 .addToBackStack(null).commit();
     }
 
-    private void addChatPage(){
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, ChatFragment.newInstance(), FRAGMENT_CHAT)
-                .addToBackStack(FRAGMENT_LANDING).commit();
-    }
-
     private void addTeamsPage(){
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, TeamsFragment.newInstance(), FRAGMENT_TEAMS)
@@ -135,21 +145,21 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
 
 
 
+    /*
+     * //////////////////////////////////////////
+     * below are the methods that are binded to
+     * the XML layouts for when elements are interacted with
+     * //////////////////////////////////////////
+     */
     @Override
     public void onTextInteraction() {
         addLandingPage();
     }
-
     public void onPressProfileButtonInteraction(View v){
         addNewProfilePage();
     }
     public void onPressProjectButtonInteraction(View v){addProjectPage();}
-    public void onPressCreateNewProjectButtonInteraction(View v){
-        System.out.println("got to onPressNewProjectButtonInteraction reached");
-        addCreateNewProjectPage();
-        System.out.println("Exiting function");
-    }
-    public void onPressChatButton(View v){ addChatPage(); }
+    public void onPressCreateNewProjectButtonInteraction(View v){addCreateNewProjectPage();}
     public void onPressTeamsButton(View v){addTeamsPage();}
 }
 

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.perrinn.client.R;
 
 /**
- * A fragment containing a simple view.
+ * A fragment that displays the profile page.
  */
 public class ProfileFragment extends Fragment {
 
@@ -28,7 +28,11 @@ public class ProfileFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-
+    /*
+     * //////////////////////////////////////////
+     * inflate the fragment upon creating the view
+     * //////////////////////////////////////////
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -39,7 +39,7 @@
         android:layout_below="@+id/profileButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="116dp"
-        android:onClick="onPressChatButton"/>
+        />
 
     <Button
         android:layout_width="wrap_content"

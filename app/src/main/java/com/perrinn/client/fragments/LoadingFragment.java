@@ -26,6 +26,12 @@ public class LoadingFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
+    /*
+     * //////////////////////////////////////////
+     * inflate the fragment upon creating the view
+     * //////////////////////////////////////////
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
