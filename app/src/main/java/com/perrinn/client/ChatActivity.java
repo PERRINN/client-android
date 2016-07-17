@@ -168,7 +168,7 @@ public class ChatActivity extends AppCompatActivity {
         ChatMessage msg1 = new ChatMessage();
         msg1.setId(2);
         msg1.setMe(false);
-        msg1.setMessage("What's up boyo?");
+        msg1.setMessage("Anyone there?");
         msg1.setDate(DateFormat.getDateTimeInstance().format(new Date()));
         chatHistory.add(msg1);
 
