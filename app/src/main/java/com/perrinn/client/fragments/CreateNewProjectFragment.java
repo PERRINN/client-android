@@ -9,20 +9,13 @@ import android.widget.TextView;
 
 import com.perrinn.client.R;
 /**
- * Fragment to create a new project
+ * A fragment containing a simple view.
  */
 public class CreateNewProjectFragment extends Fragment {
+    private CreateNewProjectFragmentInteractionListener mListener;
 
-
-    /*
-    * //////////////////////////////////////////
-    * Constructor
-    * //////////////////////////////////////////
-    */
     public CreateNewProjectFragment() {
     }
-
-
     /*
     * //////////////////////////////////////////////////
     * // Overrided methods
@@ -33,15 +26,8 @@ public class CreateNewProjectFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        //todo: on create should populate the project owner button with the current user's name/nick
-        //todo: when database is available
+        //on create should populate the project owner button with the current user's name/nick
     }
-
-    /*
-     * //////////////////////////////////////////
-     * inflate the fragment upon creating the view
-     * //////////////////////////////////////////
-     */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,7 +53,7 @@ public class CreateNewProjectFragment extends Fragment {
     /**
      * This method creates a new instance of the fragment and return it to the caller.
      *
-     * @return CreateNewProjectFragment the new fragment created.
+     * @return LoadingFragment the new fragment created.
      * */
     public static CreateNewProjectFragment newInstance(){
         CreateNewProjectFragment fragment = new CreateNewProjectFragment();
@@ -88,6 +74,10 @@ public class CreateNewProjectFragment extends Fragment {
     //grab owner name and put as
     public void getOwnerName(){
 
+    }
+
+    public interface CreateNewProjectFragmentInteractionListener{
+        void onTextInteraction();
     }
 
 }

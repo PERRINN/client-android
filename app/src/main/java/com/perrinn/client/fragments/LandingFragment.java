@@ -9,9 +9,10 @@ import android.widget.TextView;
 
 import com.perrinn.client.R;
 /**
- * Fragment that displays the landing page
+ * A fragment containing a simple view.
  */
 public class LandingFragment extends Fragment {
+    private LandingFragmentInteractionListener mListener;
 
     public LandingFragment() {
     }
@@ -25,12 +26,6 @@ public class LandingFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
-
-    /*
-     * //////////////////////////////////////////
-     * inflate the fragment upon creating the view
-     * //////////////////////////////////////////
-     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,7 +47,7 @@ public class LandingFragment extends Fragment {
     /**
      * This method creates a new instance of the fragment and return it to the caller.
      *
-     * @return LandingFragment the new fragment created.
+     * @return LoadingFragment the new fragment created.
      * */
     public static LandingFragment newInstance(){
         LandingFragment fragment = new LandingFragment();
@@ -60,5 +55,8 @@ public class LandingFragment extends Fragment {
         return fragment;
     }
 
+    public interface LandingFragmentInteractionListener{
+        void onTextInteraction();
+    }
 
 }

@@ -18,6 +18,7 @@ import com.perrinn.client.R;
  * A fragment containing a simple view.
  */
 public class TeamsFragment extends Fragment {
+    private TeamsFragmentInteractionListener mListener;
 
     public TeamsFragment() {
     }
@@ -32,12 +33,6 @@ public class TeamsFragment extends Fragment {
 
         setHasOptionsMenu(true);
     }
-
-    /*
-     * //////////////////////////////////////////
-     * inflate the fragment upon creating the view
-     * //////////////////////////////////////////
-     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)  {
@@ -53,15 +48,13 @@ public class TeamsFragment extends Fragment {
                 Log.d("val", value);
 
                 //todo:get members list
-                //todo: should lead to another unspecified view for now
 
-                /*
                 ChatFragment ChatFrag = new ChatFragment();
                 FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
                 fragTransaction.replace(R.id.fragment_container,ChatFrag );
                 fragTransaction.addToBackStack(null);
                 fragTransaction.commit();
-                */
+
             }
 
         });
@@ -83,12 +76,16 @@ public class TeamsFragment extends Fragment {
     /**
      * This method creates a new instance of the fragment and return it to the caller.
      *
-     * @return TeamsFragment the new fragment created.
+     * @return LoadingFragment the new fragment created.
      * */
     public static TeamsFragment newInstance(){
         TeamsFragment fragment = new TeamsFragment();
 
         return fragment;
+    }
+
+    public interface TeamsFragmentInteractionListener{
+        void onTeamClick(View view);
     }
 
 }
