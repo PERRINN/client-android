@@ -2,6 +2,7 @@ package com.perrinn.client;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-import com.perrinn.client.fragments.ChatFragment;
 import com.perrinn.client.fragments.CreateNewProjectFragment;
 import com.perrinn.client.fragments.LandingFragment;
 import com.perrinn.client.fragments.LoadingFragment;
@@ -121,9 +121,8 @@ public class MainActivity extends AppCompatActivity implements LoadingFragment.L
     }
 
     private void addChatPage(){
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, ChatFragment.newInstance(), FRAGMENT_CHAT)
-                .addToBackStack(FRAGMENT_LANDING).commit();
+        Intent intent = new Intent(this, ChatActivity.class);
+        startActivity(intent);
     }
 
     private void addTeamsPage(){

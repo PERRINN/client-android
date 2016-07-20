@@ -1,5 +1,6 @@
 package com.perrinn.client.fragments;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.perrinn.client.ChatActivity;
 import com.perrinn.client.R;
 /**
  * A fragment containing a simple view.
@@ -46,11 +48,8 @@ public class ProjectFragment extends Fragment {
                 //todo:don't know where the click should lead, for now it leads to chat but
                 //todo:will be changed once i have more info
 
-                ChatFragment ChatFrag = new ChatFragment();
-                FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
-                fragTransaction.replace(R.id.fragment_container,ChatFrag );
-                fragTransaction.addToBackStack(null);
-                fragTransaction.commit();
+                Intent intent = new Intent(ProjectFragment.this.getActivity(), ChatActivity.class);
+                startActivity(intent);
 
             }
 
