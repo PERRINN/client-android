@@ -14,11 +14,15 @@ import android.widget.ListView;
 import com.perrinn.client.ChatActivity;
 import com.perrinn.client.R;
 /**
- * A fragment containing a simple view.
+ * A fragment containing a simple view that lists the projects the user is involved in.
  */
 public class ProjectFragment extends Fragment {
     private ProjectFragmentInteractionListener mListener;
-
+    /*
+    * //////////////////////////////////////////////////
+    * //constructor
+    * /////////////////////////////////////////////////
+    */
     public ProjectFragment() {
     }
     /*
@@ -31,6 +35,12 @@ public class ProjectFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
+    /*
+* //////////////////////////////////////////////////
+* //launches once the view is created
+* /////////////////////////////////////////////////
+*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,7 +82,7 @@ public class ProjectFragment extends Fragment {
     /**
      * This method creates a new instance of the fragment and return it to the caller.
      *
-     * @return LoadingFragment the new fragment created.
+     * @return ProjectFragment the new fragment created.
      * */
     public static ProjectFragment newInstance(){
         ProjectFragment fragment = new ProjectFragment();

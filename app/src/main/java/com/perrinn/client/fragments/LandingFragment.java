@@ -9,11 +9,15 @@ import android.widget.TextView;
 
 import com.perrinn.client.R;
 /**
- * A fragment containing a simple view.
+ * A fragment containing a view created, the home view.
  */
 public class LandingFragment extends Fragment {
     private LandingFragmentInteractionListener mListener;
-
+    /*
+    * //////////////////////////////////////////////////
+    * //constructor
+    * /////////////////////////////////////////////////
+    */
     public LandingFragment() {
     }
     /*
@@ -26,6 +30,12 @@ public class LandingFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
+    /*
+* //////////////////////////////////////////////////
+* // launches once view is created
+* /////////////////////////////////////////////////
+*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,7 +57,7 @@ public class LandingFragment extends Fragment {
     /**
      * This method creates a new instance of the fragment and return it to the caller.
      *
-     * @return LoadingFragment the new fragment created.
+     * @return LandingFragment the new fragment created.
      * */
     public static LandingFragment newInstance(){
         LandingFragment fragment = new LandingFragment();

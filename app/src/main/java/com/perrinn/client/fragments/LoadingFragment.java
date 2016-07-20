@@ -9,11 +9,15 @@ import android.widget.TextView;
 
 import com.perrinn.client.R;
 /**
- * A fragment containing a simple view.
+ * A fragment containing the loading view.
  */
 public class LoadingFragment extends Fragment {
     private LoadingFragmentInteractionListener mListener;
-
+    /*
+    * //////////////////////////////////////////////////
+    * //constructor
+    * /////////////////////////////////////////////////
+    */
     public LoadingFragment() {
     }
     /*
@@ -26,6 +30,12 @@ public class LoadingFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
+    /*
+* //////////////////////////////////////////////////
+* // launches once view is created, on click listener for text
+* /////////////////////////////////////////////////
+*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -20,15 +20,27 @@ import java.util.Date;
 
 
 public class ChatActivity extends AppCompatActivity {
-
+    /*
+    * //////////////////////////////////////////////////
+    * //variables
+    * /////////////////////////////////////////////////
+    */
     private EditText messageET;
     private ListView messagesContainer;
     private Button sendBtn;
     private ChatAdapter adapter;
     private ArrayList<ChatMessage> chatHistory;
-
+    /*
+    * //////////////////////////////////////////////////
+    * //get intent
+    * /////////////////////////////////////////////////
+    */
     Intent intent = getIntent();
-
+    /*
+    * //////////////////////////////////////////////////
+    * //set the view to the chat view
+    * /////////////////////////////////////////////////
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +48,11 @@ public class ChatActivity extends AppCompatActivity {
         initControls();
     }
 
+    /*
+* //////////////////////////////////////////////////
+* //inflate the options menu
+* /////////////////////////////////////////////////
+*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -57,6 +74,13 @@ public class ChatActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+        /*
+    * //////////////////////////////////////////////////
+    * //initial controls for chat
+    * set on click listener for the send button
+    * /////////////////////////////////////////////////
+    */
 
     private void initControls() {
         messagesContainer = (ListView) findViewById(R.id.messagesContainer);
@@ -89,17 +113,30 @@ public class ChatActivity extends AppCompatActivity {
 
 
     }
-
+    /*
+    * //////////////////////////////////////////////////
+    * //function to display messages
+    * /////////////////////////////////////////////////
+    */
     public void displayMessage(ChatMessage message) {
         adapter.add(message);
         adapter.notifyDataSetChanged();
         scroll();
     }
-
+    /*
+    * //////////////////////////////////////////////////
+    * //function for scrolling through the chat
+    * /////////////////////////////////////////////////
+    */
     private void scroll() {
         messagesContainer.setSelection(messagesContainer.getCount() - 1);
     }
 
+    /*
+* //////////////////////////////////////////////////
+* //dummy history function for testing
+* /////////////////////////////////////////////////
+*/
     private void loadDummyHistory(){
 
         chatHistory = new ArrayList<ChatMessage>();

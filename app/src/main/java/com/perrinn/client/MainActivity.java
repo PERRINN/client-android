@@ -4,9 +4,6 @@ package com.perrinn.client;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,7 +23,6 @@ import com.perrinn.client.fragments.LoadingFragment;
 import com.perrinn.client.fragments.TeamFragment;
 import com.perrinn.client.fragments.ProfileFragment;
 import com.perrinn.client.fragments.ProjectFragment;
-import com.perrinn.client.fragments.TeamsFragment;
 import com.perrinn.client.helpers.DockItemMarginDecorator;
 
 import java.util.ArrayList;
@@ -161,11 +157,11 @@ import java.util.ArrayList;
                 .commit();
     }
 
-    /**
-     * This method is intended to create and load the TeamFragment in the main container
-     * layout.
-     *
-     * */
+    /*
+* //////////////////////////////////////////////////
+* //the methods below are responsible for switching fragments inside mainactivity
+* /////////////////////////////////////////////////
+*/
     private void addTeamFragment(){
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, TeamFragment.newInstance())
@@ -201,15 +197,13 @@ import java.util.ArrayList;
         startActivity(intent);
     }
 
-    private void addTeamsPage(){
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, TeamsFragment.newInstance(), FRAGMENT_TEAMS)
-                .addToBackStack(FRAGMENT_LANDING).commit();
-    }
 
-
-
-
+    /*
+    * //////////////////////////////////////////////////
+    * //the functions below are binded to the XML layout files and are called whenever a UI element
+    * is engaged by the user
+    * /////////////////////////////////////////////////
+    */
     @Override
     public void onTextInteraction() {
         addLandingPage();
