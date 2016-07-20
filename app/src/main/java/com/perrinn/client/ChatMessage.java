@@ -1,7 +1,7 @@
 package com.perrinn.client;
 
 /**
- * Created by Technovibe on 17-04-2015.
+ * Created by Antreas Christofi on 20-07-2016.
  */
 public class ChatMessage {
     private long id;

@@ -1,5 +1,6 @@
 package com.perrinn.client.fragments;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.perrinn.client.ChatActivity;
 import com.perrinn.client.MainActivity;
 import com.perrinn.client.R;
 /**
@@ -49,11 +51,8 @@ public class TeamsFragment extends Fragment {
 
                 //todo:get members list
 
-                ChatFragment ChatFrag = new ChatFragment();
-                FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
-                fragTransaction.replace(R.id.fragment_container,ChatFrag );
-                fragTransaction.addToBackStack(null);
-                fragTransaction.commit();
+                Intent intent = new Intent(TeamsFragment.this.getActivity(), ChatActivity.class);
+                startActivity(intent);
 
             }
 
