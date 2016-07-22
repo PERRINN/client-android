@@ -9,19 +9,24 @@
         android:layout_height="100dp"
         layout="@layout/perrinn_dock" />
 
-    <GridLayout
+    <RelativeLayout
         android:layout_alignParentRight="true"
         android:layout_width="match_parent"
         android:layout_height="320dp"
         android:layout_above="@+id/perrinn_dock"
         android:layout_alignParentStart="true"
-        android:rowCount="9"
-        android:columnCount="10"
         android:orientation="horizontal"
         android:id="@+id/GridLayoutTeamMembersScreen"
         android:layout_alignParentEnd="true">
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="4"
+            android:rowCount="5">
 
-    </GridLayout>
+        </GridLayout>
+
+    </RelativeLayout>
 
     <TextClock
         android:layout_width="wrap_content"
