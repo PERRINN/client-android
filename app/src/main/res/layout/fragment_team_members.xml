@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <include
@@ -16,22 +17,82 @@
         android:layout_above="@+id/perrinn_dock"
         android:layout_alignParentStart="true"
         android:orientation="horizontal"
-        android:id="@+id/GridLayoutTeamMembersScreen"
+        android:id="@+id/RelLayoutTeamMembersScreen"
         android:layout_alignParentEnd="true">
-        <GridLayout
+
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:columnCount="4"
-            android:rowCount="5">
+            >
 
-        </GridLayout>
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <ImageButton android:text="test1" android:layout_weight="1"></ImageButton>
+                <ImageButton android:text="test2" android:layout_weight="1"></ImageButton>
+                <ImageButton android:text="test3" android:layout_weight="1"></ImageButton>
+                <ImageButton android:text="test3" android:layout_weight="1"></ImageButton>
+            </TableRow>
 
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <ImageButton android:text="test1" android:layout_weight="1"></ImageButton>
+                <ImageButton android:text="test2" android:layout_weight="1"></ImageButton>
+                <ImageButton android:text="test3" android:layout_weight="1"></ImageButton>
+                <ImageButton android:text="test3" android:layout_weight="1"></ImageButton>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <ImageButton android:text="test1" android:layout_weight="1"></ImageButton>
+                <ImageButton android:text="test2" android:layout_weight="1"></ImageButton>
+                <ImageButton android:text="test3" android:layout_weight="1"></ImageButton>
+                <ImageButton android:text="test3" android:layout_weight="1"></ImageButton>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <ImageButton android:text="test1" android:layout_weight="1"></ImageButton>
+                <ImageButton android:text="test2" android:layout_weight="1"></ImageButton>
+                <ImageButton android:text="test3" android:layout_weight="1"></ImageButton>
+                <ImageButton android:text="test3" android:layout_weight="1"></ImageButton>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <ImageButton android:text="test1" android:layout_weight="1"></ImageButton>
+                <ImageButton android:text="test2" android:layout_weight="1"></ImageButton>
+                <ImageButton android:text="test3" android:layout_weight="1"></ImageButton>
+                <ImageButton android:text="test3" android:layout_weight="1"></ImageButton>
+            </TableRow>
+
+
+        </TableLayout>
     </RelativeLayout>
 
     <TextClock
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textClock"
+        android:id="@+id/screenClock"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="52dp"
@@ -43,7 +104,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="MARKETING"
         android:id="@+id/textViewTeamName"
-        android:layout_alignBottom="@+id/textClock"
+        android:layout_alignBottom="@+id/screenClock"
         android:layout_alignParentStart="true"
         android:layout_marginStart="37dp" />
 
@@ -53,7 +114,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Preparing for our next event!"
         android:id="@+id/textViewMessageToTeam"
-        android:layout_below="@+id/textClock"
+        android:layout_below="@+id/screenClock"
         android:layout_alignStart="@+id/textViewTeamName" />
 
 </RelativeLayout>
