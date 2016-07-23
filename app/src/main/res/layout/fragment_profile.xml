@@ -3,22 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/settings_profile_background_placeholder">
-    <TextView
-        android:id="@+id/settings_category_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:padding="8dp"
-        android:gravity="center"
-        android:text="@string/settings_profile_title"
-        android:textSize="18sp"
-        android:background="#FFFFFFFF"
-        />
     <FrameLayout
         android:id="@+id/settings_profile_user"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/settings_category_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
@@ -35,13 +23,6 @@
                     android:id="@+id/settings_profile_team_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFFFFFFF"
-                    />
-                <TextView
-                    android:id="@+id/settings_profile_team_desc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
                     android:textColor="#FFFFFFFF"
                     />
             </LinearLayout>
@@ -82,71 +63,77 @@
                 android:layout_marginLeft="2dp"/>
         </FrameLayout>
     </FrameLayout>
-    <LinearLayout
-        android:id="@+id/settings_profile_rd_header"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/settings_profile_user"
-        android:padding="8dp"
-        android:background="@color/colorSettingsProfileHeaderBackground">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/settings_profile_rd_title"
-            android:textColor="@color/colorSettingsProfileHeaderText"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/settings_profile_rd_desc"
-            android:textColor="@color/colorSettingsProfileHeaderText"
-            android:textSize="12sp"
-            />
-    </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/settings_profile_registered_devices_list"
-        android:layout_below="@id/settings_profile_rd_header"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFFFF"/>
-    <LinearLayout
-        android:id="@+id/settings_profile_ti_header"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/settings_profile_registered_devices_list"
-        android:padding="8dp"
-        android:background="@color/colorSettingsProfileHeaderBackground">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/settings_profile_ti_title"
-            android:textColor="@color/colorSettingsProfileHeaderText"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/settings_profile_ti_desc"
-            android:textColor="@color/colorSettingsProfileHeaderText"
-            android:textSize="12sp"
-            />
-    </LinearLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/settings_profile_trusted_identifiers_list"
-        android:layout_below="@id/settings_profile_ti_header"
+        android:layout_below="@id/settings_profile_user"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFFFF"/>
     <TextView
-        android:layout_below="@id/settings_profile_trusted_identifiers_list"
+        android:id="@+id/settings_profile_lose"
+        android:layout_below="@id/settings_profile_registered_devices_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="@string/settings_profile_add_ti"
-        android:background="#FFFFFFFF"/>
+        android:textColor="#FFDD7E6B"
+        android:background="#FFFFFFFF"
+        android:text="@string/settings_profile_key_lose"
+        />
+    <TextView
+        android:id="@+id/settings_profile_push_notifications"
+        android:layout_below="@id/settings_profile_lose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFFFF"
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:text="@string/settings_profile_push_notifications"
+        />
+    <RelativeLayout
+        android:id="@+id/settings_profile_location"
+        android:layout_below="@id/settings_profile_push_notifications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFFFFFFF"
+        android:padding="8dp">
+        <TextView
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_profile_location_label"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:id="@+id/settings_profile_location_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_profile_location_nshared"
+            android:textColor="@color/colorSettingsProfileNShared"
+            android:layout_alignParentRight="true"
+            android:textSize="16sp"
+            />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/settings_profile_resign_tl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/settings_profile_location"
+        android:text="@string/settings_profile_resign_tl"
+        android:background="#FFFFFFFF"
+        android:padding="8dp"
+        android:textColor="@color/colorSettingsProfileLeave"
+        />
+    <TextView
+        android:id="@+id/settings_profile_leave_team"
+        android:layout_below="@id/settings_profile_resign_tl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:textColor="@color/colorSettingsProfileLeave"
+        android:background="#FFFFFFFF"
+        />
+
 </RelativeLayout>
