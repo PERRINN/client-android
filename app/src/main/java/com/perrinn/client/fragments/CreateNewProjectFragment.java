@@ -9,10 +9,16 @@ import android.widget.TextView;
 
 import com.perrinn.client.R;
 /**
- * A fragment containing a simple view.
+ * A fragment containing a view that creates a new project.
  */
 public class CreateNewProjectFragment extends Fragment {
     private CreateNewProjectFragmentInteractionListener mListener;
+
+    /*
+    * //////////////////////////////////////////////////
+    * //constructor
+    * /////////////////////////////////////////////////
+    */
 
     public CreateNewProjectFragment() {
     }
@@ -29,10 +35,18 @@ public class CreateNewProjectFragment extends Fragment {
         //on create should populate the project owner button with the current user's name/nick
     }
 
+    /*
+* //////////////////////////////////////////////////
+* // launches once view is created
+* /////////////////////////////////////////////////
+*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_landing, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_new_project, container, false);
+
+
+
         return rootView;
     }
 
@@ -50,7 +64,7 @@ public class CreateNewProjectFragment extends Fragment {
     /**
      * This method creates a new instance of the fragment and return it to the caller.
      *
-     * @return LoadingFragment the new fragment created.
+     * @return CreateNewProjectFragment the new fragment created.
      * */
     public static CreateNewProjectFragment newInstance(){
         CreateNewProjectFragment fragment = new CreateNewProjectFragment();

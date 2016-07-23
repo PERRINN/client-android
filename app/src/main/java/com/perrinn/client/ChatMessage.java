@@ -1,15 +1,25 @@
 package com.perrinn.client;
 
 /**
- * Created by Technovibe on 17-04-2015.
+ * Created by Antreas Christofi on 20-07-2016.
  */
 public class ChatMessage {
+    /*
+ * //////////////////////////////////////////////////
+ * //variables
+ * /////////////////////////////////////////////////
+ */
     private long id;
     private boolean isMe;
     private String message;
     private Long userId;
     private String dateTime;
 
+    /*
+* //////////////////////////////////////////////////
+* //getter/setter methods below
+* /////////////////////////////////////////////////
+*/
     public long getId() {
         return id;
     }

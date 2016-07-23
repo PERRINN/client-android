@@ -1,12 +1,13 @@
-package com.perrinn.client.fragments;
+package com.perrinn.client;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -17,52 +18,46 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.perrinn.client.ChatAdapter;
-import com.perrinn.client.ChatMessage;
-import com.perrinn.client.R;
 
-
-public class ChatFragment extends Fragment {
-
+public class ChatActivity extends AppCompatActivity {
+    /*
+    * //////////////////////////////////////////////////
+    * //variables
+    * /////////////////////////////////////////////////
+    */
     private EditText messageET;
     private ListView messagesContainer;
     private Button sendBtn;
     private ChatAdapter adapter;
     private ArrayList<ChatMessage> chatHistory;
-
-    public ChatFragment() {
-        EditText messageET;
-        ListView messagesContainer;
-        Button sendBtn;
-        ChatAdapter adapter;
-        ArrayList<ChatMessage> chatHistory;
-    }
     /*
-    *The onCreate() method in a Fragment is called after the Activity's onAttachFragment() but before that Fragment's onCreateView().
-    *In this method, you can assign variables, get Intent extras, and anything else that doesn't involve the View hierarchy
-    * (i.e. non-graphical initialisations). This is because this method can be called when the Activity's onCreate() is not finished,
-    * and so trying to access the View hierarchy here may result in a crash.
+    * //////////////////////////////////////////////////
+    * //get intent
+    * /////////////////////////////////////////////////
     */
-
+    Intent intent = getIntent();
+    /*
+    * //////////////////////////////////////////////////
+    * //set the view to the chat view
+    * /////////////////////////////////////////////////
+    */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        setContentView(R.layout.activity_chat);
+        initControls();
     }
 
     /*
-    *After the onCreate() is called (in the Fragment), the Fragment's onCreateView() is called.
-    *You can assign your View variables and do any graphical initialisations.
-    *You are expected to return a View to this method, and this is the main UI view,
-    *but if your Fragment does not use any layouts or graphics, you can return null.
-    */
-
+* //////////////////////////////////////////////////
+* //inflate the options menu
+* /////////////////////////////////////////////////
+*/
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_chat, container, false);
-
-        return rootView;
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_chat, menu);
+        return true;
     }
 
     @Override
@@ -80,11 +75,19 @@ public class ChatFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void initControls() {
+        /*
+    * //////////////////////////////////////////////////
+    * //initial controls for chat
+    * set on click listener for the send button
+    * /////////////////////////////////////////////////
+    */
 
-        messagesContainer = (ListView) messagesContainer.findViewById(R.id.messagesContainer);
-        messageET = (EditText) messageET.findViewById(R.id.messageEdit);
-        sendBtn = (Button) sendBtn.findViewById(R.id.chatSendButton);
+    private void initControls() {
+        messagesContainer = (ListView) findViewById(R.id.messagesContainer);
+        messageET = (EditText) findViewById(R.id.messageEdit);
+        sendBtn = (Button) findViewById(R.id.chatSendButton);
+
+        RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
 
         loadDummyHistory();
 
@@ -110,17 +113,30 @@ public class ChatFragment extends Fragment {
 
 
     }
-
+    /*
+    * //////////////////////////////////////////////////
+    * //function to display messages
+    * /////////////////////////////////////////////////
+    */
     public void displayMessage(ChatMessage message) {
         adapter.add(message);
         adapter.notifyDataSetChanged();
         scroll();
     }
-
+    /*
+    * //////////////////////////////////////////////////
+    * //function for scrolling through the chat
+    * /////////////////////////////////////////////////
+    */
     private void scroll() {
         messagesContainer.setSelection(messagesContainer.getCount() - 1);
     }
 
+    /*
+* //////////////////////////////////////////////////
+* //dummy history function for testing
+* /////////////////////////////////////////////////
+*/
     private void loadDummyHistory(){
 
         chatHistory = new ArrayList<ChatMessage>();
@@ -128,28 +144,24 @@ public class ChatFragment extends Fragment {
         ChatMessage msg = new ChatMessage();
         msg.setId(1);
         msg.setMe(false);
-        msg.setMessage("Hi");
+        msg.setMessage("Hello world!");
         msg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
         chatHistory.add(msg);
         ChatMessage msg1 = new ChatMessage();
         msg1.setId(2);
         msg1.setMe(false);
-        msg1.setMessage("How r u doing???");
+        msg1.setMessage("Anybody there?");
         msg1.setDate(DateFormat.getDateTimeInstance().format(new Date()));
         chatHistory.add(msg1);
 
-        adapter = new ChatAdapter(ChatFragment.this, new ArrayList<ChatMessage>());
+        adapter = new ChatAdapter(ChatActivity.this, new ArrayList<ChatMessage>());
         messagesContainer.setAdapter(adapter);
 
-        for(int i=0; i<chatHistory.size(); i++) {
-            ChatMessage message = chatHistory.get(i);
-            displayMessage(message);
-        }
+                for(int i=0; i<chatHistory.size(); i++) {
+                    ChatMessage message = chatHistory.get(i);
+                    displayMessage(message);
+                }
 
     }
 
-    public static ChatFragment newInstance(){
-        ChatFragment fragment = new ChatFragment();
-        return fragment;
-    }
 }

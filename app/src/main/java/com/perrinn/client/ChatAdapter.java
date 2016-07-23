@@ -1,5 +1,6 @@
 package com.perrinn.client;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,23 +11,34 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.perrinn.client.fragments.ChatFragment;
-
 import java.util.List;
 
 /**
- * Created by Technovibe on 17-04-2015.
+ * Created by Antreas Christofi on 20-07-2016.
  */
 public class ChatAdapter extends BaseAdapter {
-
+    /*
+    * //////////////////////////////////////////////////
+    * //variables
+    * /////////////////////////////////////////////////
+    */
     private final List<ChatMessage> chatMessages;
-    private ChatFragment context;
+    private Activity context;
 
-    public ChatAdapter(ChatFragment context, List<ChatMessage> chatMessages) {
+    /*
+* //////////////////////////////////////////////////
+* //constructor
+* /////////////////////////////////////////////////
+*/
+    public ChatAdapter(Activity context, List<ChatMessage> chatMessages) {
         this.context = context;
         this.chatMessages = chatMessages;
     }
-
+    /*
+    * //////////////////////////////////////////////////
+    * //get message count
+    * /////////////////////////////////////////////////
+    */
     @Override
     public int getCount() {
         if (chatMessages != null) {
@@ -36,6 +48,11 @@ public class ChatAdapter extends BaseAdapter {
         }
     }
 
+    /*
+* //////////////////////////////////////////////////
+* //get position of chatmessage object
+* /////////////////////////////////////////////////
+*/
     @Override
     public ChatMessage getItem(int position) {
         if (chatMessages != null) {
@@ -44,25 +61,29 @@ public class ChatAdapter extends BaseAdapter {
             return null;
         }
     }
-
+    /*
+    * //////////////////////////////////////////////////
+    * //get id of chatmessage
+    * /////////////////////////////////////////////////
+    */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /*
+* //////////////////////////////////////////////////
+* //get view for chat ui
+* /////////////////////////////////////////////////
+*/
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        return null;
-    }
-
-
-    public View getView(final int position, View convertView, ViewGroup parent, Context context) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         ChatMessage chatMessage = getItem(position);
         LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
-            convertView = vi.inflate(R.layout.fragment_list_item_chat_message, null);
+            convertView = vi.inflate(R.layout.list_item_chat_message, null);
             holder = createViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -78,14 +99,28 @@ public class ChatAdapter extends BaseAdapter {
         return convertView;
     }
 
+    /*
+* //////////////////////////////////////////////////
+* //add message to list
+* /////////////////////////////////////////////////
+*/
     public void add(ChatMessage message) {
         chatMessages.add(message);
     }
 
+    /*
+* //////////////////////////////////////////////////
+* //add all messages into list
+* /////////////////////////////////////////////////
+*/
     public void add(List<ChatMessage> messages) {
         chatMessages.addAll(messages);
     }
-
+    /*
+    * //////////////////////////////////////////////////
+    * //set bubble alignment for UI depending on sender/receiver
+    * /////////////////////////////////////////////////
+    */
     private void setAlignment(ViewHolder holder, boolean isMe) {
         if (!isMe) {
             holder.contentWithBG.setBackgroundResource(R.drawable.in_message_bg);
@@ -126,6 +161,11 @@ public class ChatAdapter extends BaseAdapter {
         }
     }
 
+    /*
+* //////////////////////////////////////////////////
+* //create a viewholder to hold the view
+* /////////////////////////////////////////////////
+*/
     private ViewHolder createViewHolder(View v) {
         ViewHolder holder = new ViewHolder();
         holder.txtMessage = (TextView) v.findViewById(R.id.txtMessage);
@@ -135,7 +175,11 @@ public class ChatAdapter extends BaseAdapter {
         return holder;
     }
 
-
+    /*
+    * //////////////////////////////////////////////////
+    * //viewholder class
+    * /////////////////////////////////////////////////
+    */
     private static class ViewHolder {
         public TextView txtMessage;
         public TextView txtInfo;
