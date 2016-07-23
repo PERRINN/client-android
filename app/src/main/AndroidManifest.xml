@@ -27,7 +27,7 @@
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name="com.perrinn.client.ChatActivity"
+            android:name=".activities.ChatActivity"
             android:label="@string/app_name">
             </activity>
 

@@ -1,8 +1,7 @@
-package com.perrinn.client;
+package com.perrinn.client.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -12,7 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+
+import com.perrinn.client.ChatAdapter;
+import com.perrinn.client.ChatMessage;
+import com.perrinn.client.R;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
