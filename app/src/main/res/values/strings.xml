@@ -27,6 +27,14 @@
     <string name="settings_profile_ti_desc">People you trust, family members, friends, that help
     you register new and cancel lost devices to make your profile very secured - you are identifier
     for them as well.</string>
+    <string name="settings_profile_key_lose">If you lose your key, ask a team member to let you in
+        with a new key. The lost key will be cancelled.</string>
+    <string name="settings_profile_push_notifications">Push notifications</string>
+    <string name="settings_profile_location_label">Instant location</string>
+    <string name="settings_profile_location_shared">Shared</string>
+    <string name="settings_profile_location_nshared">Not Shared</string>
+    <string name="settings_profile_resign_tl">Resign as team leader</string>
+    <string name="settings_profile_leave">Leave</string>
     <string-array name="settings_profile_change_picture_choices">
         <item>Use the camera</item>
         <item>Choose in the gallery</item>

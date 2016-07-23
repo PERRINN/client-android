@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,11 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.perrinn.client.R;
 import com.perrinn.client.adapters.SettingsProfileItemAdapter;
 import com.perrinn.client.beans.SettingsProfileListItem;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -34,14 +38,17 @@ public class ProfileFragment extends Fragment {
     private static final int REQUEST_GALLERY = 1;
 
     private TextView mSettingsProfileTeamName;
-    private TextView mSettingsProfileTeamDesc;
     private TextView mSettingsProfileFirstName;
     private TextView mSettingsProfileLastName;
     private ImageView mSettingsProfilePicture;
     private ImageButton mSettingsProfileChangePictureButton;
     private RecyclerView mSettingsProfileRegisteredDevicesList;
-    private RecyclerView mSettingsProfileTrustedIdentifiersList;
+    private RelativeLayout mSettingsProfileLocation;
+    private TextView mSettingsProfileLocationState;
+    private TextView mSettingsProfileResignTL;
+    private TextView mSettingsProfileLeaveTeam;
 
+    private boolean sharedLocation = false;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,23 +59,23 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile,container,false);
         mSettingsProfileTeamName = (TextView) rootView.findViewById(R.id.settings_profile_team_name);
-        mSettingsProfileTeamDesc = (TextView) rootView.findViewById(R.id.settings_profile_team_desc);
         mSettingsProfileFirstName = (TextView) rootView.findViewById(R.id.settings_profile_firstname);
         mSettingsProfileLastName = (TextView) rootView.findViewById(R.id.settings_profile_lastname);
         mSettingsProfilePicture = (ImageView) rootView.findViewById(R.id.settings_profile_picture);
         mSettingsProfileChangePictureButton = (ImageButton) rootView.findViewById(R.id.settings_profile_change_picture_button);
         mSettingsProfileRegisteredDevicesList = (RecyclerView) rootView.findViewById(R.id.settings_profile_registered_devices_list);
-        mSettingsProfileTrustedIdentifiersList = (RecyclerView) rootView.findViewById(R.id.settings_profile_trusted_identifiers_list);
+        mSettingsProfileLocation = (RelativeLayout) rootView.findViewById(R.id.settings_profile_location);
+        mSettingsProfileLocationState = (TextView) rootView.findViewById(R.id.settings_profile_location_state);
+        mSettingsProfileResignTL = (TextView) rootView.findViewById(R.id.settings_profile_resign_tl);
+        mSettingsProfileLeaveTeam = (TextView) rootView.findViewById(R.id.settings_profile_leave_team);
+
         RecyclerView.LayoutManager mRDLayoutManager = new LinearLayoutManager(getContext());
-        RecyclerView.LayoutManager mTILayoutManager = new LinearLayoutManager(getContext());
 
         mSettingsProfileRegisteredDevicesList.setLayoutManager(mRDLayoutManager);
-        mSettingsProfileTrustedIdentifiersList.setLayoutManager(mTILayoutManager);
 
         mSettingsProfileFirstName.setText("Nicolas");
         mSettingsProfileLastName.setText("Perrin");
         mSettingsProfileTeamName.setText(("Our little family").toUpperCase());
-        mSettingsProfileTeamDesc.setText("Getting ready for our next holidays");
 
         mSettingsProfileChangePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,18 +86,17 @@ public class ProfileFragment extends Fragment {
 
         // dummy data for the registered devices
         ArrayList<SettingsProfileListItem> mRegisteredDevices = new ArrayList<>();
-        mRegisteredDevices.add(new SettingsProfileListItem("Nicolas phone","Main",true));
-        mRegisteredDevices.add(new SettingsProfileListItem("Nicolas PC",null,false));
-        mRegisteredDevices.add(new SettingsProfileListItem("Home Tablet",null,false));
-
-        // dummy data for the trusted identifiers
-        ArrayList<SettingsProfileListItem> mTrustedIdentifiers = new ArrayList<>();
-        mTrustedIdentifiers.add(new SettingsProfileListItem("Anne","Mutual",false));
-        mTrustedIdentifiers.add(new SettingsProfileListItem("Philip","Mutual",false));
+        mRegisteredDevices.add(new SettingsProfileListItem("IPhone","Main",true));
 
         mSettingsProfileRegisteredDevicesList.setAdapter(new SettingsProfileItemAdapter(getContext(),mRegisteredDevices));
-        mSettingsProfileTrustedIdentifiersList.setAdapter(new SettingsProfileItemAdapter(getContext(),mTrustedIdentifiers));
+        mSettingsProfileLeaveTeam.setText(getResources().getString(R.string.settings_profile_leave)+" "+("Our little family").toUpperCase());
 
+        mSettingsProfileLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeSharedLocationState();
+            }
+        });
         return rootView;
 
     }
@@ -128,6 +134,23 @@ public class ProfileFragment extends Fragment {
             }
         });
         builder.create().show();
+    }
+
+
+    /**
+     * This method will toggle the share of the location of the user. It will change the sharedLocation
+     * attribute value.
+     *
+     * */
+    private void changeSharedLocationState(){
+        sharedLocation = !sharedLocation;
+        if(sharedLocation){
+            mSettingsProfileLocationState.setText(getResources().getString(R.string.settings_profile_location_shared));
+            mSettingsProfileLocationState.setTextColor(ContextCompat.getColor(getContext(),R.color.colorSettingsProfileShared));
+        }else{
+            mSettingsProfileLocationState.setText(getResources().getString(R.string.settings_profile_location_nshared));
+            mSettingsProfileLocationState.setTextColor(ContextCompat.getColor(getContext(),R.color.colorSettingsProfileNShared));
+        }
     }
 
     /**
