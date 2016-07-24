@@ -12,8 +12,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.perrinn.client.ChatAdapter;
-import com.perrinn.client.ChatMessage;
+import com.perrinn.client.adapters.ChatAdapter;
+import com.perrinn.client.objects.ChatMessage;
 import com.perrinn.client.R;
 
 import java.text.DateFormat;

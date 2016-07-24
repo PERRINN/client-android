@@ -1,4 +1,4 @@
-package com.perrinn.client;
+package com.perrinn.client.objects;
 
 /**
  * Created by Antreas Christofi on 20-07-2016.

@@ -21,18 +21,8 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/textViewMessageToTeam">
 
-        <GridView
-            android:id="@+id/gridview"
-
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:numColumns="4"
-            android:verticalSpacing="10dp"
-            android:horizontalSpacing="10dp"
-            android:gravity="center"
-            android:scrollbars="none"
-            android:stretchMode="columnWidth" />
-
+        <!-- made grid its own layout so i can build an adapter for it-->
+        <include layout="@layout/team_members_grid"></include>
     </RelativeLayout>
 
     <TextClock

@@ -1,4 +1,4 @@
-package com.perrinn.client;
+package com.perrinn.client.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.perrinn.client.objects.ChatMessage;
+import com.perrinn.client.R;
 
 import java.util.List;
 
