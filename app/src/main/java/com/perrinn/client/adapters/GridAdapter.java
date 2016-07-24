@@ -37,19 +37,19 @@ public class GridAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageButton imageButton;
 
+
         if (convertView == null) {
             imageButton = new ImageButton(mContext);
-            imageButton.setLayoutParams(new GridView.LayoutParams(85, 85));
+            imageButton.setLayoutParams(new GridView.LayoutParams(105, 105));
             imageButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageButton.setPadding(32, 32, 32, 32);
+            //TODO fix padding
+            imageButton.setPadding(1, 1, 1, 1);
         }
         else
         {
             imageButton = (ImageButton) convertView;
         }
         imageButton.setImageResource(mThumbIds[position]);
-        imageButton.setMaxHeight(50);
-        imageButton.setMaxWidth(50);
         return imageButton;
     }
 
@@ -66,5 +66,6 @@ public class GridAdapter extends BaseAdapter {
             R.drawable.in_message_bg, R.drawable.in_message_bg,
             R.drawable.in_message_bg, R.drawable.in_message_bg
     };
+
 }
 
