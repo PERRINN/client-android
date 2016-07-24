@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.perrinn.client.R;
@@ -32,22 +33,24 @@ public class GridAdapter extends BaseAdapter {
         return 0;
     }
 
-    // create a new ImageView for each item referenced by the Adapter
+    // create a new ImageButton for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
+        ImageButton imageButton;
 
         if (convertView == null) {
-            imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
+            imageButton = new ImageButton(mContext);
+            imageButton.setLayoutParams(new GridView.LayoutParams(85, 85));
+            imageButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageButton.setPadding(32, 32, 32, 32);
         }
         else
         {
-            imageView = (ImageView) convertView;
+            imageButton = (ImageButton) convertView;
         }
-        imageView.setImageResource(mThumbIds[position]);
-        return imageView;
+        imageButton.setImageResource(mThumbIds[position]);
+        imageButton.setMaxHeight(50);
+        imageButton.setMaxWidth(50);
+        return imageButton;
     }
 
     // Keep all Images in array

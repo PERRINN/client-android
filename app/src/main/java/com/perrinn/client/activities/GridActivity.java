@@ -19,6 +19,7 @@ public class GridActivity extends Activity {
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new GridAdapter(this));
+
     }
 
     @Override
