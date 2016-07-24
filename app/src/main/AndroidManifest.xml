@@ -35,8 +35,8 @@
             </activity>
 
         <activity
-            android:label="PERRINN"
-            android:name=".activities.TeamMembersActivity">
+            android:name=".activities.GridActivity"
+            android:label="@string/app_name">
         </activity>
 
     </application>

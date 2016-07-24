@@ -23,6 +23,7 @@
 
         <!-- made grid its own layout so i can build an adapter for it-->
         <include layout="@layout/team_members_grid"></include>
+
     </RelativeLayout>
 
     <TextClock

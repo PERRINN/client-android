@@ -14,9 +14,9 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.perrinn.client.activities.ChatActivity;
+import com.perrinn.client.activities.GridActivity;
 import com.perrinn.client.activities.SettingsActivity;
 import com.perrinn.client.adapters.DockItemAdapter;
-import com.perrinn.client.activities.TeamMembersActivity;
 import com.perrinn.client.beans.DockIndicator;
 
 import com.perrinn.client.fragments.CreateNewProjectFragment;
@@ -200,7 +200,7 @@ import java.util.ArrayList;
     }
 
     private void addTeamScreenPage(){
-        Intent intent = new Intent(this, TeamMembersActivity.class);
+        Intent intent = new Intent(this, GridActivity.class);
         startActivity(intent);
     }
 
@@ -231,7 +231,7 @@ import java.util.ArrayList;
         //addTeamsPage();
         addTeamFragment();
     }
-    public void onPressNewButton(View v){
+    public void onPressTeamScreenButton(View v){
         addTeamScreenPage();
     }
 }

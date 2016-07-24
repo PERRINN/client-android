@@ -58,5 +58,5 @@
         android:layout_below="@+id/button3"
         android:layout_alignStart="@+id/projectsButton"
         android:layout_marginTop="59dp"
-        android:onClick=""/>
+        android:onClick="onPressTeamScreenButton"/>
 </RelativeLayout>
