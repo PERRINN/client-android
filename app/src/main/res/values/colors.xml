@@ -15,4 +15,7 @@
     <color name="colorSettingsProfileShared">#FF6AA84F</color>
     <color name="colorSettingsProfileNShared">#FFFF0000</color>
     <color name="colorSettingsProfileLeave">#FFFF0000</color>
+    <color name="colorLoginButtonBorder">#FFD6E3F9</color>
+    <color name="colorLoginEnterButton">#FF0000FF</color>
+    <color name="colorLoginButtonText">#FF666666</color>
 </resources>
