@@ -11,13 +11,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CustomGridViewAdapter extends ArrayAdapter<Item> {
+/**
+ * Created by Antreas Christofi on 26-07-2016.
+ */
+
+
+public class GridViewAdapter extends ArrayAdapter<Item> {
 	Context context;
 	int layoutResourceId;
 	ArrayList<Item> data = new ArrayList<Item>();
 
-	public CustomGridViewAdapter(Context context, int layoutResourceId,
-			ArrayList<Item> data) {
+	public GridViewAdapter(Context context, int layoutResourceId,
+						   ArrayList<Item> data) {
 		super(context, layoutResourceId, data);
 		this.layoutResourceId = layoutResourceId;
 		this.context = context;

@@ -14,7 +14,6 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.perrinn.client.activities.ChatActivity;
-import com.perrinn.client.activities.GridActivity;
 import com.perrinn.client.activities.SettingsActivity;
 import com.perrinn.client.adapters.DockItemAdapter;
 import com.perrinn.client.beans.DockIndicator;
@@ -200,7 +199,7 @@ import java.util.ArrayList;
     }
 
     private void addTeamScreenPage(){
-        Intent intent = new Intent(this, testActivity.class);
+        Intent intent = new Intent(this, TeamMembersActivity.class);
         startActivity(intent);
     }
 

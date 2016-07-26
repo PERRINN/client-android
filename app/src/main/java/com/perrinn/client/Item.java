@@ -2,6 +2,10 @@ package com.perrinn.client;
 
 import android.graphics.Bitmap;
 
+/**
+ * Created by Antreas Christofi on 26-07-2016.
+ */
+
 
 
 public class Item {
