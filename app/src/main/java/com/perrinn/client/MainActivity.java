@@ -200,7 +200,7 @@ import java.util.ArrayList;
     }
 
     private void addTeamScreenPage(){
-        Intent intent = new Intent(this, GridActivity.class);
+        Intent intent = new Intent(this, testActivity.class);
         startActivity(intent);
     }
 
