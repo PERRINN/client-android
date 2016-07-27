@@ -16,6 +16,7 @@ import com.perrinn.client.R;
 import com.perrinn.client.adapters.DockItemAdapter;
 import com.perrinn.client.beans.DockIndicator;
 import com.perrinn.client.fragments.ProfileFragment;
+import com.perrinn.client.fragments.TeamSettingsFragment;
 import com.perrinn.client.helpers.DockItemMarginDecorator;
 
 import java.util.ArrayList;
@@ -62,29 +63,29 @@ public class SettingsActivity extends AppCompatActivity {
                 // sees the explanation, try again to request the permission.
 
             } else {
-
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.CAMERA},REQUEST_PERMISSION_CAMERA);
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    // Should we show an explanation?
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                        // Show an expanation to the user *asynchronously* -- don't block
+                        // this thread waiting for the user's response! After the user
+                        // sees the explanation, try again to request the permission.
+
+                    } else {
+
+                        ActivityCompat.requestPermissions(this,
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},REQUEST_PERMISSION_GALLERY);
+                    }
+                }
             }
         }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
-
-                // Show an expanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},REQUEST_PERMISSION_GALLERY);
-            }
-        }
-        addProfileFragment();
+        addTeamFragment();
     }
 
     @Override
@@ -107,6 +108,12 @@ public class SettingsActivity extends AppCompatActivity {
     private void addProfileFragment(){
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.settings_fragment_container, ProfileFragment.newInstance())
+                .commit();
+    }
+
+    private void addTeamFragment(){
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.settings_fragment_container, TeamSettingsFragment.newInstance())
                 .commit();
     }
 
