@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.perrinn.client.R;
@@ -115,6 +116,7 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.settings_fragment_container, TeamSettingsFragment.newInstance())
                 .commit();
+        mDock.setVisibility(View.INVISIBLE);
     }
 
     /**
