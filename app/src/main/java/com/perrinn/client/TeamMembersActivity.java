@@ -43,9 +43,6 @@ public class TeamMembersActivity extends Activity {
 		Bitmap images02Icon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_images_02);
 		Bitmap mapsIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_maps_01);
 		Bitmap microphoneIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_mic);
-		Bitmap project01Icon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_project_01);
-		Bitmap project02Icon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_project_02);
-		Bitmap public01Icon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_public_01);
 		Bitmap speakerIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_speaker);
 
 		//add team members
@@ -64,12 +61,9 @@ public class TeamMembersActivity extends Activity {
 		gridArray.add(new Item(microphoneIcon,"Mic"));
 		gridArray.add(new Item(speakerIcon,"Speaker"));
 
-		gridArray.add(new Item(guestIcon,"Guest"));
+		gridArray.add(new Item(guestIcon,"Links"));
 		gridArray.add(new Item(activityIcon,"Activity"));
-		gridArray.add(new Item(images02Icon,"Images2"));
-		//gridArray.add(new Item(project01Icon,"Project1"));
-		//gridArray.add(new Item(project02Icon,"Project2"));
-		//gridArray.add(new Item(public01Icon,"Public1"));
+		gridArray.add(new Item(images02Icon,"Video"));
 
 		gridArray.add(new Item(documentsIcon,"Documents"));
 		gridArray.add(new Item(calendarIcon,"Calendar"));
