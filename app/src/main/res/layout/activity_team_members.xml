@@ -25,14 +25,19 @@
             android:stretchMode="columnWidth"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"
-           >
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
         </GridView>
+        <include layout="@layout/perrinn_dock"
+            android:layout_below="@id/gridView1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true">
+
+        </include>
 
 
     </RelativeLayout>
-
     <TextClock
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
