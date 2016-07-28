@@ -38,7 +38,9 @@ public class TeamMembersActivity extends Activity {
 		Bitmap speakerIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_speaker);
 
 		//add team members
-
+		//FUTURE REFERENCE; item can be nullable, e.g when loading team members
+		//any unused slots(say the team has 6 instead of 8 persons) can be loaded as
+		//a null pic, empty string item to maintain layout
 
 		gridArray.add(new Item(guestIcon,"Mark"));
 		gridArray.add(new Item(guestIcon,"Aiko"));
