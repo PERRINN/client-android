@@ -40,14 +40,14 @@ public class SettingsProfileItemAdapter extends RecyclerView.Adapter<SettingsPro
     public void onBindViewHolder(ViewHolder holder, int position) {
         SettingsProfileListItem item = mItems.get(position);
         holder.mSettingsProfileListItemName.setText(item.getName());
-        if(item.getState() != null) {
+       /* if(item.getState() != null) {
             holder.mSettingsProfileListItemState.setText(item.getState());
             if (item.isImportant()) {
                 holder.mSettingsProfileListItemState.setTextColor(ContextCompat.getColor(mContext, R.color.colorSettingsProfileItemImportant));
             } else {
                 holder.mSettingsProfileListItemState.setTextColor(ContextCompat.getColor(mContext, R.color.colorSettingsProfileItem));
             }
-        }
+        }*/
     }
 
     @Override
@@ -57,12 +57,10 @@ public class SettingsProfileItemAdapter extends RecyclerView.Adapter<SettingsPro
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView mSettingsProfileListItemName;
-        public TextView mSettingsProfileListItemState;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mSettingsProfileListItemName = (TextView) itemView.findViewById(R.id.settings_profile_list_item_name);
-            mSettingsProfileListItemState = (TextView) itemView.findViewById(R.id.settings_profile_list_item_state);
         }
 
     }

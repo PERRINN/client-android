@@ -20,7 +20,7 @@ import com.perrinn.client.beans.DockIndicator;
 
 import com.perrinn.client.fragments.CreateNewProjectFragment;
 import com.perrinn.client.fragments.LandingFragment;
-import com.perrinn.client.fragments.LoadingFragment;
+import com.perrinn.client.fragments.LoginFragment;
 import com.perrinn.client.fragments.TeamFragment;
 import com.perrinn.client.fragments.ProfileFragment;
 import com.perrinn.client.fragments.ProjectFragment;
@@ -28,7 +28,7 @@ import com.perrinn.client.helpers.DockItemMarginDecorator;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements LoadingFragment.LoadingFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener {
     private RelativeLayout mDock;
     private RecyclerView mPagesIndicatorsList;
     private ImageButton mPSB;
@@ -69,7 +69,7 @@ import java.util.ArrayList;
         initDock();
 
         if (savedInstanceState == null) {
-            addLoadingFragment();
+            addLoginFragment();
         }
     }
 
@@ -137,9 +137,6 @@ import java.util.ArrayList;
         mPagesIndicatorsList.setAdapter(adapter);
         mPagesIndicatorsList.addItemDecoration(new DockItemMarginDecorator(this,
                 R.dimen.dock_indicator_right_margin));
-
-
-
     }
 
     private void startSettingsActivity(){
@@ -148,14 +145,16 @@ import java.util.ArrayList;
     }
 
     /**
-     * This method is intended to create and load the LoadingPageFragment in the main container
+     * This method is intended to create and load the LoginFragment in the main container
      * layout.
      *
      * */
-    private void addLoadingFragment(){
+    private void addLoginFragment(){
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, LoadingFragment.newInstance())
+                .add(R.id.fragment_container, LoginFragment.newInstance())
                 .commit();
+
+        this.mDock.setVisibility(View.INVISIBLE);
     }
 
     /*
@@ -167,30 +166,40 @@ import java.util.ArrayList;
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, TeamFragment.newInstance())
                 .addToBackStack(FRAGMENT_LANDING).commit();
+
+        this.mDock.setVisibility(View.VISIBLE);
     }
 
     private void addLandingPage(){
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, LandingFragment.newInstance(),FRAGMENT_LANDING)
                 .addToBackStack(FRAGMENT_LANDING).commit();
+
+        this.mDock.setVisibility(View.VISIBLE);
     }
 
     private void addProjectPage(){
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, ProjectFragment.newInstance(), FRAGMENT_PROJECT_PAGE)
                 .addToBackStack(FRAGMENT_LANDING).commit();
+
+        this.mDock.setVisibility(View.INVISIBLE);
     }
 
     private void addNewProfilePage(){
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, ProfileFragment.newInstance(), FRAGMENT_PROFILE)
                 .addToBackStack(FRAGMENT_LANDING).commit();
+
+        this.mDock.setVisibility(View.VISIBLE);
     }
 
     private void addCreateNewProjectPage(){
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, CreateNewProjectFragment.newInstance(), FRAGMENT_CREATE_NEW_PROJECT)
                 .addToBackStack(null).commit();
+
+        this.mDock.setVisibility(View.VISIBLE);
     }
 
     private void addChatPage(){
@@ -204,19 +213,39 @@ import java.util.ArrayList;
     }
 
 
-    /*
-    * //////////////////////////////////////////////////
-    * //the functions below are binded to the XML layout files and are called whenever a UI element
-    * is engaged by the user
-    * /////////////////////////////////////////////////
-    */
+
     @Override
-    public void onTextInteraction() {
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(getSupportFragmentManager().getBackStackEntryCount() == 0){
+            this.mDock.setVisibility(View.INVISIBLE); // to remove the dock on the login fragment
+        }
+    }
+
+    /*
+        * //////////////////////////////////////////////////
+        * //the functions below are binded to the XML layout files and are called whenever a UI element
+        * is engaged by the user
+        * /////////////////////////////////////////////////
+        */
+    @Override
+    public void onLoginEnterButtonInteraction() {
         addLandingPage();
     }
 
+
+    @Override
+    public void onLoginCreateTeamButtonInteraction() {
+        // TODO: implement create a team view
+    }
+
+    @Override
+    public void onLoginJoinTeamButtonInteraction() {
+        // TODO: implement join a team view
+    }
+
     public void onPressProfileButtonInteraction(View v){
-        //addNewProfilePage();
+    //addNewProfilePage();
         startSettingsActivity();
     }
     public void onPressProjectButtonInteraction(View v){addProjectPage();}
