@@ -116,7 +116,6 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.settings_fragment_container, TeamSettingsFragment.newInstance())
                 .commit();
-        mDock.setVisibility(View.INVISIBLE);
     }
 
     /**
