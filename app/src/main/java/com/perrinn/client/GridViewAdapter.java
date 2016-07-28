@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class GridViewAdapter extends ArrayAdapter<Item> {
 			holder = new RecordHolder();
 			holder.txtTitle = (TextView) row.findViewById(R.id.item_text);
 			holder.txtTitle.setTextColor(Color.WHITE);
+
 			holder.imageItem = (ImageView) row.findViewById(R.id.item_image);
 			row.setTag(holder);
 		} else {
