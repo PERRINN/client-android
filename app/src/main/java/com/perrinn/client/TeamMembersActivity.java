@@ -23,16 +23,7 @@ public class TeamMembersActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_team_members);
-		
-		//set team members
-		Bitmap t1Icon = BitmapFactory.decodeResource(this.getResources(), R.drawable.in_message_bg);
-		Bitmap t2Icon = BitmapFactory.decodeResource(this.getResources(), R.drawable.in_message_bg);
-		Bitmap t3Icon = BitmapFactory.decodeResource(this.getResources(), R.drawable.in_message_bg);
-		Bitmap t4Icon = BitmapFactory.decodeResource(this.getResources(), R.drawable.in_message_bg);
-		Bitmap t5Icon = BitmapFactory.decodeResource(this.getResources(), R.drawable.in_message_bg);
-		Bitmap t6Icon = BitmapFactory.decodeResource(this.getResources(), R.drawable.in_message_bg);
-		Bitmap t7Icon = BitmapFactory.decodeResource(this.getResources(), R.drawable.in_message_bg);
-		Bitmap t8Icon = BitmapFactory.decodeResource(this.getResources(), R.drawable.in_message_bg);
+
 		//icons
 		Bitmap chatIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_chat_01);
 		Bitmap mailIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_mail);
@@ -49,14 +40,14 @@ public class TeamMembersActivity extends Activity {
 		//add team members
 
 
-		gridArray.add(new Item(t1Icon,"Member1"));
-		gridArray.add(new Item(t2Icon,"Member2"));
-		gridArray.add(new Item(t3Icon,"Member3"));
-		gridArray.add(new Item(t4Icon,"Member4"));
-		gridArray.add(new Item(t5Icon,"Member5"));
-		gridArray.add(new Item(t6Icon,"Member6"));
-		gridArray.add(new Item(t7Icon,"Member7"));
-		gridArray.add(new Item(t8Icon,"Member8"));
+		gridArray.add(new Item(guestIcon,"Mark"));
+		gridArray.add(new Item(guestIcon,"Aiko"));
+		gridArray.add(new Item(guestIcon,"Vicky"));
+		gridArray.add(new Item(guestIcon,"Alan"));
+		gridArray.add(new Item(guestIcon,"James"));
+		gridArray.add(new Item(guestIcon,"Mathilde"));
+		gridArray.add(new Item(guestIcon,"Daniel"));
+		gridArray.add(new Item(guestIcon,"Andrea"));
 
 		//other icons
 		gridArray.add(new Item(chatIcon,"Chat"));
