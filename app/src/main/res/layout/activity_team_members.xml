@@ -4,23 +4,16 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/accent_material_light">
 
-    <include
-        android:id="@+id/perrinn_dock"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        layout="@layout/perrinn_dock" />
-
     <RelativeLayout
         android:layout_alignParentRight="true"
         android:layout_width="match_parent"
         android:layout_height="320dp"
-        android:layout_above="@+id/perrinn_dock"
         android:layout_alignParentStart="true"
         android:orientation="horizontal"
         android:id="@+id/RelLayoutTeamMembersScreen"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/textViewMessageToTeam">
+        android:layout_below="@+id/textViewMessageToTeam"
+        android:layout_alignParentBottom="true">
 
         <GridView
             android:id="@+id/gridView1"
