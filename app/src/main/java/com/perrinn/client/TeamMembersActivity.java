@@ -57,7 +57,9 @@ public class TeamMembersActivity extends Activity {
 
 		gridArray.add(new Item(guestIcon,"Links"));
 		gridArray.add(new Item(activityIcon,"Activity"));
+		gridArray.add(new Item(null, ""));
 		gridArray.add(new Item(images02Icon,"Video"));
+
 
 		gridArray.add(new Item(documentsIcon,"Documents"));
 		gridArray.add(new Item(calendarIcon,"Calendar"));
