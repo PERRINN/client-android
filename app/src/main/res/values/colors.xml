@@ -18,4 +18,7 @@
     <color name="colorLoginButtonBorder">#FFD6E3F9</color>
     <color name="colorLoginEnterButton">#FF0000FF</color>
     <color name="colorLoginButtonText">#FF666666</color>
+    <color name="colorSettingsTeam">#FF0000FF</color>
+    <color name="colorSettingsTeamHeaderBackground">#FFF3F3F3</color>
+    <color name="colorSettingsTeamHeaderTitle">#FF999999</color>
 </resources>
