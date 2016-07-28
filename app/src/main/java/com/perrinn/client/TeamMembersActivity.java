@@ -21,7 +21,7 @@ public class TeamMembersActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_teamMembers);
+		setContentView(R.layout.activity_team_members);
 		
 		//set team members
 		Bitmap t1Icon = BitmapFactory.decodeResource(this.getResources(), R.drawable.in_message_bg);
@@ -34,6 +34,7 @@ public class TeamMembersActivity extends Activity {
 		Bitmap t8Icon = BitmapFactory.decodeResource(this.getResources(), R.drawable.in_message_bg);
 		//icons
 		Bitmap chatIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_chat_01);
+		Bitmap mailIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_mail);
 		Bitmap calendarIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_calendar);
 		Bitmap activityIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_activity);
 		Bitmap documentsIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_documents);
@@ -60,20 +61,22 @@ public class TeamMembersActivity extends Activity {
 
 		//other icons
 		gridArray.add(new Item(chatIcon,"Chat"));
-		gridArray.add(new Item(calendarIcon,"Calendar"));
-		gridArray.add(new Item(activityIcon,"Activity"));
-		gridArray.add(new Item(documentsIcon,"Documents"));
-		gridArray.add(new Item(guestIcon,"Guest"));
-		gridArray.add(new Item(images01Icon,"Images1"));
-		gridArray.add(new Item(images02Icon,"Images2"));
-		gridArray.add(new Item(mapsIcon,"Maps"));
+		gridArray.add(new Item(mailIcon, "Mail"));
 		gridArray.add(new Item(microphoneIcon,"Mic"));
+		gridArray.add(new Item(speakerIcon,"Speaker"));
+
+		gridArray.add(new Item(guestIcon,"Guest"));
+		gridArray.add(new Item(activityIcon,"Activity"));
+		gridArray.add(new Item(images02Icon,"Images2"));
 		gridArray.add(new Item(plusIcon,"Plus"));
 		gridArray.add(new Item(project01Icon,"Project1"));
 		gridArray.add(new Item(project02Icon,"Project2"));
 		gridArray.add(new Item(public01Icon,"Public1"));
-		gridArray.add(new Item(speakerIcon,"Speaker"));
 
+		gridArray.add(new Item(documentsIcon,"Documents"));
+		gridArray.add(new Item(calendarIcon,"Calendar"));
+		gridArray.add(new Item(images01Icon,"Images"));
+		gridArray.add(new Item(mapsIcon,"Maps"));
 
 		gridView = (GridView) findViewById(R.id.gridView1);
 		customGridAdapter = new GridViewAdapter(this, R.layout.row_grid, gridArray);
