@@ -3,6 +3,7 @@ package com.perrinn.client;
 import java.util.ArrayList;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -46,6 +47,8 @@ public class TeamMembersActivity extends Activity {
 		Bitmap speakerIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_speaker);
 
 		//add team members
+
+
 		gridArray.add(new Item(t1Icon,"Member1"));
 		gridArray.add(new Item(t2Icon,"Member2"));
 		gridArray.add(new Item(t3Icon,"Member3"));
