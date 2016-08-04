@@ -52,7 +52,7 @@ public class GridViewAdapter extends ArrayAdapter<Item> {
 
 		Item item = data.get(position);
 		holder.txtTitle.setText(item.getTitle());
-		holder.imageItem.setImageBitmap(item.getImage());
+		holder.imageItem.setImageDrawable(item.getImage());
 		return row;
 
 	}

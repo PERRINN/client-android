@@ -1,6 +1,8 @@
 package com.perrinn.client;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.VectorDrawable;
+import android.support.graphics.drawable.VectorDrawableCompat;
 
 /**
  * Created by Antreas Christofi on 26-07-2016.
@@ -9,18 +11,18 @@ import android.graphics.Bitmap;
 
 
 public class Item {
-	Bitmap image;
+	VectorDrawableCompat image;
 	String title;
 	
-	public Item(Bitmap image, String title) {
+	public Item(VectorDrawableCompat image, String title) {
 		super();
 		this.image = image;
 		this.title = title;
 	}
-	public Bitmap getImage() {
+	public VectorDrawableCompat getImage() {
 		return image;
 	}
-	public void setImage(Bitmap image) {
+	public void setImage(VectorDrawableCompat image) {
 		this.image = image;
 	}
 	public String getTitle() {
