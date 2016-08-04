@@ -3,14 +3,9 @@ package com.perrinn.client;
 import java.util.ArrayList;
 
 
-import android.graphics.Color;
-import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.graphics.drawable.VectorDrawableCompat;
-import android.support.v4.content.ContextCompat;
 import android.widget.GridView;
 
 /**
@@ -25,7 +20,7 @@ public class TeamMembersActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_team_members);
+		setContentView(R.layout.fragment_team_members);
 
 		//icons
 		/*Bitmap chatIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_chat_01);
