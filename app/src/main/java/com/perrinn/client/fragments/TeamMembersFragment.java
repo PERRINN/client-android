@@ -1,26 +1,35 @@
-package com.perrinn.client;
+package com.perrinn.client.fragments;
 
 import java.util.ArrayList;
 
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.annotation.Nullable;
 import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridView;
+
+import com.perrinn.client.GridViewAdapter;
+import com.perrinn.client.Item;
+import com.perrinn.client.R;
 
 /**
  * Created by Antreas Christofi on 26-07-2016.
  */
 
-public class TeamMembersActivity extends Activity {
+public class TeamMembersFragment extends Fragment {
 	GridView gridView;
 	ArrayList<Item> gridArray = new ArrayList<Item>();
-	 GridViewAdapter customGridAdapter;
+	GridViewAdapter customGridAdapter;
 
+	@Nullable
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_team_members);
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.fragment_team_members,container,false);
 
 		//icons
 		/*Bitmap chatIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_chat_01);
@@ -79,9 +88,15 @@ public class TeamMembersActivity extends Activity {
 		gridArray.add(new Item(images01Icon,"Images"));
 		gridArray.add(new Item(mapsIcon,"Maps"));
 
-		gridView = (GridView) findViewById(R.id.gridView1);
-		customGridAdapter = new GridViewAdapter(this, R.layout.row_grid, gridArray);
+		gridView = (GridView) rootView.findViewById(R.id.gridView1);
+		customGridAdapter = new GridViewAdapter(getContext(), R.layout.row_grid, gridArray);
 		gridView.setAdapter(customGridAdapter);
+		return rootView;
+	}
+
+	public static TeamMembersFragment newInstance(){
+		TeamMembersFragment fragment = new TeamMembersFragment();
+		return fragment;
 	}
 
 }

@@ -4,6 +4,7 @@ package com.perrinn.client;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 import com.perrinn.client.activities.ChatActivity;
 import com.perrinn.client.activities.SettingsActivity;
 import com.perrinn.client.adapters.DockItemAdapter;
+import com.perrinn.client.adapters.MainPagerAdapter;
 import com.perrinn.client.beans.DockIndicator;
 
 import com.perrinn.client.fragments.CreateNewProjectFragment;
@@ -24,9 +26,12 @@ import com.perrinn.client.fragments.LoginFragment;
 import com.perrinn.client.fragments.TeamFragment;
 import com.perrinn.client.fragments.ProfileFragment;
 import com.perrinn.client.fragments.ProjectFragment;
+import com.perrinn.client.fragments.TeamMembersFragment;
 import com.perrinn.client.helpers.DockItemMarginDecorator;
+import com.perrinn.client.helpers.ToggledViewPager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener {
     private RelativeLayout mDock;
@@ -40,9 +45,10 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     private static final String FRAGMENT_CREATE_NEW_PROJECT = "com.perrinn.client.fragments.FRAGMENT_NEW_PROJECT";
     private static final String FRAGMENT_TEAMS = "com.perrinn.client.fragments.FRAGMENT_TEAMS";
     private static final String FRAGMENT_CHAT = "com.perrinn.client.fragments.FRAGMENT_CHAT_SCREEN";
-   /*
-import java.util.ArrayList;
+    private static final String FRAGMENT_TEAM_MEMBERS = "com.perrinn.client.fragments.FRAGMENT_TEAM_MEMBERS";
 
+    private ToggledViewPager mFragmentPagerMain;
+    private MainPagerAdapter mFragmentPagerMainAdapter;
 
     /*
     * //////////////////////////////////////////////////
@@ -57,8 +63,13 @@ import java.util.ArrayList;
         mDock = (RelativeLayout) findViewById(R.id.dock);
         mPagesIndicatorsList = (RecyclerView) findViewById(R.id.pages_indicators_list);
         mPSB = (ImageButton) findViewById(R.id.psb);
+        mFragmentPagerMain = (ToggledViewPager) findViewById(R.id.fragment_pager_main);
 
-                // setting dummy dots for the moment
+        mFragmentPagerMainAdapter = new MainPagerAdapter(getSupportFragmentManager(),null);
+        mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
+        mFragmentPagerMain.setSwipeEnabled(false);
+
+        // setting dummy dots for the moment
         mIndicators.add(new DockIndicator(true));
         mIndicators.add(new DockIndicator(false));
         mIndicators.add(new DockIndicator(false));
@@ -71,6 +82,7 @@ import java.util.ArrayList;
         if (savedInstanceState == null) {
             addLoginFragment();
         }
+
     }
 
     @Override
@@ -150,10 +162,12 @@ import java.util.ArrayList;
      *
      * */
     private void addLoginFragment(){
-        getSupportFragmentManager().beginTransaction()
+        /*getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, LoginFragment.newInstance())
-                .commit();
-
+                .commit();*/
+        mFragmentPagerMainAdapter.addNewFragment(FRAGMENT_LOADING,LoginFragment.newInstance());
+        mFragmentPagerMainAdapter.notifyDataSetChanged();
+        mFragmentPagerMain.setCurrentItem(0);
         this.mDock.setVisibility(View.INVISIBLE);
     }
 
@@ -162,7 +176,7 @@ import java.util.ArrayList;
 * //the methods below are responsible for switching fragments inside mainactivity
 * /////////////////////////////////////////////////
 */
-    private void addTeamFragment(){
+    /*private void addTeamFragment(){
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, TeamFragment.newInstance())
                 .addToBackStack(FRAGMENT_LANDING).commit();
@@ -200,7 +214,7 @@ import java.util.ArrayList;
                 .addToBackStack(null).commit();
 
         this.mDock.setVisibility(View.VISIBLE);
-    }
+    }*/
 
     private void addChatPage(){
         Intent intent = new Intent(this, ChatActivity.class);
@@ -208,8 +222,16 @@ import java.util.ArrayList;
     }
 
     private void addTeamScreenPage(){
-        Intent intent = new Intent(this, TeamMembersActivity.class);
-        startActivity(intent);
+        /*Intent intent = new Intent(this, TeamMembersActivity.class);
+        startActivity(intent);*/
+        mFragmentPagerMainAdapter.removeFragment(FRAGMENT_LOADING);
+        mFragmentPagerMainAdapter.notifyDataSetChanged();
+        mFragmentPagerMainAdapter.addNewFragment(FRAGMENT_TEAM_MEMBERS, TeamMembersFragment.newInstance());
+        mFragmentPagerMainAdapter.notifyDataSetChanged();
+        mFragmentPagerMain.setCurrentItem(0);
+        mFragmentPagerMain.setSwipeEnabled(true);
+        this.mDock.setVisibility(View.VISIBLE);
+
     }
 
 
@@ -230,7 +252,8 @@ import java.util.ArrayList;
         */
     @Override
     public void onLoginEnterButtonInteraction() {
-        addLandingPage();
+        //addLandingPage();
+        addTeamScreenPage();
     }
 
 
@@ -248,16 +271,18 @@ import java.util.ArrayList;
     //addNewProfilePage();
         startSettingsActivity();
     }
-    public void onPressProjectButtonInteraction(View v){addProjectPage();}
+    public void onPressProjectButtonInteraction(View v){
+        //addProjectPage();
+    }
     public void onPressCreateNewProjectButtonInteraction(View v){
         System.out.println("got to onPressNewProjectButtonInteraction reached");
-        addCreateNewProjectPage();
+        //addCreateNewProjectPage();
         System.out.println("Exiting function");
     }
     public void onPressChatButton(View v){ addChatPage(); }
     public void onPressTeamsButton(View v){
         //addTeamsPage();
-        addTeamFragment();
+        //addTeamFragment();
     }
     public void onPressTeamScreenButton(View v){
         addTeamScreenPage();
