@@ -53,6 +53,9 @@ public class GridViewAdapter extends ArrayAdapter<Item> {
 		Item item = data.get(position);
 		holder.txtTitle.setText(item.getTitle());
 		holder.imageItem.setImageDrawable(item.getImage());
+		View.OnClickListener itemListener = item.getAttachedListener();
+		if(itemListener != null)
+			row.setOnClickListener(itemListener);
 		return row;
 
 	}
