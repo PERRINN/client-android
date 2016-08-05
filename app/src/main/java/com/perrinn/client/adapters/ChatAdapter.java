@@ -100,6 +100,7 @@ public class ChatAdapter extends BaseAdapter {
 
         boolean myMsg = chatMessage.getIsme() ;//Just a dummy check to simulate whether it me or other sender
         holder.txtMessage.setText(chatMessage.getMessage());
+
         String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
         holder.txtInfo.setText(Html.fromHtml("<font color=black> <b>" + chatMessage.getUsername() + "</b></font>" + " " + timeStamp));
 
