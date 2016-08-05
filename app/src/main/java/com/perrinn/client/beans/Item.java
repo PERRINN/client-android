@@ -1,4 +1,4 @@
-package com.perrinn.client;
+package com.perrinn.client.beans;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.VectorDrawable;
