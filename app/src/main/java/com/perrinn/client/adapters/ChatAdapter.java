@@ -2,6 +2,9 @@ package com.perrinn.client.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,8 @@ import android.widget.TextView;
 import com.perrinn.client.objects.ChatMessage;
 import com.perrinn.client.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -95,7 +100,9 @@ public class ChatAdapter extends BaseAdapter {
 
         boolean myMsg = chatMessage.getIsme() ;//Just a dummy check to simulate whether it me or other sender
         holder.txtMessage.setText(chatMessage.getMessage());
-        holder.txtInfo.setText(chatMessage.getUsername());
+        holder.txtInfo.setTextColor(Color.BLACK);
+        String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+        holder.txtInfo.setText(Html.fromHtml("<b>" + chatMessage.getUsername() + "</b>" + " " + timeStamp));
 
 
         return convertView;

@@ -59,8 +59,8 @@ public class ChatFragment extends Fragment {
                 ChatMessage chatMessage = new ChatMessage();
                 chatMessage.setId(1);//dummy
                 chatMessage.setMessage(messageText);
-                String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
-                chatMessage.setUsername("Nicolas " + timeStamp);
+
+                chatMessage.setUsername("Nicolas ");
                 chatMessage.setMe(true);
 
 
