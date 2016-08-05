@@ -15,12 +15,12 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
-import com.perrinn.client.activities.ChatActivity;
 import com.perrinn.client.activities.SettingsActivity;
 import com.perrinn.client.adapters.DockItemAdapter;
 import com.perrinn.client.adapters.MainPagerAdapter;
 import com.perrinn.client.beans.DockIndicator;
 
+import com.perrinn.client.fragments.ChatFragment;
 import com.perrinn.client.fragments.CreateNewProjectFragment;
 import com.perrinn.client.fragments.LandingFragment;
 import com.perrinn.client.fragments.LoginFragment;
@@ -34,7 +34,8 @@ import com.perrinn.client.helpers.ToggledViewPager;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener, TeamMembersFragment.OnTeamMembersFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener,
+        TeamMembersFragment.OnTeamMembersFragmentInteractionListener {
     private RelativeLayout mDock;
     private RecyclerView mPagesIndicatorsList;
     private ImageButton mPSB;
@@ -274,8 +275,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }*/
 
     private void addChatPage(){
-        Intent intent = new Intent(this, ChatActivity.class);
-        startActivity(intent);
+        switchToOneFragment(FRAGMENT_CHAT,ChatFragment.newInstance(),true);
+        this.mDock.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -365,6 +366,10 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     public void onPressProfileButtonInteraction(View v){
     //addNewProfilePage();
         startSettingsActivity();
+    }
+
+    public void onPressChatButtonInteraction(View v){
+        addChatPage();
     }
     public void onPressProjectButtonInteraction(View v){
         //addProjectPage();
