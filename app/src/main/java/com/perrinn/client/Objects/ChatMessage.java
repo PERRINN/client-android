@@ -13,7 +13,7 @@ public class ChatMessage {
     private boolean isMe;
     private String message;
     private Long userId;
-    private String dateTime;
+    private String username;
 
     /*
 * //////////////////////////////////////////////////
@@ -52,11 +52,11 @@ public class ChatMessage {
         this.userId = userId;
     }
 
-    public String getDate() {
-        return dateTime;
+    public String getUsername() {
+        return username;
     }
 
-    public void setDate(String dateTime) {
-        this.dateTime = dateTime;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

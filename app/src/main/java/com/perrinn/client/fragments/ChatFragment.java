@@ -1,7 +1,9 @@
 package com.perrinn.client.fragments;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -57,7 +59,8 @@ public class ChatFragment extends Fragment {
                 ChatMessage chatMessage = new ChatMessage();
                 chatMessage.setId(1);//dummy
                 chatMessage.setMessage(messageText);
-                chatMessage.setDate(DateFormat.getDateTimeInstance().format(new Date()));
+                String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+                chatMessage.setUsername("Nicolas " + timeStamp);
                 chatMessage.setMe(true);
 
 
