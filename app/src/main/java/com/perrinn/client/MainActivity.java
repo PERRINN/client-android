@@ -3,6 +3,7 @@ package com.perrinn.client;
 
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +34,7 @@ import com.perrinn.client.helpers.ToggledViewPager;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener, TeamMembersFragment.OnTeamMembersFragmentInteractionListener {
     private RelativeLayout mDock;
     private RecyclerView mPagesIndicatorsList;
     private ImageButton mPSB;
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         if (savedInstanceState == null) {
             addLoginFragment();
         }
+        mPagesIndicatorsList.setAdapter(new DockItemAdapter(this,mIndicators));
 
     }
 
@@ -119,6 +121,61 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         super.onStop();
     }
 
+    @Override
+    public void onChatButtonPressed() {
+        addChatPage();
+    }
+
+    @Override
+    public void onMailButtonPressed() {
+
+    }
+
+    @Override
+    public void onCalendarButtonPressed() {
+
+    }
+
+    @Override
+    public void onActivityButtonPressed() {
+
+    }
+
+    @Override
+    public void onDocumentsButtonPressed() {
+
+    }
+
+    @Override
+    public void onGuestButtonPressed() {
+
+    }
+
+    @Override
+    public void onImages01ButtonPressed() {
+
+    }
+
+    @Override
+    public void onImages02ButtonPressed() {
+
+    }
+
+    @Override
+    public void onMapsButtonPressed() {
+
+    }
+
+    @Override
+    public void onMicButtonPressed() {
+
+    }
+
+    @Override
+    public void onSpeakerButtonPressed() {
+
+    }
+
     /*
     * //////////////////////////////////////////////////
     * // Private methods
@@ -146,7 +203,6 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                 startSettingsActivity();
             }
         });
-        mPagesIndicatorsList.setAdapter(adapter);
         mPagesIndicatorsList.addItemDecoration(new DockItemMarginDecorator(this,
                 R.dimen.dock_indicator_right_margin));
     }
@@ -165,9 +221,10 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         /*getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, LoginFragment.newInstance())
                 .commit();*/
-        mFragmentPagerMainAdapter.addNewFragment(FRAGMENT_LOADING,LoginFragment.newInstance());
+        /*mFragmentPagerMainAdapter.addNewFragment(FRAGMENT_LOADING,LoginFragment.newInstance());
         mFragmentPagerMainAdapter.notifyDataSetChanged();
-        mFragmentPagerMain.setCurrentItem(0);
+        mFragmentPagerMain.setCurrentItem(0);*/
+        switchToOneFragment(FRAGMENT_LOADING,LoginFragment.newInstance(),true);
         this.mDock.setVisibility(View.INVISIBLE);
     }
 
@@ -221,17 +278,53 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         startActivity(intent);
     }
 
-    private void addTeamScreenPage(){
-        /*Intent intent = new Intent(this, TeamMembersActivity.class);
-        startActivity(intent);*/
-        mFragmentPagerMainAdapter.removeFragment(FRAGMENT_LOADING);
+    /**
+     * This method allows the switch between a single fragment shown to
+     * the teams screens in the viewpager.
+     *
+     * @param oldFragmentTag the tag of the single fragment if suppression is needed.
+     * */
+    private void switchToTeamMembersScreen(String oldFragmentTag){
+        mFragmentPagerMainAdapter.removeFragment(oldFragmentTag);
         mFragmentPagerMainAdapter.notifyDataSetChanged();
-        mFragmentPagerMainAdapter.addNewFragment(FRAGMENT_TEAM_MEMBERS, TeamMembersFragment.newInstance());
-        mFragmentPagerMainAdapter.notifyDataSetChanged();
-        mFragmentPagerMain.setCurrentItem(0);
         mFragmentPagerMain.setSwipeEnabled(true);
         this.mDock.setVisibility(View.VISIBLE);
 
+    }
+
+    /**
+     * This method adds a new TeamMembersFragment to the viewpager.
+     *
+     * @param tag the tag of the new fragment.
+     * @param rebuild if the adapter needs to be reset.
+     * @param transit transition needed to the freshly added fragment.
+     * */
+    private void addNewTeamMembersFragment(String tag, boolean rebuild, boolean transit){
+        if(rebuild){
+            mFragmentPagerMainAdapter.addNewFragment("TEAM_MEMBERS_MARKETING", TeamMembersFragment.newInstance());
+            mFragmentPagerMainAdapter.notifyDataSetChanged();
+            mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
+        }
+        mFragmentPagerMainAdapter.addNewFragment(tag, TeamMembersFragment.newInstance());
+        mFragmentPagerMainAdapter.notifyDataSetChanged();
+        if(transit)
+            mFragmentPagerMain.setCurrentItem(mFragmentPagerMainAdapter.goToFragment(tag));
+    }
+
+    /**
+     * This method allows the switch between the teams members viewpager to a single fragment showing.
+     *
+     * @param tag the tag of the single fragment's tag.
+     * @param fragment the single fragment to add.
+     * @param rebuild if the adapter has to be reset.
+     * */
+    private void switchToOneFragment(String tag, Fragment fragment, boolean rebuild){
+        mFragmentPagerMain.setSwipeEnabled(false);
+        mFragmentPagerMainAdapter.addNewFragment(tag,fragment);
+        mFragmentPagerMainAdapter.notifyDataSetChanged();
+        if(rebuild)
+            mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
+        mFragmentPagerMain.setCurrentItem(mFragmentPagerMainAdapter.goToFragment(tag));
     }
 
 
@@ -253,7 +346,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     @Override
     public void onLoginEnterButtonInteraction() {
         //addLandingPage();
-        addTeamScreenPage();
+        switchToTeamMembersScreen(FRAGMENT_LOADING);
+        addNewTeamMembersFragment("TEAM_MEMBERS_MARKETING",true,false);
+        addNewTeamMembersFragment("TEAM_MEMBERS_FRIENDS",false,false);
     }
 
 
@@ -285,6 +380,10 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         //addTeamFragment();
     }
     public void onPressTeamScreenButton(View v){
-        addTeamScreenPage();
+        switchToTeamMembersScreen(FRAGMENT_LOADING);
+        addNewTeamMembersFragment("TEAM_MEMBERS_MARKETING",true,false);
+        addNewTeamMembersFragment("TEAM_MEMBERS_FRIENDS",false,false);
     }
+
+
 }

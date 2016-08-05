@@ -3,8 +3,8 @@ package com.perrinn.client.fragments;
 import java.util.ArrayList;
 
 
+import android.content.Context;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.annotation.Nullable;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.app.Fragment;
@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
-import com.perrinn.client.GridViewAdapter;
-import com.perrinn.client.Item;
+import com.perrinn.client.adapters.GridViewAdapter;
+import com.perrinn.client.beans.Item;
 import com.perrinn.client.R;
 
 /**
@@ -25,6 +25,7 @@ public class TeamMembersFragment extends Fragment {
 	GridView gridView;
 	ArrayList<Item> gridArray = new ArrayList<Item>();
 	GridViewAdapter customGridAdapter;
+	private OnTeamMembersFragmentInteractionListener mListener;
 
 	@Nullable
 	@Override
@@ -72,21 +73,76 @@ public class TeamMembersFragment extends Fragment {
 		gridArray.add(new Item(guestIcon,"Andrea"));
 
 		//other icons
-		gridArray.add(new Item(chatIcon,"Chat"));
-		gridArray.add(new Item(mailIcon, "Mail"));
-		gridArray.add(new Item(microphoneIcon,"Mic"));
-		gridArray.add(new Item(speakerIcon,"Speaker"));
+		gridArray.add(new Item(chatIcon, "Chat", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onChatButtonPressed();
+			}
+		}));
+		gridArray.add(new Item(mailIcon, "Mail", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onMailButtonPressed();
+			}
+		}));
+		gridArray.add(new Item(microphoneIcon, "Mic", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onMicButtonPressed();
+			}
+		}));
+		gridArray.add(new Item(speakerIcon, "Speaker", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onSpeakerButtonPressed();
+			}
+		}));
 
-		gridArray.add(new Item(guestIcon,"Links"));
-		gridArray.add(new Item(activityIcon,"Activity"));
+		gridArray.add(new Item(guestIcon, "Links", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onGuestButtonPressed();
+			}
+		}));
+		gridArray.add(new Item(activityIcon, "Activity", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onActivityButtonPressed();
+			}
+		}));
 		gridArray.add(new Item(null, ""));
-		gridArray.add(new Item(images02Icon,"Video"));
+		gridArray.add(new Item(images02Icon, "Video", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onImages02ButtonPressed();
+			}
+		}));
 
 
-		gridArray.add(new Item(documentsIcon,"Documents"));
-		gridArray.add(new Item(calendarIcon,"Calendar"));
-		gridArray.add(new Item(images01Icon,"Images"));
-		gridArray.add(new Item(mapsIcon,"Maps"));
+		gridArray.add(new Item(documentsIcon, "Documents", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onDocumentsButtonPressed();
+			}
+		}));
+		gridArray.add(new Item(calendarIcon, "Calendar", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onCalendarButtonPressed();
+			}
+		}));
+		gridArray.add(new Item(images01Icon, "Images", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onImages01ButtonPressed();
+			}
+		}));
+		gridArray.add(new Item(mapsIcon, "Maps", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onMapsButtonPressed();
+			}
+		}));
 
 		gridView = (GridView) rootView.findViewById(R.id.gridView1);
 		customGridAdapter = new GridViewAdapter(getContext(), R.layout.row_grid, gridArray);
@@ -97,6 +153,31 @@ public class TeamMembersFragment extends Fragment {
 	public static TeamMembersFragment newInstance(){
 		TeamMembersFragment fragment = new TeamMembersFragment();
 		return fragment;
+	}
+
+	@Override
+	public void onAttach(Context context) {
+		super.onAttach(context);
+		if(context instanceof OnTeamMembersFragmentInteractionListener){
+			mListener = (OnTeamMembersFragmentInteractionListener) context;
+		}else{
+			throw new RuntimeException(context.toString()
+					+" must implement the OnTeamMembersFragmentInteractionListener.");
+		}
+	}
+
+	public interface OnTeamMembersFragmentInteractionListener{
+		void onChatButtonPressed();
+		void onMailButtonPressed();
+		void onCalendarButtonPressed();
+		void onActivityButtonPressed();
+		void onDocumentsButtonPressed();
+		void onGuestButtonPressed();
+		void onImages01ButtonPressed();
+		void onImages02ButtonPressed();
+		void onMapsButtonPressed();
+		void onMicButtonPressed();
+		void onSpeakerButtonPressed();
 	}
 
 }
