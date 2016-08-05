@@ -37,6 +37,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener,
         TeamMembersFragment.OnTeamMembersFragmentInteractionListener {
     private RelativeLayout mDock;
+    public RelativeLayout modifiedDock;
     private RecyclerView mPagesIndicatorsList;
     private ImageButton mPSB;
     private ArrayList<DockIndicator> mIndicators = new ArrayList<>();
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDock = (RelativeLayout) findViewById(R.id.dock);
+        modifiedDock = (RelativeLayout) findViewById(R.id.chatdock);
+
         mPagesIndicatorsList = (RecyclerView) findViewById(R.id.pages_indicators_list);
         mPSB = (ImageButton) findViewById(R.id.psb);
         mFragmentPagerMain = (ToggledViewPager) findViewById(R.id.fragment_pager_main);
@@ -275,8 +278,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }*/
 
     private void addChatPage(){
+
         switchToOneFragment(FRAGMENT_CHAT,ChatFragment.newInstance(),true);
-        this.mDock.setVisibility(View.VISIBLE);
+        this.mDock.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -370,6 +374,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
     public void onPressChatButtonInteraction(View v){
         addChatPage();
+
     }
     public void onPressProjectButtonInteraction(View v){
         //addProjectPage();
@@ -379,7 +384,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         //addCreateNewProjectPage();
         System.out.println("Exiting function");
     }
-    public void onPressChatButton(View v){ addChatPage(); }
+    public void onPressChatButton(View v){ addChatPage();}
     public void onPressTeamsButton(View v){
         //addTeamsPage();
         //addTeamFragment();
