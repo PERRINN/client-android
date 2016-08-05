@@ -3,7 +3,9 @@ package com.perrinn.client;
 
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +18,7 @@ import android.widget.RelativeLayout;
 import com.perrinn.client.activities.ChatActivity;
 import com.perrinn.client.activities.SettingsActivity;
 import com.perrinn.client.adapters.DockItemAdapter;
+import com.perrinn.client.adapters.MainPagerAdapter;
 import com.perrinn.client.beans.DockIndicator;
 
 import com.perrinn.client.fragments.CreateNewProjectFragment;
@@ -24,11 +27,14 @@ import com.perrinn.client.fragments.LoginFragment;
 import com.perrinn.client.fragments.TeamFragment;
 import com.perrinn.client.fragments.ProfileFragment;
 import com.perrinn.client.fragments.ProjectFragment;
+import com.perrinn.client.fragments.TeamMembersFragment;
 import com.perrinn.client.helpers.DockItemMarginDecorator;
+import com.perrinn.client.helpers.ToggledViewPager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener, TeamMembersFragment.OnTeamMembersFragmentInteractionListener {
     private RelativeLayout mDock;
     private RecyclerView mPagesIndicatorsList;
     private ImageButton mPSB;
@@ -40,9 +46,10 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     private static final String FRAGMENT_CREATE_NEW_PROJECT = "com.perrinn.client.fragments.FRAGMENT_NEW_PROJECT";
     private static final String FRAGMENT_TEAMS = "com.perrinn.client.fragments.FRAGMENT_TEAMS";
     private static final String FRAGMENT_CHAT = "com.perrinn.client.fragments.FRAGMENT_CHAT_SCREEN";
-   /*
-import java.util.ArrayList;
+    private static final String FRAGMENT_TEAM_MEMBERS = "com.perrinn.client.fragments.FRAGMENT_TEAM_MEMBERS";
 
+    private ToggledViewPager mFragmentPagerMain;
+    private MainPagerAdapter mFragmentPagerMainAdapter;
 
     /*
     * //////////////////////////////////////////////////
@@ -57,8 +64,13 @@ import java.util.ArrayList;
         mDock = (RelativeLayout) findViewById(R.id.dock);
         mPagesIndicatorsList = (RecyclerView) findViewById(R.id.pages_indicators_list);
         mPSB = (ImageButton) findViewById(R.id.psb);
+        mFragmentPagerMain = (ToggledViewPager) findViewById(R.id.fragment_pager_main);
 
-                // setting dummy dots for the moment
+        mFragmentPagerMainAdapter = new MainPagerAdapter(getSupportFragmentManager(),null);
+        mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
+        mFragmentPagerMain.setSwipeEnabled(false);
+
+        // setting dummy dots for the moment
         mIndicators.add(new DockIndicator(true));
         mIndicators.add(new DockIndicator(false));
         mIndicators.add(new DockIndicator(false));
@@ -71,6 +83,8 @@ import java.util.ArrayList;
         if (savedInstanceState == null) {
             addLoginFragment();
         }
+        mPagesIndicatorsList.setAdapter(new DockItemAdapter(this,mIndicators));
+
     }
 
     @Override
@@ -107,6 +121,61 @@ import java.util.ArrayList;
         super.onStop();
     }
 
+    @Override
+    public void onChatButtonPressed() {
+        addChatPage();
+    }
+
+    @Override
+    public void onMailButtonPressed() {
+
+    }
+
+    @Override
+    public void onCalendarButtonPressed() {
+
+    }
+
+    @Override
+    public void onActivityButtonPressed() {
+
+    }
+
+    @Override
+    public void onDocumentsButtonPressed() {
+
+    }
+
+    @Override
+    public void onGuestButtonPressed() {
+
+    }
+
+    @Override
+    public void onImages01ButtonPressed() {
+
+    }
+
+    @Override
+    public void onImages02ButtonPressed() {
+
+    }
+
+    @Override
+    public void onMapsButtonPressed() {
+
+    }
+
+    @Override
+    public void onMicButtonPressed() {
+
+    }
+
+    @Override
+    public void onSpeakerButtonPressed() {
+
+    }
+
     /*
     * //////////////////////////////////////////////////
     * // Private methods
@@ -134,7 +203,6 @@ import java.util.ArrayList;
                 startSettingsActivity();
             }
         });
-        mPagesIndicatorsList.setAdapter(adapter);
         mPagesIndicatorsList.addItemDecoration(new DockItemMarginDecorator(this,
                 R.dimen.dock_indicator_right_margin));
     }
@@ -150,10 +218,13 @@ import java.util.ArrayList;
      *
      * */
     private void addLoginFragment(){
-        getSupportFragmentManager().beginTransaction()
+        /*getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, LoginFragment.newInstance())
-                .commit();
-
+                .commit();*/
+        /*mFragmentPagerMainAdapter.addNewFragment(FRAGMENT_LOADING,LoginFragment.newInstance());
+        mFragmentPagerMainAdapter.notifyDataSetChanged();
+        mFragmentPagerMain.setCurrentItem(0);*/
+        switchToOneFragment(FRAGMENT_LOADING,LoginFragment.newInstance(),true);
         this.mDock.setVisibility(View.INVISIBLE);
     }
 
@@ -162,7 +233,7 @@ import java.util.ArrayList;
 * //the methods below are responsible for switching fragments inside mainactivity
 * /////////////////////////////////////////////////
 */
-    private void addTeamFragment(){
+    /*private void addTeamFragment(){
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, TeamFragment.newInstance())
                 .addToBackStack(FRAGMENT_LANDING).commit();
@@ -200,16 +271,60 @@ import java.util.ArrayList;
                 .addToBackStack(null).commit();
 
         this.mDock.setVisibility(View.VISIBLE);
-    }
+    }*/
 
     private void addChatPage(){
         Intent intent = new Intent(this, ChatActivity.class);
         startActivity(intent);
     }
 
-    private void addTeamScreenPage(){
-        Intent intent = new Intent(this, TeamMembersActivity.class);
-        startActivity(intent);
+    /**
+     * This method allows the switch between a single fragment shown to
+     * the teams screens in the viewpager.
+     *
+     * @param oldFragmentTag the tag of the single fragment if suppression is needed.
+     * */
+    private void switchToTeamMembersScreen(String oldFragmentTag){
+        mFragmentPagerMainAdapter.removeFragment(oldFragmentTag);
+        mFragmentPagerMainAdapter.notifyDataSetChanged();
+        mFragmentPagerMain.setSwipeEnabled(true);
+        this.mDock.setVisibility(View.VISIBLE);
+
+    }
+
+    /**
+     * This method adds a new TeamMembersFragment to the viewpager.
+     *
+     * @param tag the tag of the new fragment.
+     * @param rebuild if the adapter needs to be reset.
+     * @param transit transition needed to the freshly added fragment.
+     * */
+    private void addNewTeamMembersFragment(String tag, boolean rebuild, boolean transit){
+        if(rebuild){
+            mFragmentPagerMainAdapter.addNewFragment("TEAM_MEMBERS_MARKETING", TeamMembersFragment.newInstance());
+            mFragmentPagerMainAdapter.notifyDataSetChanged();
+            mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
+        }
+        mFragmentPagerMainAdapter.addNewFragment(tag, TeamMembersFragment.newInstance());
+        mFragmentPagerMainAdapter.notifyDataSetChanged();
+        if(transit)
+            mFragmentPagerMain.setCurrentItem(mFragmentPagerMainAdapter.goToFragment(tag));
+    }
+
+    /**
+     * This method allows the switch between the teams members viewpager to a single fragment showing.
+     *
+     * @param tag the tag of the single fragment's tag.
+     * @param fragment the single fragment to add.
+     * @param rebuild if the adapter has to be reset.
+     * */
+    private void switchToOneFragment(String tag, Fragment fragment, boolean rebuild){
+        mFragmentPagerMain.setSwipeEnabled(false);
+        mFragmentPagerMainAdapter.addNewFragment(tag,fragment);
+        mFragmentPagerMainAdapter.notifyDataSetChanged();
+        if(rebuild)
+            mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
+        mFragmentPagerMain.setCurrentItem(mFragmentPagerMainAdapter.goToFragment(tag));
     }
 
 
@@ -230,7 +345,10 @@ import java.util.ArrayList;
         */
     @Override
     public void onLoginEnterButtonInteraction() {
-        addLandingPage();
+        //addLandingPage();
+        switchToTeamMembersScreen(FRAGMENT_LOADING);
+        addNewTeamMembersFragment("TEAM_MEMBERS_MARKETING",true,false);
+        addNewTeamMembersFragment("TEAM_MEMBERS_FRIENDS",false,false);
     }
 
 
@@ -248,18 +366,24 @@ import java.util.ArrayList;
     //addNewProfilePage();
         startSettingsActivity();
     }
-    public void onPressProjectButtonInteraction(View v){addProjectPage();}
+    public void onPressProjectButtonInteraction(View v){
+        //addProjectPage();
+    }
     public void onPressCreateNewProjectButtonInteraction(View v){
         System.out.println("got to onPressNewProjectButtonInteraction reached");
-        addCreateNewProjectPage();
+        //addCreateNewProjectPage();
         System.out.println("Exiting function");
     }
     public void onPressChatButton(View v){ addChatPage(); }
     public void onPressTeamsButton(View v){
         //addTeamsPage();
-        addTeamFragment();
+        //addTeamFragment();
     }
     public void onPressTeamScreenButton(View v){
-        addTeamScreenPage();
+        switchToTeamMembersScreen(FRAGMENT_LOADING);
+        addNewTeamMembersFragment("TEAM_MEMBERS_MARKETING",true,false);
+        addNewTeamMembersFragment("TEAM_MEMBERS_FRIENDS",false,false);
     }
+
+
 }
