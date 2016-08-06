@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -53,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     private ToggledViewPager mFragmentPagerMain;
     private MainPagerAdapter mFragmentPagerMainAdapter;
 
+    private boolean isInSingleFragmentView;
+    private int oldDockPosition = 0;
+
     /*
     * //////////////////////////////////////////////////
     * // Overrided methods
@@ -74,13 +78,22 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
         mFragmentPagerMain.setSwipeEnabled(false);
 
-        // setting dummy dots for the moment
-        mIndicators.add(new DockIndicator(true));
-        mIndicators.add(new DockIndicator(false));
-        mIndicators.add(new DockIndicator(false));
-        mIndicators.add(new DockIndicator(false));
-        mIndicators.add(new DockIndicator(false));
-        mIndicators.add(new DockIndicator(false));
+        mFragmentPagerMain.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                updateDock(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         initDock();
 
@@ -211,6 +224,13 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                 R.dimen.dock_indicator_right_margin));
     }
 
+    private void updateDock(int position){
+        mIndicators.get(oldDockPosition).setActive(false);
+        mIndicators.get(position).setActive(true);
+        mPagesIndicatorsList.swapAdapter(new DockItemAdapter(this,mIndicators),true);
+        oldDockPosition = position;
+    }
+
     private void startSettingsActivity(){
         Intent intent = new Intent(this,SettingsActivity.class);
         startActivity(intent);
@@ -278,7 +298,6 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }*/
 
     private void addChatPage(){
-
         switchToOneFragment(FRAGMENT_CHAT,ChatFragment.newInstance(),true);
         this.mDock.setVisibility(View.INVISIBLE);
     }
@@ -305,15 +324,23 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
      * @param transit transition needed to the freshly added fragment.
      * */
     private void addNewTeamMembersFragment(String tag, boolean rebuild, boolean transit){
-        if(rebuild){
-            mFragmentPagerMainAdapter.addNewFragment(tag, TeamMembersFragment.newInstance());
-            mFragmentPagerMainAdapter.notifyDataSetChanged();
-            mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
-        }
         mFragmentPagerMainAdapter.addNewFragment(tag, TeamMembersFragment.newInstance());
         mFragmentPagerMainAdapter.notifyDataSetChanged();
-        if(transit)
-            mFragmentPagerMain.setCurrentItem(mFragmentPagerMainAdapter.goToFragment(tag));
+
+        if(rebuild){
+            mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
+        }
+
+        int screenPosition = mFragmentPagerMainAdapter.goToFragment(tag);
+        mIndicators.add(new DockIndicator(transit));
+
+        if(transit) {
+            mFragmentPagerMain.setCurrentItem(screenPosition);
+            updateDock(screenPosition);
+        }else
+            updateDock(oldDockPosition);
+
+
     }
 
     /**
