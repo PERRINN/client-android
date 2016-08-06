@@ -2,6 +2,9 @@ package com.perrinn.client.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,8 @@ import android.widget.TextView;
 import com.perrinn.client.objects.ChatMessage;
 import com.perrinn.client.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -26,14 +31,14 @@ public class ChatAdapter extends BaseAdapter {
     * /////////////////////////////////////////////////
     */
     private final List<ChatMessage> chatMessages;
-    private Activity context;
+    private Context context;
 
     /*
 * //////////////////////////////////////////////////
 * //constructor
 * /////////////////////////////////////////////////
 */
-    public ChatAdapter(Activity context, List<ChatMessage> chatMessages) {
+    public ChatAdapter(Context context, List<ChatMessage> chatMessages) {
         this.context = context;
         this.chatMessages = chatMessages;
     }
@@ -94,10 +99,10 @@ public class ChatAdapter extends BaseAdapter {
         }
 
         boolean myMsg = chatMessage.getIsme() ;//Just a dummy check to simulate whether it me or other sender
-        setAlignment(holder, myMsg);
         holder.txtMessage.setText(chatMessage.getMessage());
-        holder.txtInfo.setText(chatMessage.getDate());
 
+        String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+        holder.txtInfo.setText(Html.fromHtml("<font color=black> <b>" + chatMessage.getUsername() + "</b></font>" + " " + timeStamp));
 
         return convertView;
     }
@@ -119,52 +124,7 @@ public class ChatAdapter extends BaseAdapter {
     public void add(List<ChatMessage> messages) {
         chatMessages.addAll(messages);
     }
-    /*
-    * //////////////////////////////////////////////////
-    * //set bubble alignment for UI depending on sender/receiver
-    * /////////////////////////////////////////////////
-    */
-    private void setAlignment(ViewHolder holder, boolean isMe) {
-        if (!isMe) {
-            holder.contentWithBG.setBackgroundResource(R.drawable.in_message_bg);
-
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.contentWithBG.getLayoutParams();
-            layoutParams.gravity = Gravity.RIGHT;
-            holder.contentWithBG.setLayoutParams(layoutParams);
-
-            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) holder.content.getLayoutParams();
-            lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 0);
-            lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-            holder.content.setLayoutParams(lp);
-            layoutParams = (LinearLayout.LayoutParams) holder.txtMessage.getLayoutParams();
-            layoutParams.gravity = Gravity.RIGHT;
-            holder.txtMessage.setLayoutParams(layoutParams);
-
-            layoutParams = (LinearLayout.LayoutParams) holder.txtInfo.getLayoutParams();
-            layoutParams.gravity = Gravity.RIGHT;
-            holder.txtInfo.setLayoutParams(layoutParams);
-        } else {
-            holder.contentWithBG.setBackgroundResource(R.drawable.out_message_bg);
-
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.contentWithBG.getLayoutParams();
-            layoutParams.gravity = Gravity.LEFT;
-            holder.contentWithBG.setLayoutParams(layoutParams);
-
-            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) holder.content.getLayoutParams();
-            lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
-            lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-            holder.content.setLayoutParams(lp);
-            layoutParams = (LinearLayout.LayoutParams) holder.txtMessage.getLayoutParams();
-            layoutParams.gravity = Gravity.LEFT;
-            holder.txtMessage.setLayoutParams(layoutParams);
-
-            layoutParams = (LinearLayout.LayoutParams) holder.txtInfo.getLayoutParams();
-            layoutParams.gravity = Gravity.LEFT;
-            holder.txtInfo.setLayoutParams(layoutParams);
-        }
-    }
-
-    /*
+/*
 * //////////////////////////////////////////////////
 * //create a viewholder to hold the view
 * /////////////////////////////////////////////////

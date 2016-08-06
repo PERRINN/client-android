@@ -6,6 +6,7 @@
     android:layout_height="60dp"
     android:background="@color/colorDockBackground"
     android:padding="5dp">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/pages_indicators_list"
         android:layout_alignParentLeft="true"

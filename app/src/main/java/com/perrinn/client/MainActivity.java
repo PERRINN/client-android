@@ -15,12 +15,12 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
-import com.perrinn.client.activities.ChatActivity;
 import com.perrinn.client.activities.SettingsActivity;
 import com.perrinn.client.adapters.DockItemAdapter;
 import com.perrinn.client.adapters.MainPagerAdapter;
 import com.perrinn.client.beans.DockIndicator;
 
+import com.perrinn.client.fragments.ChatFragment;
 import com.perrinn.client.fragments.CreateNewProjectFragment;
 import com.perrinn.client.fragments.LandingFragment;
 import com.perrinn.client.fragments.LoginFragment;
@@ -34,8 +34,10 @@ import com.perrinn.client.helpers.ToggledViewPager;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener, TeamMembersFragment.OnTeamMembersFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener,
+        TeamMembersFragment.OnTeamMembersFragmentInteractionListener {
     private RelativeLayout mDock;
+    public RelativeLayout modifiedDock;
     private RecyclerView mPagesIndicatorsList;
     private ImageButton mPSB;
     private ArrayList<DockIndicator> mIndicators = new ArrayList<>();
@@ -62,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDock = (RelativeLayout) findViewById(R.id.dock);
+        modifiedDock = (RelativeLayout) findViewById(R.id.chatdock);
+
         mPagesIndicatorsList = (RecyclerView) findViewById(R.id.pages_indicators_list);
         mPSB = (ImageButton) findViewById(R.id.psb);
         mFragmentPagerMain = (ToggledViewPager) findViewById(R.id.fragment_pager_main);
@@ -274,8 +278,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }*/
 
     private void addChatPage(){
-        Intent intent = new Intent(this, ChatActivity.class);
-        startActivity(intent);
+
+        switchToOneFragment(FRAGMENT_CHAT,ChatFragment.newInstance(),true);
+        this.mDock.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -366,6 +371,11 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     //addNewProfilePage();
         startSettingsActivity();
     }
+
+    public void onPressChatButtonInteraction(View v){
+        addChatPage();
+
+    }
     public void onPressProjectButtonInteraction(View v){
         //addProjectPage();
     }
@@ -374,7 +384,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         //addCreateNewProjectPage();
         System.out.println("Exiting function");
     }
-    public void onPressChatButton(View v){ addChatPage(); }
+    public void onPressChatButton(View v){ addChatPage();}
     public void onPressTeamsButton(View v){
         //addTeamsPage();
         //addTeamFragment();

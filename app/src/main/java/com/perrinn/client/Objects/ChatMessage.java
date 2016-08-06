@@ -1,5 +1,8 @@
 package com.perrinn.client.objects;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Created by Antreas Christofi on 20-07-2016.
  */
@@ -13,7 +16,8 @@ public class ChatMessage {
     private boolean isMe;
     private String message;
     private Long userId;
-    private String dateTime;
+    private String username;
+    private String time;
 
     /*
 * //////////////////////////////////////////////////
@@ -52,11 +56,16 @@ public class ChatMessage {
         this.userId = userId;
     }
 
-    public String getDate() {
-        return dateTime;
+    public String getUsername() {
+        return username;
     }
 
-    public void setDate(String dateTime) {
-        this.dateTime = dateTime;
+    public void setUsername(String username) {
+        this.username = username;
     }
+
+    public String getTime(){return time;}
+
+    public void setTime(String time){
+        this.time = time;}
 }
