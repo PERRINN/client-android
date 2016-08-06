@@ -301,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
      * */
     private void addNewTeamMembersFragment(String tag, boolean rebuild, boolean transit){
         if(rebuild){
-            mFragmentPagerMainAdapter.addNewFragment("TEAM_MEMBERS_MARKETING", TeamMembersFragment.newInstance());
+            mFragmentPagerMainAdapter.addNewFragment(tag, TeamMembersFragment.newInstance());
             mFragmentPagerMainAdapter.notifyDataSetChanged();
             mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
         }
