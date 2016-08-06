@@ -225,6 +225,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }
 
     private void updateDock(int position){
+        if(mIndicators.size()-1 < position) return;
         mIndicators.get(oldDockPosition).setActive(false);
         mIndicators.get(position).setActive(true);
         mPagesIndicatorsList.swapAdapter(new DockItemAdapter(this,mIndicators),true);
