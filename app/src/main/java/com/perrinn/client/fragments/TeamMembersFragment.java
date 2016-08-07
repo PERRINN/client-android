@@ -51,7 +51,7 @@ public class TeamMembersFragment extends Fragment {
 		VectorDrawableCompat calendarIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_calendar,null);
 		VectorDrawableCompat activityIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_activity,null);
 		VectorDrawableCompat documentsIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_documents,null);
-		VectorDrawableCompat guestIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_guest,null);
+		VectorDrawableCompat linksIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_link_01,null);
 		VectorDrawableCompat images01Icon = VectorDrawableCompat.create(getResources(),R.drawable.ic_images_01,null);
 		VectorDrawableCompat images02Icon = VectorDrawableCompat.create(getResources(),R.drawable.ic_images_02,null);
 		VectorDrawableCompat mapsIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_maps_01,null);
@@ -109,7 +109,7 @@ public class TeamMembersFragment extends Fragment {
 			}
 		}));
 
-		gridArray.add(new Item(guestIcon, "Links", new View.OnClickListener() {
+		gridArray.add(new Item(linksIcon, "Links", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				mListener.onGuestButtonPressed();
