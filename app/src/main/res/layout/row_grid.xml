@@ -12,7 +12,6 @@
         android:layout_height="50dp"
         android:layout_marginRight="0dp"
         android:layout_gravity="center"
-        android:tint="#FFFFFFFF"
         android:src="@drawable/in_message_bg" >
     </ImageView>
 

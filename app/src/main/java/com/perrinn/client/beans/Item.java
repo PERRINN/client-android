@@ -2,6 +2,7 @@ package com.perrinn.client.beans;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.VectorDrawable;
+import android.support.annotation.NonNull;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.view.View;
 
@@ -15,16 +16,34 @@ public class Item {
 	VectorDrawableCompat image;
 	String title;
 	View.OnClickListener listener;
+	private Integer userPic;
+	private boolean user;
 
 	public Item(VectorDrawableCompat image, String title, View.OnClickListener listener){
 		this.image = image;
 		this.title = title;
 		this.listener = listener;
+		this.user = false;
+	}
+
+	public Item(Integer image, String title, View.OnClickListener listener) {
+		this.userPic = image;
+		this.title = title;
+		this.listener = listener;
+		this.user = true;
+	}
+
+	public Item(){ // FIXME: not a good thing I think but does the trick
+
 	}
 
 	public Item(VectorDrawableCompat image, String title) {
 		this(image,title,null);
 	}
+	public Item(Integer image, String title) {
+		this(image,title,null);
+	}
+
 	public VectorDrawableCompat getImage() {
 		return image;
 	}
@@ -41,7 +60,19 @@ public class Item {
 		return this.listener;
 	}
 
+	public Integer getUserPic() {
+		return userPic;
+	}
 
-	
+	public void setUserPic(Integer userPic) {
+		this.userPic = userPic;
+	}
 
+	public boolean isUser() {
+		return user;
+	}
+
+	public void setUser(boolean user) {
+		this.user = user;
+	}
 }
