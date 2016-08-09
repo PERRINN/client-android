@@ -18,6 +18,7 @@ public class Item {
 	View.OnClickListener listener;
 	private Integer userPic;
 	private boolean user;
+	private boolean self;
 
 	public Item(VectorDrawableCompat image, String title, View.OnClickListener listener){
 		this.image = image;
@@ -26,11 +27,12 @@ public class Item {
 		this.user = false;
 	}
 
-	public Item(Integer image, String title, View.OnClickListener listener) {
+	public Item(Integer image, String title, View.OnClickListener listener, boolean self) {
 		this.userPic = image;
 		this.title = title;
 		this.listener = listener;
 		this.user = true;
+		this.self = self;
 	}
 
 	public Item(){ // FIXME: not a good thing I think but does the trick
@@ -40,8 +42,8 @@ public class Item {
 	public Item(VectorDrawableCompat image, String title) {
 		this(image,title,null);
 	}
-	public Item(Integer image, String title) {
-		this(image,title,null);
+	public Item(Integer image, String title,boolean self) {
+		this(image,title,null,self);
 	}
 
 	public VectorDrawableCompat getImage() {
@@ -74,5 +76,13 @@ public class Item {
 
 	public void setUser(boolean user) {
 		this.user = user;
+	}
+
+	public boolean isSelf() {
+		return self;
+	}
+
+	public void setSelf(boolean self) {
+		this.self = self;
 	}
 }

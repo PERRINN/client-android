@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,9 +58,12 @@ public class GridViewAdapter extends ArrayAdapter<Item> {
 
 		Item item = data.get(position);
 		holder.txtTitle.setText(item.getTitle());
-		if(item.isUser())
-			new AsyncBitmapLoader(context,holder.imageItem).execute(item.getUserPic());
-		else {
+		if(item.isUser()) {
+			new AsyncBitmapLoader(context, holder.imageItem).execute(item.getUserPic());
+			if(item.isSelf()){
+				holder.imageItem.setBackground(VectorDrawableCompat.create(context.getResources(),R.drawable.team_members_self_border,null));
+			}
+		} else {
 			VectorDrawableCompat image = item.getImage();
 			if(image != null)
 				image.setColorFilter(Color.parseColor("#FFFFFFFF"), PorterDuff.Mode.SRC_IN);

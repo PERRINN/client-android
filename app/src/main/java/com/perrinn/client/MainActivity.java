@@ -226,8 +226,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         mPagesIndicatorsList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isInSingleFragmentView && singleFragmentTag != null)
-                    switchToTeamMembersScreen(singleFragmentTag);
+                System.out.println("Clicked dock");
+                switchToOneFragment(FRAGMENT_TEAMS,TeamFragment.newInstance(),true);
             }
         });
     }

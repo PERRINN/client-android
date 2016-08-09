@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import com.perrinn.client.activities.SettingsActivity;
 import com.perrinn.client.adapters.GridViewAdapter;
 import com.perrinn.client.beans.Item;
 import com.perrinn.client.R;
@@ -74,14 +76,21 @@ public class TeamMembersFragment extends Fragment {
 		//any unused slots(say the team has 6 instead of 8 persons) can be loaded as
 		//a null pic, empty string item to maintain layout
 
-		gridArray.add(new Item(R.drawable.placeholder_team_members_1,"Mark"));
-		gridArray.add(new Item(R.drawable.placeholder_team_members_2,"Aiko"));
-		gridArray.add(new Item(R.drawable.placeholder_team_members_5,"Vicky"));
-		gridArray.add(new Item(R.drawable.placeholder_team_members_3,"Alan"));
-		gridArray.add(new Item(R.drawable.placeholder_team_members_4,"James"));
-		gridArray.add(new Item(R.drawable.placeholder_team_members_6,"Mathilde"));
-		gridArray.add(new Item(R.drawable.placeholder_team_members_7,"Daniel"));
-		gridArray.add(new Item(R.drawable.placeholder_team_members_8,"Andrea"));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_1, "Mark", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getContext(), SettingsActivity.class);
+				intent.putExtra(SettingsActivity.PARAM_SHOW_SETTINGS,SettingsActivity.SHOW_PROFILE_SETTINGS);
+				startActivity(intent);
+			}
+		},true));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_2,"Aiko",false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_5,"Vicky",false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_3,"Alan",false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_4,"James",false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_6,"Mathilde",false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_7,"Daniel",false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_8,"Andrea",false));
 
 		//other icons
 		gridArray.add(new Item(chatIcon, "Chat", new View.OnClickListener() {
