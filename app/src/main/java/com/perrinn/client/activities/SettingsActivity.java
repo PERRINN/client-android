@@ -90,7 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
         Intent showSettings = getIntent();
-        if(showSettings != null){
+        if(showSettings != null && showSettings.hasExtra(PARAM_SHOW_SETTINGS)){
             switch(showSettings.getExtras().getInt(PARAM_SHOW_SETTINGS)){
                 case SHOW_PROFILE_SETTINGS:
                     addProfileFragment();
