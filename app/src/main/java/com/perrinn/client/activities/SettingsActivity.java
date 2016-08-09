@@ -1,6 +1,7 @@
 package com.perrinn.client.activities;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,6 +30,9 @@ import java.util.ArrayList;
  * @since 06.07.2016
  */
 public class SettingsActivity extends AppCompatActivity {
+    public static final int SHOW_PROFILE_SETTINGS = 0;
+    public static final int SHOW_TEAM_SETTINGS = 1;
+    public static final String PARAM_SHOW_SETTINGS = "com.perrinn.client.SettingsActivity.PARAM_SHOW_SETTINGS";
     private static final int REQUEST_PERMISSION_CAMERA = 0;
     private static final int REQUEST_PERMISSION_GALLERY = 1;
 
@@ -85,8 +89,20 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         }
-
-        addTeamFragment();
+        Intent showSettings = getIntent();
+        if(showSettings != null){
+            switch(showSettings.getExtras().getInt(PARAM_SHOW_SETTINGS)){
+                case SHOW_PROFILE_SETTINGS:
+                    addProfileFragment();
+                    break;
+                case SHOW_TEAM_SETTINGS:
+                    addTeamFragment();
+                    break;
+                default:
+                    addTeamFragment();
+            }
+        }else
+            addTeamFragment();
     }
 
     @Override
