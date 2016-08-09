@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     private MainPagerAdapter mFragmentPagerMainAdapter;
 
     private boolean isInSingleFragmentView;
+    private String singleFragmentTag;
     private int oldDockPosition = 0;
 
     /*
@@ -222,6 +223,13 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         });
         mPagesIndicatorsList.addItemDecoration(new DockItemMarginDecorator(this,
                 R.dimen.dock_indicator_right_margin));
+        mPagesIndicatorsList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!isInSingleFragmentView && singleFragmentTag != null)
+                    switchToTeamMembersScreen(singleFragmentTag);
+            }
+        });
     }
 
     private void updateDock(int position){
@@ -313,6 +321,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         mFragmentPagerMainAdapter.removeFragment(oldFragmentTag);
         mFragmentPagerMainAdapter.notifyDataSetChanged();
         mFragmentPagerMain.setSwipeEnabled(true);
+        singleFragmentTag = null;
         this.mDock.setVisibility(View.VISIBLE);
 
     }
@@ -357,6 +366,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         mFragmentPagerMainAdapter.notifyDataSetChanged();
         if(rebuild)
             mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
+        singleFragmentTag = tag;
         mFragmentPagerMain.setCurrentItem(mFragmentPagerMainAdapter.goToFragment(tag));
     }
 
