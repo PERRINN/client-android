@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,14 +31,14 @@ import com.perrinn.client.fragments.TeamFragment;
 import com.perrinn.client.fragments.ProfileFragment;
 import com.perrinn.client.fragments.ProjectFragment;
 import com.perrinn.client.fragments.TeamMembersFragment;
+import com.perrinn.client.fragments.TeamScreensFragment;
 import com.perrinn.client.helpers.DockItemMarginDecorator;
 import com.perrinn.client.helpers.ToggledViewPager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener,
-        TeamMembersFragment.OnTeamMembersFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener, TeamScreensFragment.TeamScreensInteractionListener{
     private RelativeLayout mDock;
     public RelativeLayout modifiedDock;
     private RecyclerView mPagesIndicatorsList;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     private static final String FRAGMENT_CREATE_NEW_PROJECT = "com.perrinn.client.fragments.FRAGMENT_NEW_PROJECT";
     private static final String FRAGMENT_TEAMS = "com.perrinn.client.fragments.FRAGMENT_TEAMS";
     private static final String FRAGMENT_CHAT = "com.perrinn.client.fragments.FRAGMENT_CHAT_SCREEN";
-    private static final String FRAGMENT_TEAM_MEMBERS = "com.perrinn.client.fragments.FRAGMENT_TEAM_MEMBERS";
+    private static final String FRAGMENT_TEAM_SCREENS = "com.perrinn.client.fragments.FRAGMENT_TEAM_SCREENS";
 
     private ToggledViewPager mFragmentPagerMain;
     private MainPagerAdapter mFragmentPagerMainAdapter;
@@ -74,28 +75,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
         mPagesIndicatorsList = (RecyclerView) findViewById(R.id.pages_indicators_list);
         mPSB = (ImageButton) findViewById(R.id.psb);
-        mFragmentPagerMain = (ToggledViewPager) findViewById(R.id.fragment_pager_main);
 
-        mFragmentPagerMainAdapter = new MainPagerAdapter(getSupportFragmentManager(),null);
-        mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
-        mFragmentPagerMain.setSwipeEnabled(false);
-
-        mFragmentPagerMain.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                updateDock(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
 
         initDock();
 
@@ -195,6 +175,21 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
     }
 
+    @Override
+    public void onPageChange(int position) {
+        updateDock(position);
+    }
+
+    @Override
+    public void onPageCountChanged(int count) {
+        int delta = mIndicators.size()-count;
+        if(delta == 0) return;
+        delta = delta < 0 ? delta * -1 : delta; // FIXME: dirty but we do not have to call Math big boy.
+        for(int i = 0;i<delta;i++)
+            mIndicators.add(new DockIndicator(false));
+        mPagesIndicatorsList.swapAdapter(new DockItemAdapter(this,mIndicators),true);
+    }
+
     /*
     * //////////////////////////////////////////////////
     * // Private methods
@@ -219,8 +214,10 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         mPSB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isInSingleFragmentView) {
-                    switchToTeamMembersScreen(singleFragmentTag);
+                Fragment activeFragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TEAM_SCREENS);
+
+                if(activeFragment != null && !activeFragment.isVisible()) {
+                    getSupportFragmentManager().popBackStack();
                 }else startSettingsActivity();
             }
         });
@@ -229,7 +226,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         mPagesIndicatorsList.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                switchToOneFragment(FRAGMENT_TEAMS,TeamFragment.newInstance(),true);
+                if(e.getAction() == MotionEvent.ACTION_DOWN)
+                    addTeamFragment();
                 return false;
             }
 
@@ -264,14 +262,25 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
      *
      * */
     private void addLoginFragment(){
-        /*getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, LoginFragment.newInstance())
-                .commit();*/
-        /*mFragmentPagerMainAdapter.addNewFragment(FRAGMENT_LOADING,LoginFragment.newInstance());
-        mFragmentPagerMainAdapter.notifyDataSetChanged();
-        mFragmentPagerMain.setCurrentItem(0);*/
-        switchToOneFragment(FRAGMENT_LOADING,LoginFragment.newInstance(),true);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, LoginFragment.newInstance(),FRAGMENT_LOADING)
+                .commit();
         this.mDock.setVisibility(View.INVISIBLE);
+    }
+
+    private void addTeamScreensFragment(){
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container,TeamScreensFragment.newInstance(),FRAGMENT_TEAM_SCREENS)
+                .addToBackStack(FRAGMENT_LOADING).commit();
+        this.mDock.setVisibility(View.VISIBLE);
+    }
+
+    private void addTeamFragment(){
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, TeamFragment.newInstance(),FRAGMENT_TEAMS)
+                .addToBackStack(FRAGMENT_TEAM_SCREENS).commit();
+
+        this.mDock.setVisibility(View.VISIBLE);
     }
 
     /*
@@ -279,13 +288,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 * //the methods below are responsible for switching fragments inside mainactivity
 * /////////////////////////////////////////////////
 */
-    /*private void addTeamFragment(){
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, TeamFragment.newInstance())
-                .addToBackStack(FRAGMENT_LANDING).commit();
-
-        this.mDock.setVisibility(View.VISIBLE);
-    }
+    /*
 
     private void addLandingPage(){
         getSupportFragmentManager().beginTransaction()
@@ -320,78 +323,16 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }*/
 
     private void addChatPage(){
-        switchToOneFragment(FRAGMENT_CHAT,ChatFragment.newInstance(),true);
-        this.mDock.setVisibility(View.INVISIBLE);
-    }
-
-    /**
-     * This method allows the switch between a single fragment shown to
-     * the teams screens in the viewpager.
-     *
-     * @param oldFragmentTag the tag of the single fragment if suppression is needed.
-     * */
-    private void switchToTeamMembersScreen(String oldFragmentTag){
-        mFragmentPagerMainAdapter.removeFragment(oldFragmentTag);
-        mFragmentPagerMainAdapter.notifyDataSetChanged();
-        mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
-        mFragmentPagerMain.setSwipeEnabled(true);
-        singleFragmentTag = null;
-        isInSingleFragmentView = false;
-        mFragmentPagerMain.setCurrentItem(0);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, ChatFragment.newInstance(), FRAGMENT_CHAT)
+                .addToBackStack(FRAGMENT_TEAM_SCREENS).commit();
         this.mDock.setVisibility(View.VISIBLE);
-
     }
-
-    /**
-     * This method adds a new TeamMembersFragment to the viewpager.
-     *
-     * @param tag the tag of the new fragment.
-     * @param rebuild if the adapter needs to be reset.
-     * @param transit transition needed to the freshly added fragment.
-     * */
-    private void addNewTeamMembersFragment(String tag, boolean rebuild, boolean transit){
-        mFragmentPagerMainAdapter.addNewFragment(tag, TeamMembersFragment.newInstance());
-        mFragmentPagerMainAdapter.notifyDataSetChanged();
-
-        if(rebuild){
-            mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
-        }
-
-        int screenPosition = mFragmentPagerMainAdapter.goToFragment(tag);
-        mIndicators.add(new DockIndicator(transit));
-
-        if(transit) {
-            mFragmentPagerMain.setCurrentItem(screenPosition);
-            updateDock(screenPosition);
-        }else
-            updateDock(oldDockPosition);
-
-
-    }
-
-    /**
-     * This method allows the switch between the teams members viewpager to a single fragment showing.
-     *
-     * @param tag the tag of the single fragment's tag.
-     * @param fragment the single fragment to add.
-     * @param rebuild if the adapter has to be reset.
-     * */
-    private void switchToOneFragment(String tag, Fragment fragment, boolean rebuild){
-        mFragmentPagerMain.setSwipeEnabled(false);
-        mFragmentPagerMainAdapter.addNewFragment(tag,fragment);
-        mFragmentPagerMainAdapter.notifyDataSetChanged();
-        if(rebuild)
-            mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
-        singleFragmentTag = tag;
-        isInSingleFragmentView = true;
-        mFragmentPagerMain.setCurrentItem(mFragmentPagerMainAdapter.goToFragment(tag));
-    }
-
-
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        FragmentManager manager = getSupportFragmentManager();
         if(getSupportFragmentManager().getBackStackEntryCount() == 0){
             this.mDock.setVisibility(View.INVISIBLE); // to remove the dock on the login fragment
         }
@@ -405,10 +346,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         */
     @Override
     public void onLoginEnterButtonInteraction() {
-        //addLandingPage();
-        switchToTeamMembersScreen(FRAGMENT_LOADING);
-        addNewTeamMembersFragment("TEAM_MEMBERS_MARKETING",true,false);
-        addNewTeamMembersFragment("TEAM_MEMBERS_FRIENDS",false,false);
+        addTeamScreensFragment();
     }
 
 
@@ -445,10 +383,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         //addTeamFragment();
     }
     public void onPressTeamScreenButton(View v){
-        switchToTeamMembersScreen(FRAGMENT_LOADING);
-        addNewTeamMembersFragment("TEAM_MEMBERS_MARKETING",true,false);
-        addNewTeamMembersFragment("TEAM_MEMBERS_FRIENDS",false,false);
     }
+
 
 
 }
