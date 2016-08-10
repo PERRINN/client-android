@@ -219,7 +219,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         mPSB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startSettingsActivity();
+                if(isInSingleFragmentView) {
+                    switchToTeamMembersScreen(singleFragmentTag);
+                }else startSettingsActivity();
             }
         });
         mPagesIndicatorsList.addItemDecoration(new DockItemMarginDecorator(this,
@@ -331,8 +333,11 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     private void switchToTeamMembersScreen(String oldFragmentTag){
         mFragmentPagerMainAdapter.removeFragment(oldFragmentTag);
         mFragmentPagerMainAdapter.notifyDataSetChanged();
+        mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
         mFragmentPagerMain.setSwipeEnabled(true);
         singleFragmentTag = null;
+        isInSingleFragmentView = false;
+        mFragmentPagerMain.setCurrentItem(0);
         this.mDock.setVisibility(View.VISIBLE);
 
     }
@@ -378,6 +383,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         if(rebuild)
             mFragmentPagerMain.setAdapter(mFragmentPagerMainAdapter);
         singleFragmentTag = tag;
+        isInSingleFragmentView = true;
         mFragmentPagerMain.setCurrentItem(mFragmentPagerMainAdapter.goToFragment(tag));
     }
 
