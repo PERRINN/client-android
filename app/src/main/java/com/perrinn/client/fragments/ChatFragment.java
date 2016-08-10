@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.perrinn.client.adapters.ChatAdapter;
 import com.perrinn.client.R;
@@ -34,12 +35,15 @@ public class ChatFragment extends Fragment {
     private ListView messagesContainer;
     private ChatAdapter adapter;
     private ArrayList<ChatMessage> chatHistory;
-
+    private static RelativeLayout modifiedDock;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_chat,container,false);
+        modifiedDock= (RelativeLayout) rootView.findViewById(R.id.chatdock);
+
+
         chatHistory = new ArrayList<ChatMessage>();
         adapter = new ChatAdapter(getContext(), new ArrayList<ChatMessage>());
         messagesContainer=(ListView)rootView.findViewById(R.id.messagesContainer);

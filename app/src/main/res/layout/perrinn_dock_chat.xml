@@ -3,16 +3,16 @@
     android:id="@+id/chatdock"
     android:layout_gravity="bottom"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="40dp"
     android:background="@color/colorDockBackground"
     android:padding="5dp">
     <Button
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/ic_plus"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/button5" />
+        android:id="@+id/chatSendButton"
+        android:layout_alignTop="@+id/messageEdit"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:background="@drawable/edittext_border"
@@ -21,24 +21,9 @@
         android:layout_height="30dp"
         android:paddingTop="-120dp"
         android:autoText="true"
-        android:hint="Message"
-        android:layout_alignParentTop="true"
+        android:hint="@string/message"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/button5" />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/pages_indicators_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_toEndOf="@+id/button5"
-        android:layout_below="@+id/messageEdit"
-        android:layout_marginTop="25dp" />
-    <include layout="@layout/perrinn_settings_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/include3"
-        android:layout_below="@+id/messageEdit"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp" />
+        android:layout_toEndOf="@+id/chatSendButton" />
+
 </RelativeLayout>
