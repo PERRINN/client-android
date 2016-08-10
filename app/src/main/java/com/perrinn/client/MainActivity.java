@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -223,11 +224,21 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         });
         mPagesIndicatorsList.addItemDecoration(new DockItemMarginDecorator(this,
                 R.dimen.dock_indicator_right_margin));
-        mPagesIndicatorsList.setOnClickListener(new View.OnClickListener() {
+        mPagesIndicatorsList.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
-            public void onClick(View v) {
-                System.out.println("Clicked dock");
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
                 switchToOneFragment(FRAGMENT_TEAMS,TeamFragment.newInstance(),true);
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
             }
         });
     }
