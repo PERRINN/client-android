@@ -79,18 +79,58 @@ public class TeamMembersFragment extends Fragment {
 		gridArray.add(new Item(R.drawable.placeholder_team_members_1, "Mark", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getContext(), SettingsActivity.class);
-				intent.putExtra(SettingsActivity.PARAM_SHOW_SETTINGS,SettingsActivity.SHOW_PROFILE_SETTINGS);
-				startActivity(intent);
+				mListener.onSelfPicturePressed();
 			}
 		},true));
-		gridArray.add(new Item(R.drawable.placeholder_team_members_2,"Aiko",false));
-		gridArray.add(new Item(R.drawable.placeholder_team_members_5,"Vicky",false));
-		gridArray.add(new Item(R.drawable.placeholder_team_members_3,"Alan",false));
-		gridArray.add(new Item(R.drawable.placeholder_team_members_4,"James",false));
-		gridArray.add(new Item(R.drawable.placeholder_team_members_6,"Mathilde",false));
-		gridArray.add(new Item(R.drawable.placeholder_team_members_7,"Daniel",false));
-		gridArray.add(new Item(R.drawable.placeholder_team_members_8,"Andrea",false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_2,"Aiko",new View.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				mListener.onColleaguePicturePressed(0);
+			}
+		},false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_5,"Vicky",new View.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				mListener.onColleaguePicturePressed(0);
+			}
+		},false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_3,"Alan",new View.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				mListener.onColleaguePicturePressed(0);
+			}
+		},false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_4,"James",new View.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				mListener.onColleaguePicturePressed(0);
+			}
+		},false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_6,"Mathilde",new View.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				mListener.onColleaguePicturePressed(0);
+			}
+		},false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_7,"Daniel",new View.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				mListener.onColleaguePicturePressed(0);
+			}
+		},false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_8,"Andrea",new View.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				mListener.onColleaguePicturePressed(0);
+			}
+		},false));
 
 		//other icons
 		gridArray.add(new Item(chatIcon, "Chat", new View.OnClickListener() {
@@ -187,6 +227,8 @@ public class TeamMembersFragment extends Fragment {
 	}
 
 	public interface OnTeamMembersFragmentInteractionListener{
+		void onSelfPicturePressed();
+		void onColleaguePicturePressed(int colleagueID);
 		void onChatButtonPressed();
 		void onMailButtonPressed();
 		void onCalendarButtonPressed();
