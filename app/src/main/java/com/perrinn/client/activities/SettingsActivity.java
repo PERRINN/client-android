@@ -11,15 +11,19 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.perrinn.client.R;
 import com.perrinn.client.adapters.DockItemAdapter;
 import com.perrinn.client.beans.DockIndicator;
 import com.perrinn.client.fragments.ProfileFragment;
+import com.perrinn.client.fragments.TeamFragment;
 import com.perrinn.client.fragments.TeamSettingsFragment;
 import com.perrinn.client.helpers.DockItemMarginDecorator;
+import com.perrinn.client.helpers.DockManager;
 
 import java.util.ArrayList;
 
@@ -36,7 +40,9 @@ public class SettingsActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSION_CAMERA = 0;
     private static final int REQUEST_PERMISSION_GALLERY = 1;
 
+    private DockManager mDockManager;
     private RelativeLayout mDock;
+    private ImageButton mPSB;
     private RecyclerView mPagesIndicatorsList;
     private ArrayList<DockIndicator> mIndicators = new ArrayList<>();
     @Override
@@ -45,14 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         mDock = (RelativeLayout) findViewById(R.id.dock);
         mPagesIndicatorsList = (RecyclerView) findViewById(R.id.pages_indicators_list);
-
-        // setting dummy dots for the moment
-        mIndicators.add(new DockIndicator(true));
-        mIndicators.add(new DockIndicator(false));
-        mIndicators.add(new DockIndicator(false));
-        mIndicators.add(new DockIndicator(false));
-        mIndicators.add(new DockIndicator(false));
-        mIndicators.add(new DockIndicator(false));
+        mPSB = (ImageButton) findViewById(R.id.psb);
         initDock();
 
         // asking for permission
@@ -96,13 +95,13 @@ public class SettingsActivity extends AppCompatActivity {
                     addProfileFragment();
                     break;
                 case SHOW_TEAM_SETTINGS:
-                    addTeamFragment();
+                    addTeamSettingsFragment();
                     break;
                 default:
-                    addTeamFragment();
+                    addTeamSettingsFragment();
             }
         }else
-            addTeamFragment();
+            addTeamSettingsFragment();
     }
 
     @Override
@@ -128,9 +127,15 @@ public class SettingsActivity extends AppCompatActivity {
                 .commit();
     }
 
-    private void addTeamFragment(){
+    private void addTeamSettingsFragment(){
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.settings_fragment_container, TeamSettingsFragment.newInstance())
+                .commit();
+    }
+
+    private void addTeamFragment(){
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.settings_fragment_container, TeamFragment.newInstance())
                 .commit();
     }
 
@@ -142,7 +147,7 @@ public class SettingsActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
         mPagesIndicatorsList.setLayoutManager(mLayoutManager);
-        DockItemAdapter adapter = new DockItemAdapter(this, mIndicators);
+        DockItemAdapter adapter = new DockItemAdapter(this, mDockManager.getIndicators());
         adapter.setOnDockIndicatorClickListener(new DockItemAdapter.OnDockIndicatorClickListener() {
             @Override
             public void onClick(DockIndicator indicator, int position) {
@@ -152,9 +157,30 @@ public class SettingsActivity extends AppCompatActivity {
         mPagesIndicatorsList.setAdapter(adapter);
         mPagesIndicatorsList.addItemDecoration(new DockItemMarginDecorator(this,
                 R.dimen.dock_indicator_right_margin));
+        mPagesIndicatorsList.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                if(e.getAction() == MotionEvent.ACTION_DOWN)
+                    addTeamFragment();
+                return false;
+            }
 
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
 
+            }
 
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
+        mPSB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
 

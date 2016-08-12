@@ -12,8 +12,7 @@
         android:layout_height="50dp"
         android:layout_marginRight="0dp"
         android:layout_gravity="center"
-        android:scaleType="fitCenter"
-        android:src="@drawable/in_message_bg" >
+        android:scaleType="fitCenter" >
     </ImageView>
 
     <TextView
