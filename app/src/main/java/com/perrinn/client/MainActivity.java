@@ -382,7 +382,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     private void addChatPage(){
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, ChatFragment.newInstance(), FRAGMENT_CHAT)
-                .addToBackStack(FRAGMENT_TEAM_SCREENS).commit();
+                .addToBackStack(FRAGMENT_CHAT).commit();
         this.mDock.setVisibility(View.VISIBLE);
     }
 
