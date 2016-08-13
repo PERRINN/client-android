@@ -5,6 +5,7 @@ package com.perrinn.client;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -74,20 +75,23 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     */
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDock = (RelativeLayout) findViewById(R.id.dock);
         modifiedDock = (RelativeLayout) findViewById(R.id.chatdock);
-
+        mDockManager = new DockManager(new ArrayList<DockIndicator>());
         mPagesIndicatorsList = (RecyclerView) findViewById(R.id.pages_indicators_list);
         mPSB = (ImageButton) findViewById(R.id.psb);
 
-
-        initDock();
-
         if (savedInstanceState == null) {
             addLoginFragment();
+            initDock();
         }
         mPagesIndicatorsList.setAdapter(new DockItemAdapter(this,mDockManager.getIndicators()));
 
@@ -113,18 +117,6 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 
     @Override
@@ -385,6 +377,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                 .addToBackStack(FRAGMENT_CHAT).commit();
         this.mDock.setVisibility(View.VISIBLE);
     }
+
 
     @Override
     public void onBackPressed() {

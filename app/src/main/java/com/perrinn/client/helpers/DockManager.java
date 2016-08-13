@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Created by alessandrosilacci on 10/08/16.
  */
 public class DockManager {
-    private static ArrayList<DockIndicator> mIndicators = new ArrayList<>();
+    private ArrayList<DockIndicator> mIndicators = new ArrayList<>();
 
     public DockManager(ArrayList<DockIndicator> indicators) {
         mIndicators = indicators;
@@ -20,17 +20,17 @@ public class DockManager {
     }
 
 
-    public static void addNewDockItem(DockIndicator item){
+    public void addNewDockItem(DockIndicator item){
         if(item != null)
             mIndicators.add(item);
     }
 
-    public static void removeDockItem(DockIndicator item){
+    public void removeDockItem(DockIndicator item){
         if(item != null)
             mIndicators.remove(item);
     }
 
-    public static ArrayList<DockIndicator> getIndicators(){
+    public ArrayList<DockIndicator> getIndicators(){
         return mIndicators;
     }
 
