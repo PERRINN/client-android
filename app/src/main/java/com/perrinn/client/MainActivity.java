@@ -308,6 +308,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     private void addTeamFragment(){
         if(isFragmentActive(FRAGMENT_TEAMS)) return;
         lastTag = FRAGMENT_TEAMS;
+        if(!isFragmentActive(FRAGMENT_TEAM_SCREENS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStack();
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, TeamFragment.newInstance(),FRAGMENT_TEAMS)
                 .addToBackStack(FRAGMENT_TEAMS).commit();
