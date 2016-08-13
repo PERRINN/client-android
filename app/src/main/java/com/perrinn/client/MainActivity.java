@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     private RelativeLayout mDock;
     private RecyclerView mPagesIndicatorsList;
     private ImageButton mPSB;
-    private ArrayList<DockIndicator> mIndicators = new ArrayList<>();
+    private ArrayList<DockIndicator> mIndicators = new ArrayList<DockIndicator>();
     private static final String FRAGMENT_LOADING = "com.perrinn.client.fragments.LOADING_FRAGMENT";
     private static final String FRAGMENT_LANDING = "com.perrinn.client.fragments.LANDING_FRAGMENT";
     private static final String FRAGMENT_PROJECT_PAGE = "com.perrinn.client.fragments.PROJECT_FRAGMENT";
@@ -83,9 +83,10 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
             }
 
+            //todo: figure out outofbounds bug, works ok when commented out
             @Override
             public void onPageSelected(int position) {
-                updateDock(position);
+                //updateDock(position);
             }
 
             @Override
@@ -190,6 +191,12 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     @Override
     public void onSpeakerButtonPressed() {
 
+    }
+
+    @Override
+    public void onMemberButtonPressed() {
+        switchToOneFragment(FRAGMENT_PROFILE,ProfileFragment.newInstance(),true);
+        this.mDock.setVisibility(View.INVISIBLE);
     }
 
     /*

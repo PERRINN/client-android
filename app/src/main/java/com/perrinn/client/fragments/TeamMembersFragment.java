@@ -64,15 +64,54 @@ public class TeamMembersFragment extends Fragment {
 		//any unused slots(say the team has 6 instead of 8 persons) can be loaded as
 		//a null pic, empty string item to maintain layout
 
-		gridArray.add(new Item(guestIcon,"Mark"));
-		gridArray.add(new Item(guestIcon,"Aiko"));
-		gridArray.add(new Item(guestIcon,"Vicky"));
-		gridArray.add(new Item(guestIcon,"Alan"));
-		gridArray.add(new Item(guestIcon,"James"));
-		gridArray.add(new Item(guestIcon,"Mathilde"));
-		gridArray.add(new Item(guestIcon,"Daniel"));
-		gridArray.add(new Item(guestIcon,"Andrea"));
-
+		gridArray.add(new Item(guestIcon, "Mark", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onMemberButtonPressed();
+			}
+		}));
+		gridArray.add(new Item(guestIcon, "Aiko", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onMemberButtonPressed();
+			}
+		}));
+		gridArray.add(new Item(guestIcon, "Vicky", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onMemberButtonPressed();
+			}
+		}));
+		gridArray.add(new Item(guestIcon, "Alan", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onMemberButtonPressed();
+			}
+		}));
+		gridArray.add(new Item(guestIcon, "James", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onMemberButtonPressed();
+			}
+		}));
+		gridArray.add(new Item(guestIcon, "Mathilde", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onMemberButtonPressed();
+			}
+		}));
+		gridArray.add(new Item(guestIcon, "Daniel", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onMemberButtonPressed();
+			}
+		}));
+		gridArray.add(new Item(guestIcon, "Andrea", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onMemberButtonPressed();
+			}
+		}));
 		//other icons
 		gridArray.add(new Item(chatIcon, "Chat", new View.OnClickListener() {
 			@Override
@@ -179,6 +218,7 @@ public class TeamMembersFragment extends Fragment {
 		void onMapsButtonPressed();
 		void onMicButtonPressed();
 		void onSpeakerButtonPressed();
+		void onMemberButtonPressed();
 	}
 
 }

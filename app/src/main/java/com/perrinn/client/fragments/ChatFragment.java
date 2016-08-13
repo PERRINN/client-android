@@ -30,6 +30,7 @@ import com.perrinn.client.objects.ChatMessage;
 
 public class ChatFragment extends Fragment {
 
+
     private Button sendBtn;
     private EditText messageET;
     private ListView messagesContainer;
@@ -41,17 +42,20 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_chat,container,false);
-        modifiedDock= (RelativeLayout) rootView.findViewById(R.id.chatdock);
 
-
+        
         chatHistory = new ArrayList<ChatMessage>();
         adapter = new ChatAdapter(getContext(), new ArrayList<ChatMessage>());
         messagesContainer=(ListView)rootView.findViewById(R.id.messagesContainer);
         messageET=(EditText)rootView.findViewById(R.id.messageEdit);
         sendBtn=(Button)rootView.findViewById(R.id.chatSendButton);
         messagesContainer.setAdapter(adapter);
+        messageET.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
 
-
+            }
+        });
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
