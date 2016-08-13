@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -22,6 +23,7 @@ import android.widget.RelativeLayout;
 
 import com.perrinn.client.adapters.ChatAdapter;
 import com.perrinn.client.R;
+import com.perrinn.client.listeners.InputInteractionListener;
 import com.perrinn.client.objects.ChatMessage;
 
 /**
@@ -36,26 +38,36 @@ public class ChatFragment extends Fragment {
     private ListView messagesContainer;
     private ChatAdapter adapter;
     private ArrayList<ChatMessage> chatHistory;
-    private static RelativeLayout modifiedDock;
+
+
+    private InputInteractionListener mListener;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_chat,container,false);
 
-        
+        final View rootView = inflater.inflate(R.layout.fragment_chat,container,false);
+
         chatHistory = new ArrayList<ChatMessage>();
         adapter = new ChatAdapter(getContext(), new ArrayList<ChatMessage>());
         messagesContainer=(ListView)rootView.findViewById(R.id.messagesContainer);
         messageET=(EditText)rootView.findViewById(R.id.messageEdit);
         sendBtn=(Button)rootView.findViewById(R.id.chatSendButton);
         messagesContainer.setAdapter(adapter);
-        messageET.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
 
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int delta =  rootView.getRootView().getHeight() - rootView.getHeight();
+                if(delta > 396){ // FIXME: density is actually calculated on only one device, might change.
+                    mListener.onKeyboardStateChanged(false);
+                }else{
+                    mListener.onKeyboardStateChanged(true);
+                }
             }
         });
+
+
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,5 +124,14 @@ public class ChatFragment extends Fragment {
         return fragment;
     }
 
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof InputInteractionListener){
+            mListener = (InputInteractionListener) context;
+        }else{
+            throw new RuntimeException(context.toString()
+                    +" must implement the InputInteractionListener.");
+        }
+    }
 }

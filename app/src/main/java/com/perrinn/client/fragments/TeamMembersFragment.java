@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.graphics.drawable.VectorDrawableCompat;
@@ -14,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 
+import com.perrinn.client.activities.SettingsActivity;
 import com.perrinn.client.adapters.GridViewAdapter;
 import com.perrinn.client.beans.Item;
 import com.perrinn.client.R;
@@ -50,68 +54,85 @@ public class TeamMembersFragment extends Fragment {
 		VectorDrawableCompat calendarIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_calendar,null);
 		VectorDrawableCompat activityIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_activity,null);
 		VectorDrawableCompat documentsIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_documents,null);
-		VectorDrawableCompat guestIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_guest,null);
+		VectorDrawableCompat linksIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_link_01,null);
 		VectorDrawableCompat images01Icon = VectorDrawableCompat.create(getResources(),R.drawable.ic_images_01,null);
 		VectorDrawableCompat images02Icon = VectorDrawableCompat.create(getResources(),R.drawable.ic_images_02,null);
 		VectorDrawableCompat mapsIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_maps_01,null);
 		VectorDrawableCompat microphoneIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_mic,null);
 		VectorDrawableCompat speakerIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_speaker,null);
 
-
+		//team members pictures
+		/*Bitmap user1 = BitmapFactory.decodeResource(getResources(),R.drawable.placeholder_team_members_1);
+		Bitmap user2 = BitmapFactory.decodeResource(getResources(),R.drawable.placeholder_team_members_2);
+		Bitmap user3 = BitmapFactory.decodeResource(getResources(),R.drawable.placeholder_team_members_3);
+		Bitmap user4 = BitmapFactory.decodeResource(getResources(),R.drawable.placeholder_team_members_4);
+		Bitmap user5 = BitmapFactory.decodeResource(getResources(),R.drawable.placeholder_team_members_5);
+		Bitmap user6 = BitmapFactory.decodeResource(getResources(),R.drawable.placeholder_team_members_6);
+		Bitmap user7 = BitmapFactory.decodeResource(getResources(),R.drawable.placeholder_team_members_7);
+		Bitmap user8 = BitmapFactory.decodeResource(getResources(),R.drawable.placeholder_team_members_8);
+		*/
 
 		//add team members
 		//FUTURE REFERENCE; item can be nullable, e.g when loading team members
 		//any unused slots(say the team has 6 instead of 8 persons) can be loaded as
 		//a null pic, empty string item to maintain layout
 
-		gridArray.add(new Item(guestIcon, "Mark", new View.OnClickListener() {
+		gridArray.add(new Item(R.drawable.placeholder_team_members_1, "Mark", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onMemberButtonPressed();
+				mListener.onSelfPicturePressed();
 			}
-		}));
-		gridArray.add(new Item(guestIcon, "Aiko", new View.OnClickListener() {
+		},true));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_2,"Aiko",new View.OnClickListener(){
+
 			@Override
 			public void onClick(View v) {
-				mListener.onMemberButtonPressed();
+				mListener.onColleaguePicturePressed(0);
 			}
-		}));
-		gridArray.add(new Item(guestIcon, "Vicky", new View.OnClickListener() {
+		},false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_5,"Vicky",new View.OnClickListener(){
+
 			@Override
 			public void onClick(View v) {
-				mListener.onMemberButtonPressed();
+				mListener.onColleaguePicturePressed(0);
 			}
-		}));
-		gridArray.add(new Item(guestIcon, "Alan", new View.OnClickListener() {
+		},false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_3,"Alan",new View.OnClickListener(){
+
 			@Override
 			public void onClick(View v) {
-				mListener.onMemberButtonPressed();
+				mListener.onColleaguePicturePressed(0);
 			}
-		}));
-		gridArray.add(new Item(guestIcon, "James", new View.OnClickListener() {
+		},false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_4,"James",new View.OnClickListener(){
+
 			@Override
 			public void onClick(View v) {
-				mListener.onMemberButtonPressed();
+				mListener.onColleaguePicturePressed(0);
 			}
-		}));
-		gridArray.add(new Item(guestIcon, "Mathilde", new View.OnClickListener() {
+		},false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_6,"Mathilde",new View.OnClickListener(){
+
 			@Override
 			public void onClick(View v) {
-				mListener.onMemberButtonPressed();
+				mListener.onColleaguePicturePressed(0);
 			}
-		}));
-		gridArray.add(new Item(guestIcon, "Daniel", new View.OnClickListener() {
+		},false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_7,"Daniel",new View.OnClickListener(){
+
 			@Override
 			public void onClick(View v) {
-				mListener.onMemberButtonPressed();
+				mListener.onColleaguePicturePressed(0);
 			}
-		}));
-		gridArray.add(new Item(guestIcon, "Andrea", new View.OnClickListener() {
+		},false));
+		gridArray.add(new Item(R.drawable.placeholder_team_members_8,"Andrea",new View.OnClickListener(){
+
 			@Override
 			public void onClick(View v) {
-				mListener.onMemberButtonPressed();
+				mListener.onColleaguePicturePressed(0);
 			}
-		}));
+		},false));
+
 		//other icons
 		gridArray.add(new Item(chatIcon, "Chat", new View.OnClickListener() {
 			@Override
@@ -138,7 +159,7 @@ public class TeamMembersFragment extends Fragment {
 			}
 		}));
 
-		gridArray.add(new Item(guestIcon, "Links", new View.OnClickListener() {
+		gridArray.add(new Item(linksIcon, "Links", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				mListener.onGuestButtonPressed();
@@ -150,7 +171,7 @@ public class TeamMembersFragment extends Fragment {
 				mListener.onActivityButtonPressed();
 			}
 		}));
-		gridArray.add(new Item(null, ""));
+		gridArray.add(new Item());
 		gridArray.add(new Item(images02Icon, "Video", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -207,6 +228,8 @@ public class TeamMembersFragment extends Fragment {
 	}
 
 	public interface OnTeamMembersFragmentInteractionListener{
+		void onSelfPicturePressed();
+		void onColleaguePicturePressed(int colleagueID);
 		void onChatButtonPressed();
 		void onMailButtonPressed();
 		void onCalendarButtonPressed();

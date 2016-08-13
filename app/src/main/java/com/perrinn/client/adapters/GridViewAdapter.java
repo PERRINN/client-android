@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 
 import com.perrinn.client.R;
 import com.perrinn.client.beans.Item;
+import com.perrinn.client.loaders.AsyncBitmapLoader;
 
 /**
  * Created by Antreas Christofi on 26-07-2016.
@@ -54,7 +58,17 @@ public class GridViewAdapter extends ArrayAdapter<Item> {
 
 		Item item = data.get(position);
 		holder.txtTitle.setText(item.getTitle());
-		holder.imageItem.setImageDrawable(item.getImage());
+		if(item.isUser()) {
+			new AsyncBitmapLoader(context, holder.imageItem).execute(item.getUserPic());
+			if(item.isSelf()){
+				holder.imageItem.setBackground(VectorDrawableCompat.create(context.getResources(),R.drawable.team_members_self_border,null));
+			}
+		} else {
+			VectorDrawableCompat image = item.getImage();
+			if(image != null)
+				image.setColorFilter(Color.parseColor("#FFFFFFFF"), PorterDuff.Mode.SRC_IN);
+			holder.imageItem.setImageDrawable(item.getImage());
+		}
 		View.OnClickListener itemListener = item.getAttachedListener();
 		if(itemListener != null)
 			row.setOnClickListener(itemListener);

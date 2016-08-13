@@ -21,4 +21,5 @@
     <color name="colorSettingsTeam">#FF0000FF</color>
     <color name="colorSettingsTeamHeaderBackground">#FFF3F3F3</color>
     <color name="colorSettingsTeamHeaderTitle">#FF999999</color>
+    <color name="colorSelfTeamMembersItem">#FFA0BFF6</color>
 </resources>

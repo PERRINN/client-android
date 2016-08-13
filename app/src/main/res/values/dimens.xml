@@ -5,4 +5,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="dock_indicator_right_margin">5dp</dimen>
     <dimen name="login_button_top_margin">16dp</dimen>
+    <dimen name="perrinn_dock_height">120dp</dimen>
 </resources>
