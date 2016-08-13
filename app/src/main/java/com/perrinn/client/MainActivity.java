@@ -2,8 +2,10 @@ package com.perrinn.client;
 
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +18,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethod;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
@@ -37,12 +41,14 @@ import com.perrinn.client.fragments.TeamSettingsFragment;
 import com.perrinn.client.helpers.DockItemMarginDecorator;
 import com.perrinn.client.helpers.DockManager;
 import com.perrinn.client.helpers.ToggledViewPager;
+import com.perrinn.client.listeners.InputInteractionListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener, TeamScreensFragment.TeamScreensInteractionListener{
+public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener, TeamScreensFragment.TeamScreensInteractionListener,
+        InputInteractionListener{
     private RelativeLayout mDock;
     public RelativeLayout modifiedDock;
     private RecyclerView mPagesIndicatorsList;
@@ -88,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         mDockManager = new DockManager(new ArrayList<DockIndicator>());
         mPagesIndicatorsList = (RecyclerView) findViewById(R.id.pages_indicators_list);
         mPSB = (ImageButton) findViewById(R.id.psb);
-
         if (savedInstanceState == null) {
             addLoginFragment();
             initDock();
@@ -98,25 +103,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override
@@ -197,6 +185,14 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         for(int i = 0;i<delta;i++)
             mDockManager.addNewDockItem(new DockIndicator(false));
         mPagesIndicatorsList.swapAdapter(new DockItemAdapter(this,mDockManager.getIndicators()),true);
+    }
+
+    @Override
+    public void onKeyboardStateChanged(boolean keyboardHidden) {
+        if(keyboardHidden)
+           mDock.setVisibility(View.VISIBLE);
+        else
+            mDock.setVisibility(View.GONE);
     }
 
     /*
@@ -378,15 +374,6 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         this.mDock.setVisibility(View.VISIBLE);
     }
 
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        /*if(getSupportFragmentManager().getBackStackEntryCount() == 0){
-            this.mDock.setVisibility(View.INVISIBLE); // to remove the dock on the login fragment
-        }*/
-    }
-
     /*
         * //////////////////////////////////////////////////
         * //the functions below are binded to the XML layout files and are called whenever a UI element
@@ -432,7 +419,5 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }
     public void onPressTeamScreenButton(View v){
     }
-
-
 
 }
