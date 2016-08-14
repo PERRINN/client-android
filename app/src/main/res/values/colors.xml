@@ -3,7 +3,7 @@
     <color name="colorPrimary">#FF78ACE5</color>
     <color name="colorPrimaryDark">#FF1A4D85</color>
     <color name="colorAccent">#FFFFFFFF</color>
-    <color name="colorDockBackground">#FFD9D9D9</color>
+    <color name="colorDockBackground">#FFF3F3F3</color>
     <color name="colorDockIndicatorActive">#FFFFFFFF</color>
     <color name="colorDockIndicatorInactive">#FF999999</color>
     <color name="colorTeamListBackground">#FF434343</color>
@@ -22,4 +22,6 @@
     <color name="colorSettingsTeamHeaderBackground">#FFF3F3F3</color>
     <color name="colorSettingsTeamHeaderTitle">#FF999999</color>
     <color name="colorSelfTeamMembersItem">#FFA0BFF6</color>
+    <color name="colorChatIcon">#FF9EA3AB</color>
+    <color name="colorChatTopBorder">#FFE6E6E6</color>
 </resources>

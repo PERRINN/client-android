@@ -11,13 +11,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.perrinn.client.adapters.ChatAdapter;
@@ -37,6 +40,8 @@ public class ChatFragment extends Fragment {
     private ChatAdapter adapter;
     private ArrayList<ChatMessage> chatHistory;
 
+    private LinearLayout mChatInputContainer;
+
     private InputInteractionListener mListener;
 
     @Nullable
@@ -47,9 +52,9 @@ public class ChatFragment extends Fragment {
         adapter = new ChatAdapter(getContext(), new ArrayList<ChatMessage>());
         messagesContainer=(ListView)rootView.findViewById(R.id.messagesContainer);
         messageET=(EditText)rootView.findViewById(R.id.messageEdit);
-        sendBtn=(Button)rootView.findViewById(R.id.chatSendButton);
+        mChatInputContainer = (LinearLayout) rootView.findViewById(R.id.chat_input_container);
+        //sendBtn=(Button)rootView.findViewById(R.id.chatSendButton);
         messagesContainer.setAdapter(adapter);
-
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -62,7 +67,7 @@ public class ChatFragment extends Fragment {
             }
         });
 
-        sendBtn.setOnClickListener(new View.OnClickListener() {
+        /*sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String messageText = messageET.getText().toString();
@@ -81,6 +86,32 @@ public class ChatFragment extends Fragment {
                 messageET.setText("");
 
                 displayMessage(chatMessage);
+            }
+        });*/
+        messageET.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
+                    String messageText = messageET.getText().toString();
+                    if (TextUtils.isEmpty(messageText)) {
+                        return false;
+                    }
+
+                    ChatMessage chatMessage = new ChatMessage();
+                    chatMessage.setId(1);//dummy
+                    chatMessage.setMessage(messageText);
+
+                    chatMessage.setUsername("Nicolas ");
+                    chatMessage.setMe(true);
+
+
+                    messageET.setText("");
+
+                    displayMessage(chatMessage);
+                    return true;
+                }
+
+                return false;
             }
         });
 

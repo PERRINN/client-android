@@ -54,6 +54,7 @@
     <string name="settings_team_header_proj">PROJECTS</string>
     <string name="settings_team_add_project">Add a new project...</string>
     <string name="type_message">type message</string>
+    <string name="chat_hint_message">Message</string>
 
     <string-array name="settings_profile_change_picture_choices">
         <item>Use the camera</item>
