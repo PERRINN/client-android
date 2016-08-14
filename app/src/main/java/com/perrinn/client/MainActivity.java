@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, LoginFragment.newInstance(),FRAGMENT_LOADING)
                 .commit();
-        this.mDock.setVisibility(View.INVISIBLE);
+        this.mDock.setVisibility(View.GONE);
     }
 
     private void addTeamScreensFragment(){
