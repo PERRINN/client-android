@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethod;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.perrinn.client.activities.SettingsActivity;
@@ -49,7 +50,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener, TeamScreensFragment.TeamScreensInteractionListener,
         InputInteractionListener{
-    private RelativeLayout mDock;
+    private LinearLayout mDock;
     public RelativeLayout modifiedDock;
     private RecyclerView mPagesIndicatorsList;
     private ImageButton mPSB;
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mDock = (RelativeLayout) findViewById(R.id.dock);
+        mDock = (LinearLayout) findViewById(R.id.dock);
         modifiedDock = (RelativeLayout) findViewById(R.id.chatdock);
         mDockManager = new DockManager(new ArrayList<DockIndicator>());
         mPagesIndicatorsList = (RecyclerView) findViewById(R.id.pages_indicators_list);
