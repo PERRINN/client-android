@@ -4,7 +4,10 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 /**
- * Created by alessandrosilacci on 15/08/16.
+ * This class intends to detect a swipe down. It must be used with the GestureDetector.
+ *
+ * @since 15.08.2016
+ * @author Alessandro
  */
 public class SwipeDownGestureListener implements GestureDetector.OnGestureListener {
     private float mThreshold = 0;
