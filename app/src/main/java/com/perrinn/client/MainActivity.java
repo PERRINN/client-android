@@ -104,6 +104,19 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        /*int historySize = event.getHistorySize();
+        int pointerCount = event.getPointerCount();
+        for(int i = 0; i < historySize;i++){
+            System.out.print("Detected event at: "+event.getHistoricalEventTime(i));
+            for(int j = 0; j < pointerCount;j++){
+                System.out.println(" pointer "+j+": ("+event.getHistoricalX(j,i)+","+event.getHistoricalY(j,i)+")");
+            }
+        }*/
+        return super.onTouchEvent(event);
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
     }

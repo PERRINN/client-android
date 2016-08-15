@@ -11,21 +11,28 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GestureDetectorCompat;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.perrinn.client.adapters.ChatAdapter;
 import com.perrinn.client.R;
 import com.perrinn.client.listeners.InputInteractionListener;
+import com.perrinn.client.listeners.SwipeDownGestureListener;
 import com.perrinn.client.objects.ChatMessage;
 
 /**
@@ -43,6 +50,7 @@ public class ChatFragment extends Fragment {
     private LinearLayout mChatInputContainer;
 
     private InputInteractionListener mListener;
+    private GestureDetectorCompat mDetector;
 
     @Nullable
     @Override
@@ -55,6 +63,31 @@ public class ChatFragment extends Fragment {
         mChatInputContainer = (LinearLayout) rootView.findViewById(R.id.chat_input_container);
         //sendBtn=(Button)rootView.findViewById(R.id.chatSendButton);
         messagesContainer.setAdapter(adapter);
+        final InputMethodManager mImm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mDetector = new GestureDetectorCompat(getContext(),new SwipeDownGestureListener(new SwipeDownGestureListener.SwipeDownListener() {
+            @Override
+            public void onSwipeDown() {
+                if(messageET.hasFocus()) {
+                    messageET.clearFocus();
+                    mImm.hideSoftInputFromWindow(messageET.getWindowToken(), 0);
+                }
+            }
+        }));
+        messagesContainer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mDetector.onTouchEvent(event);
+                return false;
+            }
+        });
+        rootView.setLongClickable(true);
+        rootView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mDetector.onTouchEvent(event);
+                return false;
+            }
+        });
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -111,7 +144,7 @@ public class ChatFragment extends Fragment {
                     return true;
                 }
 
-                return false;
+                return true;
             }
         });
 
@@ -124,6 +157,7 @@ public class ChatFragment extends Fragment {
 
         return rootView;
     }
+
 
     /*
     * //////////////////////////////////////////////////
