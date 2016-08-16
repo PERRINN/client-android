@@ -239,8 +239,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                 }else addTeamSettingsFragment();
             }
         });
-        mPagesIndicatorsList.addItemDecoration(new DockItemMarginDecorator(this,
-                R.dimen.dock_indicator_right_margin));
+        /*mPagesIndicatorsList.addItemDecoration(new DockItemMarginDecorator(this,
+                R.dimen.dock_indicator_right_margin));*/
         mPagesIndicatorsList.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
