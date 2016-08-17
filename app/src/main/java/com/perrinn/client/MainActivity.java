@@ -209,6 +209,11 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
             mDock.setVisibility(View.GONE);
     }
 
+    @Override
+    public void onComplete() {
+        this.mDock.setVisibility(View.VISIBLE);
+    }
+
     /*
     * //////////////////////////////////////////////////
     * // Private methods
@@ -304,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container,TeamScreensFragment.newInstance(),FRAGMENT_TEAM_SCREENS)
                 .commit();
-        this.mDock.setVisibility(View.VISIBLE);
+        //this.mDock.setVisibility(View.VISIBLE);
     }
 
     private void addTeamFragment(){
@@ -434,5 +439,4 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }
     public void onPressTeamScreenButton(View v){
     }
-
 }

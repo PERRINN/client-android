@@ -14,6 +14,7 @@ import com.perrinn.client.adapters.GridViewAdapter;
 import com.perrinn.client.adapters.MainPagerAdapter;
 import com.perrinn.client.beans.DockIndicator;
 import com.perrinn.client.helpers.ToggledViewPager;
+import com.perrinn.client.listeners.OnRenderCompleteListener;
 
 /**
  * Created by alessandrosilacci on 10/08/16.
@@ -87,6 +88,12 @@ public class TeamScreensFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mListener.onComplete();
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if(context instanceof TeamScreensInteractionListener){
@@ -97,7 +104,7 @@ public class TeamScreensFragment extends Fragment {
         }
     }
 
-    public interface TeamScreensInteractionListener extends TeamMembersFragment.OnTeamMembersFragmentInteractionListener {
+    public interface TeamScreensInteractionListener extends TeamMembersFragment.OnTeamMembersFragmentInteractionListener, OnRenderCompleteListener {
         void onPageChange(int position);
         void onPageCountChanged(int count);
     }
