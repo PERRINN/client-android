@@ -39,11 +39,11 @@ public class GridViewAdapter extends ArrayAdapter<Item> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View row = convertView;
+		/*View row = convertView;
 		RecordHolder holder = null;
 
 		if (row == null) {
-			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+			LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 			row = inflater.inflate(layoutResourceId, parent, false);
 
 			holder = new RecordHolder();
@@ -72,8 +72,34 @@ public class GridViewAdapter extends ArrayAdapter<Item> {
 		View.OnClickListener itemListener = item.getAttachedListener();
 		if(itemListener != null)
 			row.setOnClickListener(itemListener);
-		return row;
-
+		return row;*/
+		LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+		View v = null;
+		if(convertView == null){
+			v = inflater.inflate(R.layout.row_grid,parent,false);
+			TextView mTxtTitle = (TextView) v.findViewById(R.id.item_text);
+			ImageView mImageItem = (ImageView) v.findViewById(R.id.item_image);
+			Item item = data.get(position);
+			mTxtTitle.setText(item.getTitle());
+			mTxtTitle.setTextColor(Color.WHITE);
+			if(item.isUser()) {
+				new AsyncBitmapLoader(context, mImageItem).execute(item.getUserPic());
+				if(item.isSelf()){
+					mImageItem.setBackground(VectorDrawableCompat.create(context.getResources(),R.drawable.team_members_self_border,null));
+				}
+			} else {
+				VectorDrawableCompat image = item.getImage();
+				if(image != null)
+					image.setColorFilter(Color.parseColor("#FFFFFFFF"), PorterDuff.Mode.SRC_IN);
+				mImageItem.setImageDrawable(item.getImage());
+			}
+			View.OnClickListener itemListener = item.getAttachedListener();
+			if(itemListener != null)
+				v.setOnClickListener(itemListener);
+		}else{
+			v = convertView;
+		}
+		return v;
 	}
 
 	static class RecordHolder {

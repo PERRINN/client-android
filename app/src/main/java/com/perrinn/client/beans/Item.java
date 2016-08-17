@@ -34,17 +34,16 @@ public class Item {
 		this.user = true;
 		this.self = self;
 	}
-
-	public Item(){ // FIXME: not a good thing I think but does the trick
-
-	}
-
 	public Item(VectorDrawableCompat image, String title) {
 		this(image,title,null);
 	}
+
 	public Item(Integer image, String title,boolean self) {
 		this(image,title,null,self);
 	}
+
+	public Item(){}
+
 
 	public VectorDrawableCompat getImage() {
 		return image;

@@ -88,10 +88,10 @@ public class ChatAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         ChatMessage chatMessage = getItem(position);
-        LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+       // LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater vi = LayoutInflater.from(parent.getContext());
         if (convertView == null) {
-            convertView = vi.inflate(R.layout.list_item_chat_message, null);
+            convertView = vi.inflate(R.layout.list_item_chat_message, parent, false);
             holder = createViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -143,7 +143,7 @@ public class ChatAdapter extends BaseAdapter {
     * //viewholder class
     * /////////////////////////////////////////////////
     */
-    private static class ViewHolder {
+    private class ViewHolder {
         public TextView txtMessage;
         public TextView txtInfo;
         public LinearLayout content;

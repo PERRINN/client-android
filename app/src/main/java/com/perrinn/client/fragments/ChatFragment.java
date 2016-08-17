@@ -144,7 +144,7 @@ public class ChatFragment extends Fragment {
                     return true;
                 }
 
-                return true;
+                return false;
             }
         });
 
@@ -167,7 +167,7 @@ public class ChatFragment extends Fragment {
     public void displayMessage(ChatMessage message) {
         adapter.add(message);
         adapter.notifyDataSetChanged();
-        scroll();
+        //scroll();
     }
     /*
     * //////////////////////////////////////////////////
