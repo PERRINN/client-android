@@ -15,27 +15,45 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.perrinn.client.activities.SettingsActivity;
 import com.perrinn.client.adapters.GridViewAdapter;
 import com.perrinn.client.beans.Item;
 import com.perrinn.client.R;
+import com.perrinn.client.loaders.AsyncBitmapLoader;
 
 /**
  * Created by Antreas Christofi on 26-07-2016.
  */
 
 public class TeamMembersFragment extends Fragment {
+	private static final String FRAGMENT_PARAM_TITLE = "com.perrinn.client.fragments.TeamMembersFragment.FRAGMENT_PARAM_TITLE";
+	private static final String FRAGMENT_PARAM_DESC = "com.perrinn.client.fragments.TeamMembersFragment.FRAGMENT_PARAM_DESC";
+	private static final String FRAGMENT_PARAM_BACKGROUND = "com.perrinn.client.fragments.TeamMembersFragment.FRAGMENT_PARAM_BACKGROUND";
 	GridView gridView;
 	ArrayList<Item> gridArray = new ArrayList<Item>();
 	GridViewAdapter customGridAdapter;
+
+	private TextView mTextViewTeamName;
+	private TextView mTextViewMessageToTeam;
+	private ImageView mTeamMembersBackground;
 	private OnTeamMembersFragmentInteractionListener mListener;
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_team_members,container,false);
-
+		mTextViewTeamName = (TextView) rootView.findViewById(R.id.textViewTeamName);
+		mTextViewMessageToTeam = (TextView) rootView.findViewById(R.id.textViewMessageToTeam);
+		mTeamMembersBackground = (ImageView) rootView.findViewById(R.id.team_members_background);
+		Bundle args = getArguments();
+		if(args != null){
+			mTextViewTeamName.setText(args.getString(FRAGMENT_PARAM_TITLE));
+			mTextViewMessageToTeam.setText(args.getString(FRAGMENT_PARAM_DESC));
+			new AsyncBitmapLoader(getContext(),mTeamMembersBackground).execute(args.getInt(FRAGMENT_PARAM_BACKGROUND));
+		}
 		//icons
 		/*Bitmap chatIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_chat_01);
 		Bitmap mailIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_mail);
@@ -76,13 +94,13 @@ public class TeamMembersFragment extends Fragment {
 		//any unused slots(say the team has 6 instead of 8 persons) can be loaded as
 		//a null pic, empty string item to maintain layout
 
-		gridArray.add(new Item(R.drawable.placeholder_team_members_1, "Mark", new View.OnClickListener() {
+		gridArray.add(new Item(R.drawable.placeholder_team_members_1, "Mark*", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				mListener.onSelfPicturePressed();
 			}
 		},true));
-		gridArray.add(new Item(R.drawable.placeholder_team_members_2,"Aiko",new View.OnClickListener(){
+		gridArray.add(new Item(R.drawable.placeholder_team_members_2,"Aiko*",new View.OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
@@ -210,8 +228,13 @@ public class TeamMembersFragment extends Fragment {
 		return rootView;
 	}
 
-	public static TeamMembersFragment newInstance(){
+	public static TeamMembersFragment newInstance(String teamTitle, String teamDesc, int backgroundRes){
 		TeamMembersFragment fragment = new TeamMembersFragment();
+		Bundle params = new Bundle();
+		params.putString(FRAGMENT_PARAM_TITLE,teamTitle);
+		params.putString(FRAGMENT_PARAM_DESC,teamDesc);
+		params.putInt(FRAGMENT_PARAM_BACKGROUND,backgroundRes);
+		fragment.setArguments(params);
 		return fragment;
 	}
 

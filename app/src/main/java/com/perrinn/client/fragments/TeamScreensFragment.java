@@ -19,6 +19,8 @@ import com.perrinn.client.helpers.ToggledViewPager;
  * Created by alessandrosilacci on 10/08/16.
  */
 public class TeamScreensFragment extends Fragment {
+
+
     private ToggledViewPager mFragmentPagerMain;
     private MainPagerAdapter mFragmentPagerMainAdapter;
     private TeamScreensInteractionListener mListener;
@@ -50,8 +52,8 @@ public class TeamScreensFragment extends Fragment {
             }
         });
         // dummy screens added
-        addNewTeamMembersFragment("TEAM_MEMBERS_MARKETING",true,false);
-        addNewTeamMembersFragment("TEAM_MEMBERS_FRIENDS",false,false);
+        addNewTeamMembersFragment("TEAM_MEMBERS_MARKETING",true,false,"Marketing","Busy preparing our next event.",R.drawable.team_members_background_placeholder);
+        addNewTeamMembersFragment("TEAM_MEMBERS_FRIENDS",false,false,"Friends","Always fun stories to share.",R.drawable.settings_profile_background_placeholder);
         return rootView;
     }
 
@@ -62,8 +64,8 @@ public class TeamScreensFragment extends Fragment {
      * @param rebuild if the adapter needs to be reset.
      * @param transit transition needed to the freshly added fragment.
      * */
-    private void addNewTeamMembersFragment(String tag, boolean rebuild, boolean transit){
-        mFragmentPagerMainAdapter.addNewFragment(tag, TeamMembersFragment.newInstance());
+    private void addNewTeamMembersFragment(String tag, boolean rebuild, boolean transit,String teamTitle, String teamDesc, int backgroundRes){
+        mFragmentPagerMainAdapter.addNewFragment(tag, TeamMembersFragment.newInstance(teamTitle,teamDesc,backgroundRes));
         mFragmentPagerMainAdapter.notifyDataSetChanged();
 
 
