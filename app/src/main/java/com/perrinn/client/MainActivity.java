@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.hardware.input.InputManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -98,6 +99,13 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         if (savedInstanceState == null) {
             addLoginFragment();
             initDock();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    addTeamScreensFragment();
+                }
+            },1000);
         }
         mPagesIndicatorsList.setAdapter(new DockItemAdapter(this,mDockManager.getIndicators()));
 

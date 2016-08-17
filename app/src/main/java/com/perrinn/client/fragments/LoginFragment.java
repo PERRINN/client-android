@@ -45,7 +45,7 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
-        mLoginCreateTeamButton = (Button) rootView.findViewById(R.id.login_create_team_button);
+        /*mLoginCreateTeamButton = (Button) rootView.findViewById(R.id.login_create_team_button);
         mLoginJoinTeamButton = (Button) rootView.findViewById(R.id.login_join_team_button);
         mLoginEnterButton = (Button) rootView.findViewById(R.id.login_enter_button);
 
@@ -66,7 +66,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 mListener.onLoginEnterButtonInteraction();
             }
-        });
+        });*/
         return rootView;
     }
 
