@@ -56,6 +56,11 @@
     <string name="type_message">type message</string>
     <string name="chat_hint_message">Message</string>
 
+    <string name="gmap_no_location_dialog_title">No location</string>
+    <string name="gmap_no_location_dialog_message">Sorry but we could not find your actual location.</string>
+
+    <string name="dialogs_ok_message">Ok</string>
+
     <string-array name="settings_profile_change_picture_choices">
         <item>Use the camera</item>
         <item>Choose in the gallery</item>
@@ -69,5 +74,6 @@
         <item>Chess</item>
         <item>Hockey</item>
     </string-array>
+    <string name="title_activity_maps_fragment">Map</string>
 
 </resources>
