@@ -26,8 +26,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethod;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     private RecyclerView mPagesIndicatorsList;
     private ImageButton mPSB;
     private DockManager mDockManager;
+    private FrameLayout mFragmentContainer;
     private static final String FRAGMENT_LOADING = "com.perrinn.client.fragments.LOADING_FRAGMENT";
     private static final String FRAGMENT_LANDING = "com.perrinn.client.fragments.LANDING_FRAGMENT";
     private static final String FRAGMENT_PROJECT_PAGE = "com.perrinn.client.fragments.PROJECT_FRAGMENT";
@@ -116,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         mDockManager = new DockManager(new ArrayList<DockIndicator>());
         mPagesIndicatorsList = (RecyclerView) findViewById(R.id.pages_indicators_list);
         mPSB = (ImageButton) findViewById(R.id.psb);
+        mFragmentContainer = (FrameLayout) findViewById(R.id.fragment_container);
         if (savedInstanceState == null) {
             addLoginFragment();
             initDock();
@@ -128,7 +132,18 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
             }, 1000);
         }
         mPagesIndicatorsList.setAdapter(new DockItemAdapter(this, mDockManager.getIndicators()));
-
+        if(mFragmentContainer.getViewTreeObserver().isAlive())
+            mFragmentContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    int delta =  mFragmentContainer.getRootView().getHeight() - mFragmentContainer.getHeight();
+                    if(delta > 396){ // FIXME: density is actually calculated on only one device, might change.
+                        onKeyboardStateChanged(false);
+                    }else{
+                        onKeyboardStateChanged(true);
+                    }
+                }
+            });
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -259,9 +274,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                 profileFragment.onRequestPermissionsResult(requestCode,permissions,grantResults);
                 break;
         }
-
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
     }
     /*
     * //////////////////////////////////////////////////

@@ -88,17 +88,7 @@ public class ChatFragment extends Fragment {
                 return false;
             }
         });
-        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                int delta =  rootView.getRootView().getHeight() - rootView.getHeight();
-                if(delta > 396){ // FIXME: density is actually calculated on only one device, might change.
-                    mListener.onKeyboardStateChanged(false);
-                }else{
-                    mListener.onKeyboardStateChanged(true);
-                }
-            }
-        });
+
 
         /*sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
