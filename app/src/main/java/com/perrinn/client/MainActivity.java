@@ -53,6 +53,7 @@ import com.perrinn.client.fragments.ProjectFragment;
 import com.perrinn.client.fragments.TeamMembersFragment;
 import com.perrinn.client.fragments.TeamScreensFragment;
 import com.perrinn.client.fragments.TeamSettingsFragment;
+import com.perrinn.client.fragments.TeamSettingsScreensFragment;
 import com.perrinn.client.helpers.DockItemMarginDecorator;
 import com.perrinn.client.helpers.DockManager;
 import com.perrinn.client.helpers.ToggledViewPager;
@@ -411,7 +412,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
             getSupportFragmentManager().popBackStack();
         lastTag = FRAGMENT_SETTINGS_TEAM;
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, TeamSettingsFragment.newInstance(), FRAGMENT_SETTINGS_TEAM)
+                .add(R.id.fragment_container, TeamSettingsScreensFragment.newInstance(oldDockPosition), FRAGMENT_SETTINGS_TEAM)
                 .addToBackStack(null)
                 .commit();
         this.mDock.setVisibility(View.VISIBLE);

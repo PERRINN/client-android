@@ -96,7 +96,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void addTeamSettingsFragment(){
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.settings_fragment_container, TeamSettingsFragment.newInstance())
+                .add(R.id.settings_fragment_container, TeamSettingsFragment.newInstance(null,0))
                 .commit();
     }
 

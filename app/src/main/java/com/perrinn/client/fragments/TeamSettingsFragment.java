@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.perrinn.client.R;
 import com.perrinn.client.adapters.SettingsTeamProjectsAdapter;
+import com.perrinn.client.loaders.AsyncBitmapLoader;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,9 @@ import java.util.ArrayList;
  * Created by alessandrosilacci on 27/07/16.
  */
 public class TeamSettingsFragment extends Fragment{
+    private static final String FRAGMENT_PARAM_TEAMTITLE = "com.perrinn.client.fragments.TeamSettingsFragment.FRAGMENT_PARAM_TEAMTITLE";
+    private static final String FRAGMENT_PARAM_BACKGROUNDRES = "com.perrinn.client.fragments.TeamSettingsFragment.FRAGMENT_PARAM_BACKGROUNDRES";
+
     private TextView mSettingsTeamTeamName;
     private TextView mSettingsTeamEditName;
     private TextView mSettingsTeamAddMember;
@@ -31,6 +35,7 @@ public class TeamSettingsFragment extends Fragment{
     private TextView mSettingsTeamHintShare;
     private RecyclerView mSettingsTeamProjectsList;
     private TextView mSettingsTeamAddProject;
+    private ImageView mSettingsTeamBackgroundHolder;
 
     @Nullable
     @Override
@@ -47,10 +52,15 @@ public class TeamSettingsFragment extends Fragment{
         mSettingsTeamHintShare = (TextView) rootView.findViewById(R.id.settings_team_hint_share);
         mSettingsTeamProjectsList = (RecyclerView) rootView.findViewById(R.id.settings_team_projects_list);
         mSettingsTeamAddProject = (TextView) rootView.findViewById(R.id.settings_team_add_project);
+        mSettingsTeamBackgroundHolder = (ImageView) rootView.findViewById(R.id.settings_team_background_holder);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
 
-
-        mSettingsTeamTeamName.setText(("Friends").toUpperCase());
+        Bundle args = getArguments();
+        if(args != null){
+            mSettingsTeamTeamName.setText((args.getString(FRAGMENT_PARAM_TEAMTITLE)).toUpperCase());
+            new AsyncBitmapLoader(getContext(),mSettingsTeamBackgroundHolder).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
+            new AsyncBitmapLoader(getContext(),mSettingsTeamPicture).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
+        }
         mSettingsTeamTeamAddress.setText(("hj36 9vd").toUpperCase());
         mSettingsTeamOrgName.setText("Family and Friends");
         mSettingsTeamHintShare.setText(getResources().getString(R.string.settings_team_hint_share)+" "+"Family and friends"+" team.");
@@ -67,8 +77,12 @@ public class TeamSettingsFragment extends Fragment{
         return rootView;
     }
 
-    public static TeamSettingsFragment newInstance(){
+    public static TeamSettingsFragment newInstance(String teamTitle, int backgroundRes){
         TeamSettingsFragment fragment = new TeamSettingsFragment();
+        Bundle args = new Bundle();
+        args.putString(FRAGMENT_PARAM_TEAMTITLE,teamTitle);
+        args.putInt(FRAGMENT_PARAM_BACKGROUNDRES,backgroundRes);
+        fragment.setArguments(args);
         return fragment;
     }
 }
