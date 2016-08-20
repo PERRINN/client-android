@@ -41,12 +41,8 @@ public class TeamFragment extends Fragment {
         mTeamList.setLayoutManager(mLayoutManager);
 
         // dummy data set
-        mDummyTeams.add("Our little family");
-        mDummyTeams.add("Football club");
-        mDummyTeams.add("Design Team");
-        mDummyTeams.add("Smith-Berton family");
-        mDummyTeams.add("Design Review");
-        mDummyTeams.add("Golf Club");
+        mDummyTeams.add("Marketing");
+        mDummyTeams.add("Friends");
 
         mTeamList.setAdapter(new TeamAdapter(mDummyTeams,getContext()));
 
