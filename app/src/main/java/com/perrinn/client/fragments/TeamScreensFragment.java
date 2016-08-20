@@ -54,7 +54,7 @@ public class TeamScreensFragment extends Fragment {
         });
         // dummy screens added
         addNewTeamMembersFragment("TEAM_MEMBERS_MARKETING",true,false,"Marketing","Busy preparing our next event.",R.drawable.team_members_background_placeholder);
-        addNewTeamMembersFragment("TEAM_MEMBERS_FRIENDS",false,false,"Friends","Always fun stories to share.",R.drawable.settings_profile_background_placeholder);
+        addNewTeamMembersFragment("TEAM_MEMBERS_FRIENDS",false,false,"Friends","Always fun stories to share.",R.drawable.team_members_background2_placeholder);
         return rootView;
     }
 
