@@ -131,10 +131,10 @@ public class ChatFragment extends Fragment {
                     messageET.setText("");
 
                     displayMessage(chatMessage);
-                    return true;
+                    return false;
                 }
 
-                return false;
+                return true;
             }
         });
 
