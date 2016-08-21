@@ -37,16 +37,18 @@ import android.widget.RelativeLayout;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.perrinn.client.activities.SettingsActivity;
 import com.perrinn.client.adapters.DockItemAdapter;
 import com.perrinn.client.adapters.MainPagerAdapter;
 import com.perrinn.client.beans.DockIndicator;
 
+import com.perrinn.client.beans.Member;
+import com.perrinn.client.beans.Team;
 import com.perrinn.client.fragments.ChatFragment;
 import com.perrinn.client.fragments.CreateNewProjectFragment;
 import com.perrinn.client.fragments.LandingFragment;
 import com.perrinn.client.fragments.LoginFragment;
 import com.perrinn.client.fragments.MapsFragment;
+import com.perrinn.client.fragments.ProfileSettingsScreensFragment;
 import com.perrinn.client.fragments.TeamFragment;
 import com.perrinn.client.fragments.ProfileFragment;
 import com.perrinn.client.fragments.ProjectFragment;
@@ -58,13 +60,14 @@ import com.perrinn.client.helpers.DockItemMarginDecorator;
 import com.perrinn.client.helpers.DockManager;
 import com.perrinn.client.helpers.ToggledViewPager;
 import com.perrinn.client.listeners.InputInteractionListener;
+import com.perrinn.client.listeners.MultiScreensListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener, TeamScreensFragment.TeamScreensInteractionListener,
-        InputInteractionListener {
+        InputInteractionListener, MultiScreensListener {
     private LinearLayout mDock;
     public RelativeLayout modifiedDock;
     private RecyclerView mPagesIndicatorsList;
@@ -117,13 +120,14 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         setContentView(R.layout.activity_main);
         mDock = (LinearLayout) findViewById(R.id.dock);
         modifiedDock = (RelativeLayout) findViewById(R.id.chatdock);
-        mDockManager = new DockManager(new ArrayList<DockIndicator>());
+        mDockManager = new DockManager(new ArrayList<Team>());
         mPagesIndicatorsList = (RecyclerView) findViewById(R.id.pages_indicators_list);
         mPSB = (ImageButton) findViewById(R.id.psb);
         mFragmentContainer = (FrameLayout) findViewById(R.id.fragment_container);
         if (savedInstanceState == null) {
             addLoginFragment();
             initDock();
+            initDockManager();
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -132,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                 }
             }, 1000);
         }
-        mPagesIndicatorsList.setAdapter(new DockItemAdapter(this, mDockManager.getIndicators()));
+        mPagesIndicatorsList.setAdapter(new DockItemAdapter(this, mDockManager.getmTeams()));
         if(mFragmentContainer.getViewTreeObserver().isAlive())
             mFragmentContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
@@ -169,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         super.onBackPressed();
     }
 
+    // region Grid Buttons Listeners
     @Override
     public void onChatButtonPressed() {
         addChatPage();
@@ -224,10 +229,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
     }
 
-    @Override
-    public void onPageChange(int position) {
-        updateDock(position);
-    }
+
 
     @Override
     public void onSelfPicturePressed() {
@@ -238,15 +240,20 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     public void onColleaguePicturePressed(int colleagueID) {
 
     }
+    //endregion
 
     @Override
+    public void onPageChange(int position) {
+        updateDock(position);
+    }
+    @Override
     public void onPageCountChanged(int count) {
-        int delta = mDockManager.getIndicators().size() - count;
+        /*int delta = mDockManager.getmTeams().size() - count;
         if (delta == 0) return;
         delta = delta < 0 ? delta * -1 : delta; // FIXME: dirty but we do not have to call Math big boy.
         for (int i = 0; i < delta; i++)
             mDockManager.addNewDockItem(new DockIndicator(false));
-        mPagesIndicatorsList.swapAdapter(new DockItemAdapter(this, mDockManager.getIndicators()), true);
+        mPagesIndicatorsList.swapAdapter(new DockItemAdapter(this, mDockManager.getIndicators()), true);*/
     }
 
     @Override
@@ -283,6 +290,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     * /////////////////////////////////////////////////
     */
 
+    // region Dock management and dummy data settings
     /**
      * This method registers and init the stuff needed for the dock handling.
      */
@@ -290,10 +298,10 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
         mPagesIndicatorsList.setLayoutManager(mLayoutManager);
-        DockItemAdapter adapter = new DockItemAdapter(this, mDockManager.getIndicators());
+        DockItemAdapter adapter = new DockItemAdapter(this, mDockManager.getmTeams());
         adapter.setOnDockIndicatorClickListener(new DockItemAdapter.OnDockIndicatorClickListener() {
             @Override
-            public void onClick(DockIndicator indicator, int position) {
+            public void onClick(Team indicator, int position) {
                 // TODO: implement it
             }
         });
@@ -329,12 +337,22 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }
 
     private void updateDock(int position) {
-        if (mDockManager.getIndicators().size() - 1 < position) return;
-        mDockManager.getIndicators().get(oldDockPosition).setActive(false);
-        mDockManager.getIndicators().get(position).setActive(true);
-        mPagesIndicatorsList.swapAdapter(new DockItemAdapter(this, mDockManager.getIndicators()), true);
-        oldDockPosition = position;
+        if (mDockManager.getmTeams().size() - 1 < position) return;
+        mDockManager.onTeamSelected(position);
+        mPagesIndicatorsList.swapAdapter(new DockItemAdapter(this,mDockManager.getmTeams()),true);
     }
+
+    /**
+     * Inits the dummy data for the application.
+     * */
+    private void initDockManager(){
+        ArrayList<Member> members = new ArrayList<>();
+        ArrayList<Team> teams = new ArrayList<>();
+        teams.add(new Team("Marketing","Busy preparing our next event.",R.drawable.team_members_background_placeholder,members,true));
+        teams.add(new Team("Friends","Always fun stories to share",R.drawable.team_members_background2_placeholder,members,false));
+        mDockManager = new DockManager(teams);
+    }
+    //endregion
 
     /**
      * This method tests if the fragment given exists in the backstack and if he's currently visible.
@@ -351,6 +369,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         return entry != null && entry.getName() != null && entry.getName() == tag;
     }
 
+    // region Fragment Swaps
     /**
      * This method is intended to create and load the LoginFragment in the main container
      * layout.
@@ -379,7 +398,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         if (isFragmentActive(FRAGMENT_TEAM_SCREENS)) return;
         lastTag = FRAGMENT_TEAM_SCREENS;
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, TeamScreensFragment.newInstance(), FRAGMENT_TEAM_SCREENS)
+                .add(R.id.fragment_container, TeamScreensFragment.newInstance(mDockManager.getmTeams()), FRAGMENT_TEAM_SCREENS)
                 .commit();
         //this.mDock.setVisibility(View.VISIBLE);
     }
@@ -390,7 +409,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         if (!isFragmentActive(FRAGMENT_TEAM_SCREENS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
             getSupportFragmentManager().popBackStack();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, TeamFragment.newInstance(), FRAGMENT_TEAMS)
+                .add(R.id.fragment_container, TeamFragment.newInstance(mDockManager.getmTeams()), FRAGMENT_TEAMS)
                 .addToBackStack(FRAGMENT_TEAMS).commit();
 
         this.mDock.setVisibility(View.VISIBLE);
@@ -400,7 +419,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         if (isFragmentActive(FRAGMENT_SETTINGS_PROFILE)) return;
         lastTag = FRAGMENT_SETTINGS_PROFILE;
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, ProfileFragment.newInstance(), FRAGMENT_SETTINGS_PROFILE)
+                .add(R.id.fragment_container, ProfileSettingsScreensFragment.newInstance(mDockManager.getSelectedIndex(),mDockManager.getmTeams()), FRAGMENT_SETTINGS_PROFILE)
                 .addToBackStack(FRAGMENT_SETTINGS_PROFILE)
                 .commit();
         this.mDock.setVisibility(View.VISIBLE);
@@ -412,11 +431,13 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
             getSupportFragmentManager().popBackStack();
         lastTag = FRAGMENT_SETTINGS_TEAM;
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, TeamSettingsScreensFragment.newInstance(oldDockPosition), FRAGMENT_SETTINGS_TEAM)
+                .add(R.id.fragment_container, TeamSettingsScreensFragment.newInstance(mDockManager.getSelectedIndex(),mDockManager.getmTeams()), FRAGMENT_SETTINGS_TEAM)
                 .addToBackStack(null)
                 .commit();
         this.mDock.setVisibility(View.VISIBLE);
     }
+
+    //endregion
 
     /*
     * //////////////////////////////////////////////////
@@ -467,11 +488,11 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }
 
     /*
-        * //////////////////////////////////////////////////
-        * //the functions below are binded to the XML layout files and are called whenever a UI element
-        * is engaged by the user
-        * /////////////////////////////////////////////////
-        */
+    * //////////////////////////////////////////////////
+    * //the functions below are binded to the XML layout files and are called whenever a UI element
+    * is engaged by the user
+    * /////////////////////////////////////////////////
+    */
     @Override
     public void onLoginEnterButtonInteraction() {
         addTeamScreensFragment();

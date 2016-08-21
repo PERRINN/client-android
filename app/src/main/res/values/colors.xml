@@ -24,4 +24,5 @@
     <color name="colorSelfTeamMembersItem">#FFA0BFF6</color>
     <color name="colorChatIcon">#FF9EA3AB</color>
     <color name="colorChatTopBorder">#FFE6E6E6</color>
+    <color name="colorTeamListItemSelected">#FF49B04F</color>
 </resources>

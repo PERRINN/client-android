@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 
 import com.perrinn.client.R;
 import com.perrinn.client.beans.DockIndicator;
+import com.perrinn.client.beans.Team;
 
 import java.util.ArrayList;
 
@@ -21,11 +22,11 @@ import java.util.ArrayList;
  * @since 02.06.2016
  */
 public class DockItemAdapter extends RecyclerView.Adapter<DockItemAdapter.ViewHolder>{
-    private ArrayList<DockIndicator> mIndicators;
+    private ArrayList<Team> mIndicators;
     private Context mContext;
     private OnDockIndicatorClickListener mListener;
 
-    public DockItemAdapter(Context context, ArrayList<DockIndicator> indicators){
+    public DockItemAdapter(Context context, ArrayList<Team> indicators){
         this.mContext = context;
         this.mIndicators = indicators;
     }
@@ -40,9 +41,9 @@ public class DockItemAdapter extends RecyclerView.Adapter<DockItemAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final DockIndicator[] item = {mIndicators.get(position)};
+        final Team[] item = {mIndicators.get(position)};
         final int[] pos = {position};
-        if(item[0].isActive())
+        if(item[0].isSelected())
             DrawableCompat.setTint(holder.mDockIndicatorButton.getDrawable(),
                     ContextCompat.getColor(mContext,R.color.colorDockIndicatorActive));
         else
@@ -81,6 +82,6 @@ public class DockItemAdapter extends RecyclerView.Adapter<DockItemAdapter.ViewHo
     }
 
     public interface OnDockIndicatorClickListener {
-        void onClick(DockIndicator indicator, int position);
+        void onClick(Team indicator, int position);
     }
 }

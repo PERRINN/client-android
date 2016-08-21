@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.perrinn.client.R;
+import com.perrinn.client.beans.Team;
 
 import java.util.ArrayList;
 
@@ -21,10 +22,10 @@ import java.util.ArrayList;
  * @author Alessandro
  */
 public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder>{
-    private ArrayList<String> mTeams;
+    private ArrayList<Team> mTeams;
     private Context mContext;
 
-    public TeamAdapter(ArrayList<String> mTeams, Context mContext) {
+    public TeamAdapter(ArrayList<Team> mTeams, Context mContext) {
         this.mTeams = mTeams;
         this.mContext = mContext;
     }
@@ -38,8 +39,11 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String team = mTeams.get(position);
-        holder.mTeamListItemName.setText(team.toUpperCase());
+        Team team = mTeams.get(position);
+        holder.mTeamListItemName.setText(team.getName().toUpperCase());
+        if(team.isSelected()){
+            holder.mTeamListItemName.setBackgroundResource(R.drawable.team_list_selected_item);
+        }
     }
 
     @Override

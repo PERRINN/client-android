@@ -13,19 +13,24 @@ import com.perrinn.client.R;
 import com.perrinn.client.adapters.GridViewAdapter;
 import com.perrinn.client.adapters.MainPagerAdapter;
 import com.perrinn.client.beans.DockIndicator;
+import com.perrinn.client.beans.Team;
+import com.perrinn.client.helpers.DockManager;
 import com.perrinn.client.helpers.ToggledViewPager;
+import com.perrinn.client.listeners.MultiScreensListener;
 import com.perrinn.client.listeners.OnRenderCompleteListener;
+
+import java.util.ArrayList;
 
 /**
  * Created by alessandrosilacci on 10/08/16.
  */
 public class TeamScreensFragment extends Fragment {
-
+    private static final String FRAGMENT_PARAM_TEAMS = "com.perrinn.client.fragments.TeamScreensFragment.FRAGMENT_PARAM_TEAMS";
 
     private ToggledViewPager mFragmentPagerMain;
     private MainPagerAdapter mFragmentPagerMainAdapter;
     private TeamScreensInteractionListener mListener;
-
+    private ArrayList<Team> mTeams;
     private int oldPagePosition;
 
     @Nullable
@@ -52,9 +57,14 @@ public class TeamScreensFragment extends Fragment {
 
             }
         });
-        // dummy screens added
-        addNewTeamMembersFragment("TEAM_MEMBERS_MARKETING",true,false,"Marketing","Busy preparing our next event.",R.drawable.team_members_background_placeholder);
-        addNewTeamMembersFragment("TEAM_MEMBERS_FRIENDS",false,false,"Friends","Always fun stories to share.",R.drawable.team_members_background2_placeholder);
+        Bundle args = getArguments();
+        if(args != null) {
+            mTeams = args.getParcelableArrayList(FRAGMENT_PARAM_TEAMS);
+            for (Team team : mTeams) {
+                String tName = team.getName();
+                addNewTeamMembersFragment("TEAM_MEMBERS_" + tName.toUpperCase(), true, team.isSelected(), tName, team.getDescription(), team.getBgres());
+            }
+        }
         return rootView;
     }
 
@@ -104,13 +114,15 @@ public class TeamScreensFragment extends Fragment {
         }
     }
 
-    public interface TeamScreensInteractionListener extends TeamMembersFragment.OnTeamMembersFragmentInteractionListener, OnRenderCompleteListener {
-        void onPageChange(int position);
+    public interface TeamScreensInteractionListener extends TeamMembersFragment.OnTeamMembersFragmentInteractionListener, OnRenderCompleteListener,MultiScreensListener {
         void onPageCountChanged(int count);
     }
 
-    public static TeamScreensFragment newInstance(){
+    public static TeamScreensFragment newInstance(ArrayList<Team> teams){
         TeamScreensFragment fragment = new TeamScreensFragment();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList(FRAGMENT_PARAM_TEAMS,teams);
+        fragment.setArguments(args);
         return fragment;
     }
 }

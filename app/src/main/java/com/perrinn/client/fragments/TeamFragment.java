@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 
 import com.perrinn.client.R;
 import com.perrinn.client.adapters.TeamAdapter;
+import com.perrinn.client.beans.Team;
 
 import java.util.ArrayList;
 
@@ -26,10 +27,10 @@ import java.util.ArrayList;
  * @author Alessandro
  */
 public class TeamFragment extends Fragment {
+    private static final String FRAGMENT_PARAM_TEAMS = "com.perrinn.client.fragments.TeamFragment.FRAGMENT_PARAM_TEAMS";
     private RecyclerView mTeamList;
     private ImageButton mTeamListAddButton;
-
-    private ArrayList<String> mDummyTeams = new ArrayList<>();
+    private ArrayList<Team> mTeams;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,12 +40,12 @@ public class TeamFragment extends Fragment {
         mTeamListAddButton = (ImageButton) rootView.findViewById(R.id.team_list_add_button);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mTeamList.setLayoutManager(mLayoutManager);
+        Bundle args = getArguments();
+        if(args != null){
+            mTeams = args.getParcelableArrayList(FRAGMENT_PARAM_TEAMS);
+            mTeamList.setAdapter(new TeamAdapter(mTeams,getContext()));
+        }
 
-        // dummy data set
-        mDummyTeams.add("Marketing");
-        mDummyTeams.add("Friends");
-
-        mTeamList.setAdapter(new TeamAdapter(mDummyTeams,getContext()));
 
         mTeamListAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,8 +56,11 @@ public class TeamFragment extends Fragment {
         return rootView;
     }
 
-    public static TeamFragment newInstance(){
+    public static TeamFragment newInstance(ArrayList<Team> teams){
         TeamFragment fragment = new TeamFragment();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList(FRAGMENT_PARAM_TEAMS,teams);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -65,8 +69,8 @@ public class TeamFragment extends Fragment {
      *
      * */
     private void addNewTeam(String team){
-        mDummyTeams.add(team);
-        mTeamList.swapAdapter(new TeamAdapter(mDummyTeams,getContext()),true);
+        //mDummyTeams.add(team);
+        //mTeamList.swapAdapter(new TeamAdapter(mDummyTeams,getContext()),true);
     }
 
     /**

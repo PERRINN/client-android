@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.perrinn.client.R;
 import com.perrinn.client.adapters.SettingsProfileItemAdapter;
 import com.perrinn.client.beans.SettingsProfileListItem;
+import com.perrinn.client.loaders.AsyncBitmapLoader;
 
 import org.w3c.dom.Text;
 
@@ -40,6 +41,8 @@ import java.util.ArrayList;
 public class ProfileFragment extends Fragment {
     private static final int REQUEST_CAMERA = 0;
     private static final int REQUEST_GALLERY = 1;
+    private static final String FRAGMENT_PARAM_TEAMTITLE = "com.perrinn.client.fragments.ProfileFragment.FRAGMENT_PARAM_TEAMTITLE";
+    private static final String FRAGMENT_PARAM_BACKGROUNDRES = "com.perrinn.client.fragments.ProfileFragment.FRAGMENT_PARAM_BACKGROUNDRES";
 
     private TextView mSettingsProfileTeamName;
     private TextView mSettingsProfileFirstName;
@@ -51,6 +54,7 @@ public class ProfileFragment extends Fragment {
     private TextView mSettingsProfileLocationState;
     private TextView mSettingsProfileResignTL;
     private TextView mSettingsProfileLeaveTeam;
+    private ImageView mSettingsProfileBackgroundHolder;
 
     private boolean sharedLocation = false;
 
@@ -75,6 +79,7 @@ public class ProfileFragment extends Fragment {
         mSettingsProfileLocationState = (TextView) rootView.findViewById(R.id.settings_profile_location_state);
         mSettingsProfileResignTL = (TextView) rootView.findViewById(R.id.settings_profile_resign_tl);
         mSettingsProfileLeaveTeam = (TextView) rootView.findViewById(R.id.settings_profile_leave_team);
+        mSettingsProfileBackgroundHolder = (ImageView) rootView.findViewById(R.id.settings_profile_background_holder);
 
         RecyclerView.LayoutManager mRDLayoutManager = new LinearLayoutManager(getContext());
 
@@ -82,7 +87,13 @@ public class ProfileFragment extends Fragment {
 
         mSettingsProfileFirstName.setText("Nicolas");
         mSettingsProfileLastName.setText("Perrin");
-        mSettingsProfileTeamName.setText(("Our little family").toUpperCase());
+        Bundle args = getArguments();
+        if(args != null){
+            mSettingsProfileTeamName.setText((args.getString(FRAGMENT_PARAM_TEAMTITLE)).toUpperCase());
+
+            mSettingsProfileLeaveTeam.setText(getResources().getString(R.string.settings_profile_leave)+" "+args.getString(FRAGMENT_PARAM_TEAMTITLE).toUpperCase());
+            new AsyncBitmapLoader(getContext(),mSettingsProfileBackgroundHolder).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
+        }
 
         mSettingsProfileChangePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +108,6 @@ public class ProfileFragment extends Fragment {
         mRegisteredDevices.add(new SettingsProfileListItem("IPhone","Main",true));
 
         mSettingsProfileRegisteredDevicesList.setAdapter(new SettingsProfileItemAdapter(getContext(),mRegisteredDevices));
-        mSettingsProfileLeaveTeam.setText(getResources().getString(R.string.settings_profile_leave)+" "+("Our little family").toUpperCase());
 
         mSettingsProfileLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +115,7 @@ public class ProfileFragment extends Fragment {
                 changeSharedLocationState();
             }
         });
+
         return rootView;
 
     }
@@ -131,8 +142,12 @@ public class ProfileFragment extends Fragment {
      * needed by the fragment.
      *
      * */
-    public static ProfileFragment newInstance(){
+    public static ProfileFragment newInstance(String teamTitle, int backgroundRes){
         ProfileFragment fragment = new ProfileFragment();
+        Bundle args = new Bundle();
+        args.putString(FRAGMENT_PARAM_TEAMTITLE,teamTitle);
+        args.putInt(FRAGMENT_PARAM_BACKGROUNDRES,backgroundRes);
+        fragment.setArguments(args);
         return fragment;
     }
 

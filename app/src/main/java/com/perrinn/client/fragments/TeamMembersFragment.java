@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.graphics.drawable.VectorDrawableCompat;
@@ -18,7 +15,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.perrinn.client.activities.SettingsActivity;
 import com.perrinn.client.adapters.GridViewAdapter;
 import com.perrinn.client.beans.Item;
 import com.perrinn.client.R;
@@ -50,7 +46,7 @@ public class TeamMembersFragment extends Fragment {
 		mTeamMembersBackground = (ImageView) rootView.findViewById(R.id.team_members_background);
 		Bundle args = getArguments();
 		if(args != null){
-			mTextViewTeamName.setText(args.getString(FRAGMENT_PARAM_TITLE));
+			mTextViewTeamName.setText(args.getString(FRAGMENT_PARAM_TITLE).toUpperCase());
 			mTextViewMessageToTeam.setText(args.getString(FRAGMENT_PARAM_DESC));
 			new AsyncBitmapLoader(getContext(),mTeamMembersBackground).execute(args.getInt(FRAGMENT_PARAM_BACKGROUND));
 		}

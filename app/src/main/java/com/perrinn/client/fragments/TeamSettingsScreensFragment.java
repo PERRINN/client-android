@@ -1,23 +1,32 @@
 package com.perrinn.client.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.perrinn.client.R;
 import com.perrinn.client.adapters.MainPagerAdapter;
+import com.perrinn.client.beans.Team;
 import com.perrinn.client.helpers.ToggledViewPager;
+import com.perrinn.client.listeners.MultiScreensListener;
+
+import java.util.ArrayList;
 
 /**
  * Created by alessandrosilacci on 20/08/16.
  */
 public class TeamSettingsScreensFragment extends Fragment {
     private static final String FRAGMENT_PARAM_TEAMINDEX = "com.perrinn.fragments.TeamSettingsScreensFragment.FRAGMENT_PARAM_TEAMINDEX";
+    private static final String FRAGMENT_PARAM_TEAMS = "com.perrinn.fragments.TeamSettingsScreensFragment.FRAGMENT_PARAM_TEAMS";
     private ToggledViewPager mFragmentPagerTeams;
     private MainPagerAdapter mFragmentPagerTeamsAdapter;
+    private MultiScreensListener mListener;
+    private ArrayList<Team> mTeams;
 
 
     @Nullable
@@ -30,9 +39,30 @@ public class TeamSettingsScreensFragment extends Fragment {
         int selectedTeam = 0;
         if(args != null){
             selectedTeam = args.getInt(FRAGMENT_PARAM_TEAMINDEX);
+            mTeams = args.getParcelableArrayList(FRAGMENT_PARAM_TEAMS);
+            for(Team team:mTeams){
+                String tName = team.getName();
+                addNewTeamSettingsFragment("FRAGMENT_TEAM_SETTINGS_"+tName.toUpperCase(),true,team.isSelected(),tName,team.getBgres());
+            }
         }
-        addNewTeamSettingsFragment("FRAGMENT_TEAM_SETTINGS_MARKETING",true,selectedTeam == 0,"Marketing",R.drawable.team_members_background_placeholder);
         addNewTeamSettingsFragment("FRAGMENT_TEAM_SETTINGS_FRIENDS",false,selectedTeam == 1,"Friends",R.drawable.team_members_background2_placeholder);
+        mFragmentPagerTeams.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mListener.onPageChange(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         return rootView;
     }
 
@@ -70,11 +100,23 @@ public class TeamSettingsScreensFragment extends Fragment {
         }
     }
 
-    public static TeamSettingsScreensFragment newInstance(int teamIndex){
+    public static TeamSettingsScreensFragment newInstance(int teamIndex, ArrayList<Team> teams){
         TeamSettingsScreensFragment fragment = new TeamSettingsScreensFragment();
         Bundle args = new Bundle();
         args.putInt(FRAGMENT_PARAM_TEAMINDEX,teamIndex);
+        args.putParcelableArrayList(FRAGMENT_PARAM_TEAMS,teams);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof MultiScreensListener){
+            mListener = (MultiScreensListener) context;
+        }else{
+            throw new RuntimeException(context.toString()
+                    +" must implement the MultiScreensListener.");
+        }
     }
 }
