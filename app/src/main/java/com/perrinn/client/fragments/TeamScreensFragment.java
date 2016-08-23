@@ -97,6 +97,12 @@ public class TeamScreensFragment extends Fragment {
         }
     }
 
+    public void setCurrentItem(int position){
+        if(position >= 0 && position < mTeams.size()){
+            mFragmentPagerMain.setCurrentItem(position);
+        }
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

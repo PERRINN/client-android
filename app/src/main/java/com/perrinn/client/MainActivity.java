@@ -245,6 +245,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     @Override
     public void onPageChange(int position) {
         updateDock(position);
+        ((TeamScreensFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_TEAM_SCREENS)).setCurrentItem(position);
     }
     @Override
     public void onPageCountChanged(int count) {
