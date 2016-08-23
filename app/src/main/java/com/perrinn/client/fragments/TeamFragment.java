@@ -1,6 +1,7 @@
 package com.perrinn.client.fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.widget.ImageButton;
 import com.perrinn.client.R;
 import com.perrinn.client.adapters.TeamAdapter;
 import com.perrinn.client.beans.Team;
+import com.perrinn.client.listeners.MultiScreensListener;
 
 import java.util.ArrayList;
 
@@ -26,11 +28,12 @@ import java.util.ArrayList;
  * @since 30.06.2016
  * @author Alessandro
  */
-public class TeamFragment extends Fragment {
+public class TeamFragment extends Fragment{
     private static final String FRAGMENT_PARAM_TEAMS = "com.perrinn.client.fragments.TeamFragment.FRAGMENT_PARAM_TEAMS";
     private RecyclerView mTeamList;
     private ImageButton mTeamListAddButton;
     private ArrayList<Team> mTeams;
+    private MultiScreensListener mListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,9 +46,14 @@ public class TeamFragment extends Fragment {
         Bundle args = getArguments();
         if(args != null){
             mTeams = args.getParcelableArrayList(FRAGMENT_PARAM_TEAMS);
-            mTeamList.setAdapter(new TeamAdapter(mTeams,getContext()));
+            mTeamList.setAdapter(new TeamAdapter(mTeams, getContext(), new TeamAdapter.OnTeamListItemInteractionListener() {
+                @Override
+                public void onTeamListItemInteraction(int teamIndex) {
+                    mListener.onPageChange(teamIndex);
+                    getActivity().onBackPressed();
+                }
+            }));
         }
-
 
         mTeamListAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,5 +108,14 @@ public class TeamFragment extends Fragment {
         builder.create().show();
     }
 
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof MultiScreensListener){
+            mListener = (MultiScreensListener) context;
+        }else{
+            throw new RuntimeException(context.toString()
+                    +" must implement the MultiScreensListener.");
+        }
+    }
 }

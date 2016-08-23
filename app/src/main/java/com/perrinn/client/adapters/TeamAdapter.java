@@ -24,10 +24,12 @@ import java.util.ArrayList;
 public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder>{
     private ArrayList<Team> mTeams;
     private Context mContext;
+    private OnTeamListItemInteractionListener mListener;
 
-    public TeamAdapter(ArrayList<Team> mTeams, Context mContext) {
+    public TeamAdapter(ArrayList<Team> mTeams, Context mContext,OnTeamListItemInteractionListener listener) {
         this.mTeams = mTeams;
         this.mContext = mContext;
+        this.mListener = listener;
     }
 
     @Override
@@ -44,6 +46,14 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder>{
         if(team.isSelected()){
             holder.mTeamListItemName.setBackgroundResource(R.drawable.team_list_selected_item);
         }
+        final int[] pos = {position};
+        if(mListener != null)
+            holder.mTeamListItemName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onTeamListItemInteraction(pos[0]);
+                }
+            });
     }
 
     @Override
@@ -60,5 +70,9 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.ViewHolder>{
             mTeamListItemIndicator = (ImageView) itemView.findViewById(R.id.team_list_item_indicator);
             mTeamListItemName = (TextView) itemView.findViewById(R.id.team_list_item_name);
         }
+    }
+
+    public interface OnTeamListItemInteractionListener{
+        void onTeamListItemInteraction(int teamIndex);
     }
 }
