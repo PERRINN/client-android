@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.perrinn.client.R;
 import com.perrinn.client.adapters.SettingsTeamProjectsAdapter;
 import com.perrinn.client.loaders.AsyncBitmapLoader;
+import com.perrinn.client.utils.BitmapLoaderUtils;
 
 import java.util.ArrayList;
 
@@ -58,8 +59,10 @@ public class TeamSettingsFragment extends Fragment{
         Bundle args = getArguments();
         if(args != null){
             mSettingsTeamTeamName.setText((args.getString(FRAGMENT_PARAM_TEAMTITLE)).toUpperCase());
-            new AsyncBitmapLoader(getContext(),mSettingsTeamBackgroundHolder).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
-            new AsyncBitmapLoader(getContext(),mSettingsTeamPicture).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
+            //new AsyncBitmapLoader(getContext(),mSettingsTeamBackgroundHolder).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
+            //new AsyncBitmapLoader(getContext(),mSettingsTeamPicture).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
+            BitmapLoaderUtils.loadBitmap(getContext(),args.getInt(FRAGMENT_PARAM_BACKGROUNDRES),mSettingsTeamBackgroundHolder);
+            BitmapLoaderUtils.loadBitmap(getContext(),args.getInt(FRAGMENT_PARAM_BACKGROUNDRES),mSettingsTeamPicture);
         }
         mSettingsTeamTeamAddress.setText(("hj36 9vd").toUpperCase());
         mSettingsTeamOrgName.setText("Family and Friends");

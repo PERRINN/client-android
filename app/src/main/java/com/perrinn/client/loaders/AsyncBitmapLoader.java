@@ -17,6 +17,7 @@ import java.lang.ref.WeakReference;
  */
 public class AsyncBitmapLoader extends AsyncTask<Integer,Integer,Bitmap>{
     private WeakReference<ImageView> mBitmapHolder;
+    private int mBitmapRes;
     private Context mContext;
 
     public AsyncBitmapLoader(Context context, ImageView imageHolder){
@@ -29,16 +30,24 @@ public class AsyncBitmapLoader extends AsyncTask<Integer,Integer,Bitmap>{
     protected Bitmap doInBackground(Integer... params) {
         if(mContext == null) return null;
         if(params.length == 0) return null;
-        Bitmap image = BitmapFactory.decodeResource(mContext.getResources(),params[0]);
+        mBitmapRes = params[0];
+        Bitmap image = BitmapFactory.decodeResource(mContext.getResources(),mBitmapRes);
         return image;
     }
 
     @Override
     protected void onPostExecute(Bitmap bitmap) {
+        if(isCancelled()){
+            return;
+        }
         if(bitmap != null && mBitmapHolder != null){
             ImageView imageHolder = mBitmapHolder.get();
             if(imageHolder != null)
                 imageHolder.setImageBitmap(bitmap);
         }
+    }
+
+    public int getBitmapRes(){
+        return this.mBitmapRes;
     }
 }
