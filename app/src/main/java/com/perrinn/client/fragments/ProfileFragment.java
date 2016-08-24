@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -80,9 +81,9 @@ public class ProfileFragment extends Fragment {
         mSettingsProfileResignTL = (TextView) rootView.findViewById(R.id.settings_profile_resign_tl);
         mSettingsProfileLeaveTeam = (TextView) rootView.findViewById(R.id.settings_profile_leave_team);
         mSettingsProfileBackgroundHolder = (ImageView) rootView.findViewById(R.id.settings_profile_background_holder);
-
+        final LinearLayout mSettingsProfileDataContainer = (LinearLayout) rootView.findViewById(R.id.settings_profile_data_container);
         RecyclerView.LayoutManager mRDLayoutManager = new LinearLayoutManager(getContext());
-
+        mSettingsProfileDataContainer.setVisibility(View.GONE);
         mSettingsProfileRegisteredDevicesList.setLayoutManager(mRDLayoutManager);
 
         mSettingsProfileFirstName.setText("Nicolas");
@@ -92,7 +93,12 @@ public class ProfileFragment extends Fragment {
             mSettingsProfileTeamName.setText((args.getString(FRAGMENT_PARAM_TEAMTITLE)).toUpperCase());
 
             mSettingsProfileLeaveTeam.setText(getResources().getString(R.string.settings_profile_leave)+" "+args.getString(FRAGMENT_PARAM_TEAMTITLE).toUpperCase());
-            new AsyncBitmapLoader(getContext(),mSettingsProfileBackgroundHolder).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
+            new AsyncBitmapLoader(getContext(), mSettingsProfileBackgroundHolder, new AsyncBitmapLoader.OnAsyncBitmapLoaderCompletion() {
+                @Override
+                public void onComplete() {
+                    mSettingsProfileDataContainer.setVisibility(View.VISIBLE);
+                }
+            }).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
         }
 
         mSettingsProfileChangePictureButton.setOnClickListener(new View.OnClickListener() {

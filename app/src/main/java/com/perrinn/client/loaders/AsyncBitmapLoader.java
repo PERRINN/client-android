@@ -19,11 +19,19 @@ public class AsyncBitmapLoader extends AsyncTask<Integer,Integer,Bitmap>{
     private WeakReference<ImageView> mBitmapHolder;
     private int mBitmapRes;
     private Context mContext;
+    private OnAsyncBitmapLoaderCompletion mListener;
 
     public AsyncBitmapLoader(Context context, ImageView imageHolder){
         this.mContext = context;
         this.mBitmapHolder = new WeakReference<>(imageHolder);
     }
+
+    public AsyncBitmapLoader(Context context, ImageView imageHolder, OnAsyncBitmapLoaderCompletion listener){
+        this.mContext = context;
+        this.mBitmapHolder = new WeakReference<>(imageHolder);
+        this.mListener = listener;
+    }
+
 
 
     @Override
@@ -44,10 +52,17 @@ public class AsyncBitmapLoader extends AsyncTask<Integer,Integer,Bitmap>{
             ImageView imageHolder = mBitmapHolder.get();
             if(imageHolder != null)
                 imageHolder.setImageBitmap(bitmap);
+            if(mListener != null){
+                mListener.onComplete();
+            }
         }
     }
 
     public int getBitmapRes(){
         return this.mBitmapRes;
+    }
+
+    public interface OnAsyncBitmapLoaderCompletion{
+        void onComplete();
     }
 }
