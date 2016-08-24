@@ -19,6 +19,7 @@ import com.perrinn.client.adapters.GridViewAdapter;
 import com.perrinn.client.beans.Item;
 import com.perrinn.client.R;
 import com.perrinn.client.loaders.AsyncBitmapLoader;
+import com.perrinn.client.loaders.AsyncCachedBitmapLoader;
 import com.perrinn.client.utils.BitmapLoaderUtils;
 
 /**
@@ -51,7 +52,8 @@ public class TeamMembersFragment extends Fragment {
 			mTextViewTeamName.setText(args.getString(FRAGMENT_PARAM_TITLE).toUpperCase());
 			mTextViewMessageToTeam.setText(args.getString(FRAGMENT_PARAM_DESC));
 			//new AsyncBitmapLoader(getContext(),mTeamMembersBackground).execute(args.getInt(FRAGMENT_PARAM_BACKGROUND));
-			BitmapLoaderUtils.loadBitmap(getContext(),args.getInt(FRAGMENT_PARAM_BACKGROUND),mTeamMembersBackground);
+			//BitmapLoaderUtils.loadBitmap(getContext(),args.getInt(FRAGMENT_PARAM_BACKGROUND),mTeamMembersBackground);
+			new AsyncCachedBitmapLoader(getContext(),mTeamMembersBackground).execute(args.getInt(FRAGMENT_PARAM_BACKGROUND));
 		}
 		//icons
 		/*Bitmap chatIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_chat_01);

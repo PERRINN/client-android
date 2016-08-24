@@ -28,6 +28,7 @@ import com.perrinn.client.R;
 import com.perrinn.client.adapters.SettingsProfileItemAdapter;
 import com.perrinn.client.beans.SettingsProfileListItem;
 import com.perrinn.client.loaders.AsyncBitmapLoader;
+import com.perrinn.client.loaders.AsyncCachedBitmapLoader;
 
 import org.w3c.dom.Text;
 
@@ -93,7 +94,13 @@ public class ProfileFragment extends Fragment {
             mSettingsProfileTeamName.setText((args.getString(FRAGMENT_PARAM_TEAMTITLE)).toUpperCase());
 
             mSettingsProfileLeaveTeam.setText(getResources().getString(R.string.settings_profile_leave)+" "+args.getString(FRAGMENT_PARAM_TEAMTITLE).toUpperCase());
-            new AsyncBitmapLoader(getContext(), mSettingsProfileBackgroundHolder, new AsyncBitmapLoader.OnAsyncBitmapLoaderCompletion() {
+            /* AsyncBitmapLoader(getContext(), mSettingsProfileBackgroundHolder, new AsyncBitmapLoader.OnAsyncBitmapLoaderCompletion() {
+                @Override
+                public void onComplete() {
+                    mSettingsProfileDataContainer.setVisibility(View.VISIBLE);
+                }
+            }).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));*/
+            new AsyncCachedBitmapLoader(getContext(),mSettingsProfileBackgroundHolder,new AsyncCachedBitmapLoader.OnAsyncBitmapLoaderCompletion() {
                 @Override
                 public void onComplete() {
                     mSettingsProfileDataContainer.setVisibility(View.VISIBLE);
@@ -214,7 +221,7 @@ public class ProfileFragment extends Fragment {
     }
 
     /**
-     * This method will start the activities needed to get the new profile picture of the user
+     * This method will start the activities needed to getSnapshot the new profile picture of the user
      * and wait for a result.
      *
      * @param useCamera true to start the camera activity and false to start the gallery.

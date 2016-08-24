@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
     public static final int REQUEST_PERMISSIONS_READEXTERNAL_CAMERA = 0;
     public static final int REQUEST_PERMISSIONS_LOCATION = 1;
+    public static final int REQUEST_PERMISSIONS_READWRITE = 2;
 
     private ToggledViewPager mFragmentPagerMain;
     private MainPagerAdapter mFragmentPagerMainAdapter;
@@ -144,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                     }
                 }
             });
+        askPermissions();
     }
 
     @Override
@@ -273,6 +275,11 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                 ProfileFragment profileFragment = (ProfileFragment) fm.findFragmentByTag(FRAGMENT_SETTINGS_PROFILE);
                 profileFragment.onRequestPermissionsResult(requestCode,permissions,grantResults);
                 break;
+            default:
+                if(grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: prompt a message why we need permissions.
+                }
+                break;
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
@@ -359,6 +366,23 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         if (count == 0) return false;
         FragmentManager.BackStackEntry entry = manager.getBackStackEntryAt(manager.getBackStackEntryCount() - 1);
         return entry != null && entry.getName() != null && entry.getName() == tag;
+    }
+
+    private void askPermissions(){
+        // asking for permission
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},
+                        MainActivity.REQUEST_PERMISSIONS_READWRITE);
+            }
+        }
     }
 
     // region Fragment Swaps
