@@ -108,7 +108,7 @@ public class ProfileFragment extends Fragment {
                     mSettingsProfileDataContainer.setVisibility(View.VISIBLE);
                 }
             }).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));*/
-            Picasso.with(getContext()).load(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES)).into(mSettingsProfileBackgroundHolder, new Callback() {
+            Picasso.with(getContext()).load(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES)).fit().into(mSettingsProfileBackgroundHolder, new Callback() {
                 @Override
                 public void onSuccess() {
                     mSettingsProfileDataContainer.setVisibility(View.VISIBLE);

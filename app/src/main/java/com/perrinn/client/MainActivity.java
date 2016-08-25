@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         mPSB = (ImageButton) findViewById(R.id.psb);
         mFragmentContainer = (FrameLayout) findViewById(R.id.fragment_container);
         if (savedInstanceState == null) {
-            addLoginFragment();
             initDock();
             initDockManager();
             Handler handler = new Handler();
@@ -133,6 +132,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                 }
             }, 1000);
         }
+
+        askPermissions();
         mPagesIndicatorsList.setAdapter(new DockItemAdapter(this, mDockManager.getmTeams()));
         if(mFragmentContainer.getViewTreeObserver().isAlive())
             mFragmentContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -146,7 +147,6 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                     }
                 }
             });
-        askPermissions();
     }
 
     @Override
@@ -279,6 +279,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
             default:
                 if(grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     // TODO: prompt a message why we need permissions.
+                }else{
+                    addLoginFragment();
                 }
                 break;
         }
@@ -397,6 +399,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, LoginFragment.newInstance(), FRAGMENT_LOADING)
                 .commit();
+
         this.mDock.setVisibility(View.GONE);
     }
 

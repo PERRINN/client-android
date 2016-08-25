@@ -67,8 +67,8 @@ public class TeamSettingsFragment extends Fragment{
             //BitmapLoaderUtils.loadBitmap(getContext(),args.getInt(FRAGMENT_PARAM_BACKGROUNDRES),mSettingsTeamPicture);
             //new AsyncCachedBitmapLoader(getContext(),mSettingsTeamBackgroundHolder).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
             //new AsyncCachedBitmapLoader(getContext(),mSettingsTeamPicture).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
-            Picasso.with(getContext()).load(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES)).into(mSettingsTeamBackgroundHolder);
-            Picasso.with(getContext()).load(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES)).into(mSettingsTeamPicture);
+            Picasso.with(getContext()).load(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES)).fit().into(mSettingsTeamBackgroundHolder);
+            Picasso.with(getContext()).load(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES)).fit().into(mSettingsTeamPicture);
         }
         mSettingsTeamTeamAddress.setText(("hj36 9vd").toUpperCase());
         mSettingsTeamOrgName.setText("Family and Friends");
