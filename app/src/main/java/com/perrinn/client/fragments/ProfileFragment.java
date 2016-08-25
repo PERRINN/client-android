@@ -29,6 +29,8 @@ import com.perrinn.client.adapters.SettingsProfileItemAdapter;
 import com.perrinn.client.beans.SettingsProfileListItem;
 import com.perrinn.client.loaders.AsyncBitmapLoader;
 import com.perrinn.client.loaders.AsyncCachedBitmapLoader;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -100,12 +102,23 @@ public class ProfileFragment extends Fragment {
                     mSettingsProfileDataContainer.setVisibility(View.VISIBLE);
                 }
             }).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));*/
-            new AsyncCachedBitmapLoader(getContext(),mSettingsProfileBackgroundHolder,new AsyncCachedBitmapLoader.OnAsyncBitmapLoaderCompletion() {
+            /*new AsyncCachedBitmapLoader(getContext(),mSettingsProfileBackgroundHolder,new AsyncCachedBitmapLoader.OnAsyncBitmapLoaderCompletion() {
                 @Override
                 public void onComplete() {
                     mSettingsProfileDataContainer.setVisibility(View.VISIBLE);
                 }
-            }).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
+            }).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));*/
+            Picasso.with(getContext()).load(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES)).into(mSettingsProfileBackgroundHolder, new Callback() {
+                @Override
+                public void onSuccess() {
+                    mSettingsProfileDataContainer.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
         }
 
         mSettingsProfileChangePictureButton.setOnClickListener(new View.OnClickListener() {

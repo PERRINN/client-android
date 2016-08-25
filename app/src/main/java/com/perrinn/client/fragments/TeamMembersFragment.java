@@ -21,6 +21,7 @@ import com.perrinn.client.R;
 import com.perrinn.client.loaders.AsyncBitmapLoader;
 import com.perrinn.client.loaders.AsyncCachedBitmapLoader;
 import com.perrinn.client.utils.BitmapLoaderUtils;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by Antreas Christofi on 26-07-2016.
@@ -53,7 +54,8 @@ public class TeamMembersFragment extends Fragment {
 			mTextViewMessageToTeam.setText(args.getString(FRAGMENT_PARAM_DESC));
 			//new AsyncBitmapLoader(getContext(),mTeamMembersBackground).execute(args.getInt(FRAGMENT_PARAM_BACKGROUND));
 			//BitmapLoaderUtils.loadBitmap(getContext(),args.getInt(FRAGMENT_PARAM_BACKGROUND),mTeamMembersBackground);
-			new AsyncCachedBitmapLoader(getContext(),mTeamMembersBackground).execute(args.getInt(FRAGMENT_PARAM_BACKGROUND));
+			//new AsyncCachedBitmapLoader(getContext(),mTeamMembersBackground).execute(args.getInt(FRAGMENT_PARAM_BACKGROUND));
+			Picasso.with(getContext()).load(args.getInt(FRAGMENT_PARAM_BACKGROUND)).into(mTeamMembersBackground);
 		}
 		//icons
 		/*Bitmap chatIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_chat_01);

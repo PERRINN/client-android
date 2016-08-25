@@ -17,6 +17,7 @@ import com.perrinn.client.adapters.SettingsTeamProjectsAdapter;
 import com.perrinn.client.loaders.AsyncBitmapLoader;
 import com.perrinn.client.loaders.AsyncCachedBitmapLoader;
 import com.perrinn.client.utils.BitmapLoaderUtils;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -64,8 +65,10 @@ public class TeamSettingsFragment extends Fragment{
             //new AsyncBitmapLoader(getContext(),mSettingsTeamPicture).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
             //BitmapLoaderUtils.loadBitmap(getContext(),args.getInt(FRAGMENT_PARAM_BACKGROUNDRES),mSettingsTeamBackgroundHolder);
             //BitmapLoaderUtils.loadBitmap(getContext(),args.getInt(FRAGMENT_PARAM_BACKGROUNDRES),mSettingsTeamPicture);
-            new AsyncCachedBitmapLoader(getContext(),mSettingsTeamBackgroundHolder).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
-            new AsyncCachedBitmapLoader(getContext(),mSettingsTeamPicture).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
+            //new AsyncCachedBitmapLoader(getContext(),mSettingsTeamBackgroundHolder).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
+            //new AsyncCachedBitmapLoader(getContext(),mSettingsTeamPicture).execute(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES));
+            Picasso.with(getContext()).load(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES)).into(mSettingsTeamBackgroundHolder);
+            Picasso.with(getContext()).load(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES)).into(mSettingsTeamPicture);
         }
         mSettingsTeamTeamAddress.setText(("hj36 9vd").toUpperCase());
         mSettingsTeamOrgName.setText("Family and Friends");
