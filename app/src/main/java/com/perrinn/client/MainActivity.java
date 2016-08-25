@@ -44,6 +44,7 @@ import com.perrinn.client.beans.DockIndicator;
 import com.perrinn.client.beans.Member;
 import com.perrinn.client.beans.Team;
 import com.perrinn.client.fragments.ChatFragment;
+import com.perrinn.client.fragments.ChatScreensFragment;
 import com.perrinn.client.fragments.CreateNewProjectFragment;
 import com.perrinn.client.fragments.LandingFragment;
 import com.perrinn.client.fragments.LoginFragment;
@@ -497,7 +498,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
     private void addChatPage() {
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, ChatFragment.newInstance(), FRAGMENT_CHAT)
+                .add(R.id.fragment_container, ChatScreensFragment.newInstance(mDockManager.getmTeams()), FRAGMENT_CHAT)
                 .addToBackStack(FRAGMENT_CHAT)
                 .commit();
         this.mDock.setVisibility(View.VISIBLE);
