@@ -7,25 +7,36 @@ import android.os.Parcelable;
  * Created by alessandrosilacci on 21/08/16.
  */
 public class Member implements Parcelable {
-    private String name;
+    private String firstName;
+    private String lastName;
     private int profilePicture;
 
-    public Member(String name, int profilePicture) {
-        this.name = name;
+    public Member(String firstName, String lastName, int profilePicture) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.profilePicture = profilePicture;
     }
 
     public Member(Parcel source) {
-        name = source.readString();
+        firstName = source.readString();
+        lastName = source.readString();
         profilePicture = source.readInt();
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public int getProfilePicture() {
@@ -44,7 +55,8 @@ public class Member implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
+        dest.writeString(firstName);
+        dest.writeString(lastName);
         dest.writeInt(profilePicture);
     }
 

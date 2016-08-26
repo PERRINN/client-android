@@ -25,4 +25,8 @@
     <color name="colorChatIcon">#FF9EA3AB</color>
     <color name="colorChatTopBorder">#FFE6E6E6</color>
     <color name="colorTeamListItemSelected">#FF49B04F</color>
+    <color name="colorTeamMateProfileRemove">#FFFF0000</color>
+    <color name="colorTeamMateProfilePromote">#FF0000FF</color>
+    <color name="colorTeamMateProfileDiffer">#FF999999</color>
+    <color name="colorPrivateChatStroke">#FFA1A1A1</color>
 </resources>

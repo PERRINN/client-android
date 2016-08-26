@@ -60,6 +60,10 @@
     <string name="gmap_no_location_dialog_message">Sorry but we could not find your actual location.</string>
 
     <string name="dialogs_ok_message">Ok</string>
+    <string name="team_mate_profile_nominate_tl">Nominate as team leader</string>
+    <string name="team_mate_profile_pchat">Private chat</string>
+    <string name="team_mate_profile_local_time">local time</string>
+    <string name="team_mate_profile_time_hours">hours</string>
 
     <string-array name="settings_profile_change_picture_choices">
         <item>Use the camera</item>

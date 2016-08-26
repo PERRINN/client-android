@@ -53,6 +53,7 @@ import com.perrinn.client.fragments.ProfileSettingsScreensFragment;
 import com.perrinn.client.fragments.TeamFragment;
 import com.perrinn.client.fragments.ProfileFragment;
 import com.perrinn.client.fragments.ProjectFragment;
+import com.perrinn.client.fragments.TeamMateProfileFragment;
 import com.perrinn.client.fragments.TeamMembersFragment;
 import com.perrinn.client.fragments.TeamScreensFragment;
 import com.perrinn.client.fragments.TeamSettingsFragment;
@@ -68,7 +69,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener, TeamScreensFragment.TeamScreensInteractionListener,
-        InputInteractionListener, MultiScreensListener {
+        InputInteractionListener, MultiScreensListener, TeamMateProfileFragment.OnPrivateChatButtonInteractionListener {
     private LinearLayout mDock;
     public RelativeLayout modifiedDock;
     private RecyclerView mPagesIndicatorsList;
@@ -86,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     private static final String FRAGMENT_SETTINGS_PROFILE = "com.perrinn.client.fragments.FRAGMENT_SETTINGS_PROFILE";
     private static final String FRAGMENT_SETTINGS_TEAM = "com.perrinn.client.fragments.FRAGMENT_SETTINGS_TEAM";
     private static final String FRAGMENT_MAPS = "com.perrinn.client.fragments.FRAGMENT_MAPS";
+    private static final String FRAGMENT_TEAM_MATE_PROFILE = "com.perrinn.client.fragments.FRAGMENT_TEAM_MATE_PROFILE";
+    private static final String FRAGMENT_SINGLE_CHAT = "com.perrinn.client.fragments.FRAGMENT_CHAT";
 
     public static final int REQUEST_PERMISSIONS_READEXTERNAL_CAMERA = 0;
     public static final int REQUEST_PERMISSIONS_LOCATION = 1;
@@ -232,9 +235,15 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
     @Override
     public void onColleaguePicturePressed(int colleagueID) {
-
+        addTeamMateProfileFragment();
     }
     //endregion
+
+
+    @Override
+    public void onPrivateChatInteraction(Member member) {
+        addSingleChatFragment();
+    }
 
     @Override
     public void onPageChange(int position) {
@@ -445,6 +454,19 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         this.mDock.setVisibility(View.VISIBLE);
     }
 
+    private void addTeamMateProfileFragment(){
+        if (isFragmentActive(FRAGMENT_TEAM_MATE_PROFILE)) return;
+        if (!isFragmentActive(FRAGMENT_TEAM_SCREENS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStack();
+        lastTag = FRAGMENT_TEAM_MATE_PROFILE;
+        Member dummyMember = new Member("Alan","Turing",R.drawable.placeholder_team_members_4);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, TeamMateProfileFragment.newInstance(dummyMember,mDockManager.getmTeams().get(mDockManager.getSelectedIndex())), FRAGMENT_TEAM_MATE_PROFILE)
+                .addToBackStack(FRAGMENT_TEAM_MATE_PROFILE)
+                .commit();
+        this.mDock.setVisibility(View.VISIBLE);
+    }
+
     private void addTeamSettingsFragment() {
         if (isFragmentActive(FRAGMENT_SETTINGS_TEAM)) return;
         if (!isFragmentActive(FRAGMENT_TEAM_SCREENS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
@@ -455,6 +477,17 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                 .addToBackStack(null)
                 .commit();
         this.mDock.setVisibility(View.VISIBLE);
+    }
+
+    private void addSingleChatFragment(){
+        if (isFragmentActive(FRAGMENT_SINGLE_CHAT)) return;
+        if (!isFragmentActive(FRAGMENT_TEAM_SCREENS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStack();
+        lastTag = FRAGMENT_SINGLE_CHAT;
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, ChatFragment.newInstance(), FRAGMENT_CHAT)
+                .addToBackStack(null)
+                .commit();
     }
 
     //endregion
