@@ -135,7 +135,6 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                 }
             }, 1000);
         }
-
         askPermissions();
         mPagesIndicatorsList.setAdapter(new DockItemAdapter(this, mDockManager.getmTeams()));
         if(mFragmentContainer.getViewTreeObserver().isAlive())
@@ -394,6 +393,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},
                         MainActivity.REQUEST_PERMISSIONS_READWRITE);
             }
+        }else{
+            addLoginFragment();
         }
     }
 
