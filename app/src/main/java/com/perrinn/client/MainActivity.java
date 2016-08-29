@@ -247,6 +247,18 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     @Override
     public void onPageChange(int position) {
         updateDock(position);
+        ChatScreensFragment chatFragment = (ChatScreensFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_CHAT);
+        ProfileSettingsScreensFragment profileSettingsFragment = (ProfileSettingsScreensFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_SETTINGS_PROFILE);
+        TeamSettingsScreensFragment teamSettingsFragment = (TeamSettingsScreensFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_SETTINGS_TEAM);
+        if(chatFragment != null){
+            chatFragment.setCurrentItem(position);
+        }
+        if(profileSettingsFragment != null){
+            profileSettingsFragment.setCurrentItem(position);
+        }
+        if(teamSettingsFragment != null){
+            teamSettingsFragment.setCurrentItem(position);
+        }
         ((TeamScreensFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_TEAM_SCREENS)).setCurrentItem(position);
     }
     @Override
@@ -319,9 +331,14 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
             @Override
             public void onClick(View v) {
                 boolean visible = isFragmentActive(FRAGMENT_TEAM_SCREENS);
-                if (!visible && getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                    onBackPressed();
-                } else addTeamSettingsFragment();
+                boolean exist = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TEAM_SCREENS) != null;
+                if(exist && !visible) {
+                    while (!visible && getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                        onBackPressed();
+                        visible = isFragmentActive(FRAGMENT_TEAM_SCREENS);
+                    }
+                }else
+                    addTeamSettingsFragment();
             }
         });
         /*mPagesIndicatorsList.addItemDecoration(new DockItemMarginDecorator(this,
@@ -374,7 +391,10 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         FragmentManager manager = getSupportFragmentManager();
         if (manager == null) return false;
         int count = manager.getBackStackEntryCount();
-        if (count == 0) return false;
+        if (count == 0) {
+            if (!tag.equals(FRAGMENT_TEAM_SCREENS)) return false;
+            else return true;
+        }
         FragmentManager.BackStackEntry entry = manager.getBackStackEntryAt(manager.getBackStackEntryCount() - 1);
         return entry != null && entry.getName() != null && entry.getName() == tag;
     }
@@ -425,7 +445,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }
 
     private void addTeamScreensFragment() {
-        if (isFragmentActive(FRAGMENT_TEAM_SCREENS)) return;
+       // if (isFragmentActive(FRAGMENT_TEAM_SCREENS)) return;
         lastTag = FRAGMENT_TEAM_SCREENS;
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, TeamScreensFragment.newInstance(mDockManager.getmTeams()), FRAGMENT_TEAM_SCREENS)
@@ -434,9 +454,10 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }
 
     private void addTeamFragment() {
-        if (isFragmentActive(FRAGMENT_TEAMS)) return;
+        if (isFragmentActive(FRAGMENT_TEAMS))
+            return;
         lastTag = FRAGMENT_TEAMS;
-        if (!isFragmentActive(FRAGMENT_TEAM_SCREENS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
+        if (!isFragmentActive(FRAGMENT_CHAT) && !isFragmentActive(FRAGMENT_SETTINGS_PROFILE) && !isFragmentActive(FRAGMENT_SETTINGS_TEAM) && !isFragmentActive(FRAGMENT_TEAM_SCREENS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
             getSupportFragmentManager().popBackStack();
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, TeamFragment.newInstance(mDockManager.getmTeams()), FRAGMENT_TEAMS)
@@ -470,12 +491,12 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
     private void addTeamSettingsFragment() {
         if (isFragmentActive(FRAGMENT_SETTINGS_TEAM)) return;
-        if (!isFragmentActive(FRAGMENT_TEAM_SCREENS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
-            getSupportFragmentManager().popBackStack();
+        /*if (!isFragmentActive(FRAGMENT_TEAM_SCREENS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStack();*/
         lastTag = FRAGMENT_SETTINGS_TEAM;
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, TeamSettingsScreensFragment.newInstance(mDockManager.getSelectedIndex(),mDockManager.getmTeams()), FRAGMENT_SETTINGS_TEAM)
-                .addToBackStack(null)
+                .addToBackStack(FRAGMENT_SETTINGS_TEAM)
                 .commit();
         this.mDock.setVisibility(View.VISIBLE);
     }

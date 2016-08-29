@@ -109,6 +109,12 @@ public class TeamSettingsScreensFragment extends Fragment {
         return fragment;
     }
 
+    public void setCurrentItem(int position){
+        if(position >= 0 && position < mTeams.size()){
+            mFragmentPagerTeams.setCurrentItem(position);
+        }
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
