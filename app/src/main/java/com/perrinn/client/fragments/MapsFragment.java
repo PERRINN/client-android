@@ -77,8 +77,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
-        HashMap<String,LatLng> dummyMembers = new HashMap<>();
+        final HashMap<String,LatLng> dummyMembers = new HashMap<>();
         dummyMembers.put("Aiko",new LatLng(51.507351,-0.127758)); // aiko in london
         dummyMembers.put("Vicky",new LatLng(46.204391,6.143158)); // vicky in geneva
         dummyMembers.put("Alan",new LatLng(41.385064,2.173403)); // alan in barcelona
@@ -86,7 +85,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         dummyMembers.put("Mathilde",new LatLng(52.520007,13.404954)); // mathilde in berlin
         dummyMembers.put("Daniel",new LatLng(47.497912,19.040235)); // daniel in budapest
         dummyMembers.put("Andrea",new LatLng(48.208174,16.373819)); // andrea in vienna
-        placeTeamMembers(dummyMembers);
+        mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            @Override
+            public void onMapLoaded() {
+                placeTeamMembers(dummyMembers);
+            }
+        });
+
     }
 
     @Override
