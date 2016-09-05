@@ -463,7 +463,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         if (isFragmentActive(FRAGMENT_TEAMS))
             return;
         lastTag = FRAGMENT_TEAMS;
-        if (!isFragmentActive(FRAGMENT_CHAT) && !isFragmentActive(FRAGMENT_SETTINGS_PROFILE) && !isFragmentActive(FRAGMENT_SETTINGS_TEAM) && !isFragmentActive(FRAGMENT_TEAM_SCREENS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
+        if (!isFragmentActive(FRAGMENT_MAPS) && !isFragmentActive(FRAGMENT_CHAT) && !isFragmentActive(FRAGMENT_SETTINGS_PROFILE) && !isFragmentActive(FRAGMENT_SETTINGS_TEAM) && !isFragmentActive(FRAGMENT_TEAM_SCREENS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
             getSupportFragmentManager().popBackStack();
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, TeamFragment.newInstance(mDockManager.getmTeams()), FRAGMENT_TEAMS)
