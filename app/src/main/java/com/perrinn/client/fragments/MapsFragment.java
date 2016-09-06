@@ -14,6 +14,8 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -24,27 +26,28 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.perrinn.client.MainActivity;
 import com.perrinn.client.R;
+import com.perrinn.client.beans.Team;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
-
+    private static final String FRAGMENT_PARAM_TEAM = "com.perrinn.client.fragments.MapsFragment.FRAGMENT_PARAM_TEAM";
     private GoogleMap mMap;
     private MapView mGMap;
+    private TextView mMapsTeamName;
+    private ImageView mMapsBackgroundHolder;
     private GoogleApiClient mGoogleMapApiClient;
     private Location mCrtLocation;
     private boolean mGrantedPermissions = false;
+    private Team mTeam;
 
     private Random mColorRandomizer = new Random();
 
@@ -54,12 +57,19 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_maps_fragment, container, false);
-
+        View rootView = inflater.inflate(R.layout.fragment_maps, container, false);
+        mMapsTeamName = (TextView) rootView.findViewById(R.id.maps_team_name);
+        mMapsBackgroundHolder = (ImageView) rootView.findViewById(R.id.maps_background_holder);
         mGMap = (MapView) rootView.findViewById(R.id.gmap);
         mGMap.onCreate(savedInstanceState);
         mGMap.onResume();
         mGMap.getMapAsync(this);
+        Bundle args = getArguments();
+        if(args != null){
+            mTeam = args.getParcelable(FRAGMENT_PARAM_TEAM);
+            mMapsTeamName.setText(mTeam.getName());
+            Picasso.with(getContext()).load(mTeam.getBgres()).fit().into(mMapsBackgroundHolder);
+        }
         askPermissions();
         return rootView;
     }
@@ -151,8 +161,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
     }
 
-    public static MapsFragment newInstance(){
+    public static MapsFragment newInstance(Team team){
         MapsFragment fragment = new MapsFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(FRAGMENT_PARAM_TEAM,team);
+        fragment.setArguments(args);
         return fragment;
     }
 

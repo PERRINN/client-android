@@ -1,47 +1,65 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#FFFFFFFF">
-    <ListView
-        android:id="@+id/messagesContainer"
+    android:layout_width="match_parent">
+    <ImageView
+        android:id="@+id/chat_background_holder"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:listSelector="@android:color/transparent"
-        android:transcriptMode="normal"
-        android:divider="@null"
-        android:layout_weight="1"/>
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+
     <LinearLayout
-        android:id="@+id/chat_input_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="0"
-        android:layout_gravity="bottom"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="16dp"
-        android:background="@drawable/chat_input_container_border_shape">
-            <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center_vertical"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_plus"
-                android:scaleType="fitXY"
-                android:tint="@color/colorChatIcon"
-                android:layout_weight="0"/>
-            <EditText
-                android:id="@+id/messageEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/chat_hint_message"
-                android:layout_weight="1"
-                android:inputType="text"
-                android:padding="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/chat_message_shape"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/chat_team_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_weight="0"
+            android:textColor="#FFFFFFFF"
+            android:background="@android:color/transparent" />
+        <ListView
+            android:id="@+id/messagesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:listSelector="@android:color/transparent"
+            android:transcriptMode="normal"
+            android:divider="@null"
+            android:layout_weight="1"
+            android:background="#FFFFFFFF"/>
+        <LinearLayout
+            android:id="@+id/chat_input_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="0"
+            android:layout_gravity="bottom"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="16dp"
+            android:background="@drawable/chat_input_container_border_shape">
+                <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_plus"
+                    android:scaleType="fitXY"
+                    android:tint="@color/colorChatIcon"
+                    android:layout_weight="0"/>
+                <EditText
+                    android:id="@+id/messageEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/chat_hint_message"
+                    android:layout_weight="1"
+                    android:inputType="text"
+                    android:padding="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/chat_message_shape"/>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>

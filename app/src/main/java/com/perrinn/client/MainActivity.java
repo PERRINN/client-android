@@ -445,7 +445,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         if (!isFragmentActive(FRAGMENT_MAPS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
             getSupportFragmentManager().popBackStack();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, MapsFragment.newInstance(), FRAGMENT_MAPS)
+                .add(R.id.fragment_container, MapsFragment.newInstance(mDockManager.getmTeams().get(mDockManager.getSelectedIndex())), FRAGMENT_MAPS)
                 .addToBackStack(FRAGMENT_MAPS).commit();
         this.mDock.setVisibility(View.VISIBLE);
     }

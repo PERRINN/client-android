@@ -38,7 +38,7 @@ public class ChatScreensFragment extends Fragment {
             mTeams = args.getParcelableArrayList(FRAGMENT_PARAM_TEAMS);
             for(Team team : mTeams){
                 String tName = team.getName();
-                addNewChatFragment("FRAGMENT_CHAT_"+tName.toUpperCase(),true,team.isSelected());
+                addNewChatFragment("FRAGMENT_CHAT_"+tName.toUpperCase(),true,team.isSelected(),team);
             }
         }
         mFragmentPagerChat.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -67,8 +67,8 @@ public class ChatScreensFragment extends Fragment {
      * @param rebuild if the adapter needs to be reset.
      * @param transit transition needed to the freshly added fragment.
      * */
-    private void addNewChatFragment(String tag, boolean rebuild, boolean transit){
-        mFragmentPagerChatAdapter.addNewFragment(tag, ChatFragment.newInstance());
+    private void addNewChatFragment(String tag, boolean rebuild, boolean transit,Team team){
+        mFragmentPagerChatAdapter.addNewFragment(tag, ChatFragment.newInstance(team));
         mFragmentPagerChatAdapter.notifyDataSetChanged();
 
 

@@ -25,23 +25,28 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.perrinn.client.adapters.ChatAdapter;
 import com.perrinn.client.R;
+import com.perrinn.client.beans.Team;
 import com.perrinn.client.listeners.InputInteractionListener;
 import com.perrinn.client.listeners.SwipeDownGestureListener;
 import com.perrinn.client.objects.ChatMessage;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by Antreas Christofi on 26-07-2016.
  */
 
 public class ChatFragment extends Fragment {
-
+    private static final String FRAGMENT_PARAM_TEAM = "com.perrinn.client.fragments.ChatFragment.FRAGMENT_PARAM_TEAM";
     private Button sendBtn;
+    private ImageView mChatBackgroundHolder;
+    private TextView mChatTeamName;
     private EditText messageET;
     private ListView messagesContainer;
     private ChatAdapter adapter;
@@ -51,6 +56,7 @@ public class ChatFragment extends Fragment {
 
     private InputInteractionListener mListener;
     private GestureDetectorCompat mDetector;
+    private Team mTeam;
 
     @Nullable
     @Override
@@ -60,6 +66,8 @@ public class ChatFragment extends Fragment {
         adapter = new ChatAdapter(getContext(), new ArrayList<ChatMessage>());
         messagesContainer=(ListView)rootView.findViewById(R.id.messagesContainer);
         messageET=(EditText)rootView.findViewById(R.id.messageEdit);
+        mChatBackgroundHolder = (ImageView) rootView.findViewById(R.id.chat_background_holder);
+        mChatTeamName = (TextView) rootView.findViewById(R.id.chat_team_name);
         mChatInputContainer = (LinearLayout) rootView.findViewById(R.id.chat_input_container);
         //sendBtn=(Button)rootView.findViewById(R.id.chatSendButton);
         messagesContainer.setAdapter(adapter);
@@ -88,6 +96,13 @@ public class ChatFragment extends Fragment {
                 return false;
             }
         });
+
+        Bundle args = getArguments();
+        if(args != null){
+            mTeam = args.getParcelable(FRAGMENT_PARAM_TEAM);
+            mChatTeamName.setText(mTeam.getName());
+            Picasso.with(getContext()).load(mTeam.getBgres()).fit().into(mChatBackgroundHolder);
+        }
 
 
         /*sendBtn.setOnClickListener(new View.OnClickListener() {
@@ -166,6 +181,14 @@ public class ChatFragment extends Fragment {
     */
     private void scroll() {
         messagesContainer.setSelection(messagesContainer.getCount() - 1);
+    }
+
+    public static ChatFragment newInstance(Team team){
+        ChatFragment fragment = new ChatFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(FRAGMENT_PARAM_TEAM,team);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     public static ChatFragment newInstance(){
