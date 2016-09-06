@@ -102,6 +102,8 @@ public class ChatFragment extends Fragment {
             mTeam = args.getParcelable(FRAGMENT_PARAM_TEAM);
             mChatTeamName.setText(mTeam.getName().toUpperCase());
             Picasso.with(getContext()).load(mTeam.getBgres()).fit().into(mChatBackgroundHolder);
+        }else{
+            mChatTeamName.setVisibility(View.GONE);
         }
 
 
