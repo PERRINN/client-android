@@ -343,7 +343,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         });
         /*mPagesIndicatorsList.addItemDecoration(new DockItemMarginDecorator(this,
                 R.dimen.dock_indicator_right_margin));*/
-        /*mPagesIndicatorsList.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+        mPagesIndicatorsList.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
                 if (e.getAction() == MotionEvent.ACTION_DOWN)
@@ -360,7 +360,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
             public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 
             }
-        });*/
+        });
         mDock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
