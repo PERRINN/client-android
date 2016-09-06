@@ -67,7 +67,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         Bundle args = getArguments();
         if(args != null){
             mTeam = args.getParcelable(FRAGMENT_PARAM_TEAM);
-            mMapsTeamName.setText(mTeam.getName());
+            mMapsTeamName.setText(mTeam.getName().toUpperCase());
             Picasso.with(getContext()).load(mTeam.getBgres()).fit().into(mMapsBackgroundHolder);
         }
         askPermissions();
