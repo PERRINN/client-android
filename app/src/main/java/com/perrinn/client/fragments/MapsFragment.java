@@ -161,6 +161,22 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
 
     }
 
+    public void selectedTeamChanged(Team team){
+        mMap.clear();
+        mTeam = team;
+        mMapsTeamName.setText(mTeam.getName().toUpperCase());
+        Picasso.with(getContext()).load(mTeam.getBgres()).fit().into(mMapsBackgroundHolder);
+        final HashMap<String,LatLng> dummyMembers = new HashMap<>();
+        dummyMembers.put("Aiko",new LatLng(51.507351,-0.127758)); // aiko in london
+        dummyMembers.put("Vicky",new LatLng(46.204391,6.143158)); // vicky in geneva
+        dummyMembers.put("Alan",new LatLng(41.385064,2.173403)); // alan in barcelona
+        dummyMembers.put("James", new LatLng(40.416775,-3.703790)); // james in madrid
+        dummyMembers.put("Mathilde",new LatLng(52.520007,13.404954)); // mathilde in berlin
+        dummyMembers.put("Daniel",new LatLng(47.497912,19.040235)); // daniel in budapest
+        dummyMembers.put("Andrea",new LatLng(48.208174,16.373819)); // andrea in vienna
+        placeTeamMembers(dummyMembers);
+    }
+
     public static MapsFragment newInstance(Team team){
         MapsFragment fragment = new MapsFragment();
         Bundle args = new Bundle();

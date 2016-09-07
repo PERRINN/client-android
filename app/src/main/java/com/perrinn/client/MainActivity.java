@@ -250,6 +250,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         ChatScreensFragment chatFragment = (ChatScreensFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_CHAT);
         ProfileSettingsScreensFragment profileSettingsFragment = (ProfileSettingsScreensFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_SETTINGS_PROFILE);
         TeamSettingsScreensFragment teamSettingsFragment = (TeamSettingsScreensFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_SETTINGS_TEAM);
+        MapsFragment mapsFragment = (MapsFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_MAPS);
         if(chatFragment != null){
             chatFragment.setCurrentItem(position);
         }
@@ -258,6 +259,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         }
         if(teamSettingsFragment != null){
             teamSettingsFragment.setCurrentItem(position);
+        }
+        if(mapsFragment != null){
+            mapsFragment.selectedTeamChanged(mDockManager.getmTeams().get(mDockManager.getSelectedIndex()));
         }
         ((TeamScreensFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_TEAM_SCREENS)).setCurrentItem(position);
     }
