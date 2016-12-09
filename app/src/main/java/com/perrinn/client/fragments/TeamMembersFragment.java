@@ -18,9 +18,6 @@ import android.widget.TextView;
 import com.perrinn.client.adapters.GridViewAdapter;
 import com.perrinn.client.beans.Item;
 import com.perrinn.client.R;
-import com.perrinn.client.loaders.AsyncBitmapLoader;
-import com.perrinn.client.loaders.AsyncCachedBitmapLoader;
-import com.perrinn.client.utils.BitmapLoaderUtils;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -80,7 +77,7 @@ public class TeamMembersFragment extends Fragment {
 		VectorDrawableCompat mapsIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_maps_01,null);
 		VectorDrawableCompat microphoneIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_mic,null);
 		VectorDrawableCompat speakerIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_speaker,null);
-
+		VectorDrawableCompat walletIcon = VectorDrawableCompat.create(getResources(),R.drawable.ic_wallet,null);
 		//team members pictures
 		/*Bitmap user1 = BitmapFactory.decodeResource(getResources(),R.drawable.placeholder_team_members_1);
 		Bitmap user2 = BitmapFactory.decodeResource(getResources(),R.drawable.placeholder_team_members_2);
@@ -191,7 +188,12 @@ public class TeamMembersFragment extends Fragment {
 				mListener.onActivityButtonPressed();
 			}
 		}));
-		gridArray.add(new Item());
+		gridArray.add(new Item(walletIcon, "Wallet", new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mListener.onWalletButtonPressed();
+			}
+		}));
 		gridArray.add(new Item(images02Icon, "Video", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -266,6 +268,7 @@ public class TeamMembersFragment extends Fragment {
 		void onMapsButtonPressed();
 		void onMicButtonPressed();
 		void onSpeakerButtonPressed();
+		void onWalletButtonPressed();
 	}
 
 }
