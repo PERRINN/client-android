@@ -37,6 +37,7 @@ import android.widget.RelativeLayout;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.wallet.fragment.WalletFragment;
 import com.perrinn.client.adapters.DockItemAdapter;
 import com.perrinn.client.adapters.MainPagerAdapter;
 import com.perrinn.client.beans.DockIndicator;
@@ -58,6 +59,7 @@ import com.perrinn.client.fragments.TeamMembersFragment;
 import com.perrinn.client.fragments.TeamScreensFragment;
 import com.perrinn.client.fragments.TeamSettingsFragment;
 import com.perrinn.client.fragments.TeamSettingsScreensFragment;
+import com.perrinn.client.fragments.WalletScreensFragment;
 import com.perrinn.client.helpers.DockItemMarginDecorator;
 import com.perrinn.client.helpers.DockManager;
 import com.perrinn.client.helpers.ToggledViewPager;
@@ -89,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     private static final String FRAGMENT_MAPS = "com.perrinn.client.fragments.FRAGMENT_MAPS";
     private static final String FRAGMENT_TEAM_MATE_PROFILE = "com.perrinn.client.fragments.FRAGMENT_TEAM_MATE_PROFILE";
     private static final String FRAGMENT_SINGLE_CHAT = "com.perrinn.client.fragments.FRAGMENT_CHAT";
+    private static final String FRAGMENT_WALLET_SCREENS = "com.perrinn.client.fragments.FRAGMENT_WALLET_SCREENS";
 
     public static final int REQUEST_PERMISSIONS_READEXTERNAL_CAMERA = 0;
     public static final int REQUEST_PERMISSIONS_LOCATION = 1;
@@ -227,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
     @Override
     public void onWalletButtonPressed() {
-
+        addWalletsFragment();
     }
 
 
@@ -455,6 +458,17 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, MapsFragment.newInstance(mDockManager.getmTeams().get(mDockManager.getSelectedIndex())), FRAGMENT_MAPS)
                 .addToBackStack(FRAGMENT_MAPS).commit();
+        this.mDock.setVisibility(View.VISIBLE);
+    }
+
+    private void addWalletsFragment() {
+        if (isFragmentActive(FRAGMENT_WALLET_SCREENS)) return;
+        lastTag = FRAGMENT_WALLET_SCREENS;
+        if (!isFragmentActive(FRAGMENT_WALLET_SCREENS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStack();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, WalletScreensFragment.newInstance(mDockManager.getSelectedIndex(),mDockManager.getmTeams()), FRAGMENT_WALLET_SCREENS)
+                .addToBackStack(FRAGMENT_WALLET_SCREENS).commit();
         this.mDock.setVisibility(View.VISIBLE);
     }
 
