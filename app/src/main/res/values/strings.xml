@@ -2,6 +2,9 @@
 <resources>
 
     <string name="app_name">PERRINN</string>
+
+    <string name="api_base_url">api.perrinnapp.net</string>
+
     <string name="action_settings">Settings</string>
     <string name="action_refresh" translatable="false">Refresh</string>
     <string name="loading_string">Welcome! Press here to enter.</string>
@@ -70,6 +73,13 @@
     <string-array name="settings_profile_change_picture_choices">
         <item>Use the camera</item>
         <item>Choose in the gallery</item>
+    </string-array>
+    <string-array name="wallet_options">
+        <item>Send/Request</item>
+        <item>Pending</item>
+        <item>History</item>
+        <item>Buy/Sell</item>
+        <item>Charts</item>
     </string-array>
     <string-array name="sampleArray">
         <item>Shuttle Badminton</item>

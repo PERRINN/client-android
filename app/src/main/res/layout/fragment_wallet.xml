@@ -30,16 +30,6 @@
                 android:paddingTop="@dimen/wallet_top_bottom_list_header_padding"
                 android:paddingBottom="@dimen/wallet_top_bottom_header_padding"
                 android:background="@color/colorWalletHeadings">
-                <TextView
-                    android:id="@+id/wallet_new_transaction"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/wallet_new_transaction"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/wallet_new_transaction_size"
-                    android:textColor="@color/colorWalletNewTransaction"
-                    />
                 <ImageView
                     android:id="@+id/wallet_icon"
                     android:layout_width="@dimen/wallet_ic_size"
@@ -48,32 +38,21 @@
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_wallet_noborder"
                     />
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true">
-                    <TextView
-                        android:id="@+id/wallet_amount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/wallet_total_amount_size"
-                        android:textColor="@color/colorWalletHeadingsText"
-                        />
                     <TextView
                         android:id="@+id/wallet_shares"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center_horizontal"
+                        android:layout_below="@id/wallet_icon"
                         android:textColor="@color/colorWalletHeadingsText"
                         />
-                </LinearLayout>
             </RelativeLayout>
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/wallet_history"
+                android:id="@+id/wallet_menu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/colorWalletMenuItemBackground"
                 />
         </LinearLayout>
     </LinearLayout>

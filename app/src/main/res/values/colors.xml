@@ -33,4 +33,6 @@
     <color name="colorWalletHeadingsText">#FF999999</color>
     <color name="colorWalletNewTransaction">#FF0000FF</color>
     <color name="colorWalletTransactionBackground">#FFFFFFFF</color>
+    <color name="colorWalletMenuItemBackground">#FFFFFFFF</color>
+    <color name="colorWalletMenuItemForeground">#FF0000FF</color>
 </resources>
