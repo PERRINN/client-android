@@ -74,7 +74,7 @@ public class WalletTransacHistScreensFragment extends Fragment {
      * @param transit transition needed to the freshly added fragment.
      * */
     private void addNewWalletTransacFragment(String tag, boolean rebuild, boolean transit, String teamTitle, int backgroundRes){
-        mFragmentPagerWalletTransacAdapter.addNewFragment(tag, WalletTransacHistFragment.newInstance(teamTitle,backgroundRes));
+       // mFragmentPagerWalletTransacAdapter.addNewFragment(tag, WalletTransacHistFragment.newInstance(teamTitle,backgroundRes));
         mFragmentPagerWalletTransacAdapter.notifyDataSetChanged();
 
 

@@ -24,36 +24,17 @@ import java.util.Date;
  * Created by alessand.silacci on 13.01.2017.
  */
 
-public class WalletTransacHistFragment extends Fragment {
-    private static final String FRAGMENT_PARAM_TEAMTITLE = "com.perrinn.client.fragments.WalletTransacHistFragment.FRAGMENT_PARAM_TEAMTITLE";
-    private static final String FRAGMENT_PARAM_BACKGROUNDRES = "com.perrinn.client.fragments.WalletTransacHistFragment.FRAGMENT_PARAM_BACKGROUNDRES";
-
-    private ImageView mWalletTransacHistBackgroundHolder;
-    private TextView mWalletTransacHistTeamName;
+public class WalletTransacHistFragment extends MultiScreenChildFragment {
     private RecyclerView mWalletHistory;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_wallet_transac_hist, container, false);
-        return view;
-    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        setIncludedFragmentLayout(R.layout.fragment_wallet_transac_hist);
         super.onViewCreated(view, savedInstanceState);
-
-        mWalletTransacHistTeamName = (TextView) view.findViewById(R.id.wallet_team_name);
-        mWalletTransacHistBackgroundHolder = (ImageView) view.findViewById(R.id.wallet_background_holder);
         mWalletHistory = (RecyclerView) view.findViewById(R.id.wallet_history);
         LinearLayoutManager lrm = new LinearLayoutManager(getContext());
         mWalletHistory.setLayoutManager(lrm);
-
-        Bundle args = getArguments();
-        if(args != null){
-            Picasso.with(getContext()).load(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES)).fit().into(mWalletTransacHistBackgroundHolder);
-            mWalletTransacHistTeamName.setText(args.getString(FRAGMENT_PARAM_TEAMTITLE).toUpperCase());
-        }
 
         ArrayList<WalletTransactionItemAdapter.WalletTransactionSection> sections = new ArrayList<>();
         sections.add(new WalletTransactionItemAdapter.WalletTransactionSection(4,"12/12/2016",19252.43));
@@ -73,14 +54,5 @@ public class WalletTransacHistFragment extends Fragment {
 
         mWalletHistory.setAdapter(new WalletTransactionItemAdapter(sections, transactions, getContext()));
 
-    }
-
-    public static WalletTransacHistFragment newInstance(String teamName, int backgroundRes){
-        WalletTransacHistFragment fragment = new WalletTransacHistFragment();
-        Bundle args = new Bundle();
-        args.putString(FRAGMENT_PARAM_TEAMTITLE,teamName);
-        args.putInt(FRAGMENT_PARAM_BACKGROUNDRES,backgroundRes);
-        fragment.setArguments(args);
-        return fragment;
     }
 }

@@ -16,18 +16,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.perrinn.client.adapters.GridViewAdapter;
+import com.perrinn.client.beans.Event;
 import com.perrinn.client.beans.Item;
 import com.perrinn.client.R;
+import com.perrinn.client.listeners.OnEventDispatchedListener;
 import com.squareup.picasso.Picasso;
 
 /**
  * Created by Antreas Christofi on 26-07-2016.
  */
 
-public class TeamMembersFragment extends Fragment {
-	private static final String FRAGMENT_PARAM_TITLE = "com.perrinn.client.fragments.TeamMembersFragment.FRAGMENT_PARAM_TITLE";
-	private static final String FRAGMENT_PARAM_DESC = "com.perrinn.client.fragments.TeamMembersFragment.FRAGMENT_PARAM_DESC";
-	private static final String FRAGMENT_PARAM_BACKGROUND = "com.perrinn.client.fragments.TeamMembersFragment.FRAGMENT_PARAM_BACKGROUND";
+public class TeamMembersFragment extends MultiScreenChildFragment {
 	GridView gridView;
 	ArrayList<Item> gridArray = new ArrayList<Item>();
 	GridViewAdapter customGridAdapter;
@@ -35,7 +34,11 @@ public class TeamMembersFragment extends Fragment {
 	private TextView mTextViewTeamName;
 	//private TextView mTextViewMessageToTeam;
 	private ImageView mTeamMembersBackground;
-	private OnTeamMembersFragmentInteractionListener mListener;
+
+	@Override
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+	}
 
 	@Nullable
 	@Override
@@ -47,12 +50,12 @@ public class TeamMembersFragment extends Fragment {
 		setRetainInstance(true);
 		Bundle args = getArguments();
 		if(args != null){
-			mTextViewTeamName.setText(args.getString(FRAGMENT_PARAM_TITLE).toUpperCase());
+			mTextViewTeamName.setText(args.getString(FRAGMENT_PARAM_TEAMTITLE).toUpperCase());
 			//mTextViewMessageToTeam.setText(args.getString(FRAGMENT_PARAM_DESC));
 			//new AsyncBitmapLoader(getContext(),mTeamMembersBackground).execute(args.getInt(FRAGMENT_PARAM_BACKGROUND));
 			//BitmapLoaderUtils.loadBitmap(getContext(),args.getInt(FRAGMENT_PARAM_BACKGROUND),mTeamMembersBackground);
 			//new AsyncCachedBitmapLoader(getContext(),mTeamMembersBackground).execute(args.getInt(FRAGMENT_PARAM_BACKGROUND));
-			Picasso.with(getContext()).load(args.getInt(FRAGMENT_PARAM_BACKGROUND)).fit().into(mTeamMembersBackground);
+			Picasso.with(getContext()).load(args.getInt(FRAGMENT_PARAM_BACKGROUNDRES)).fit().into(mTeamMembersBackground);
 		}
 		//icons
 		/*Bitmap chatIcon = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon_chat_01);
@@ -97,56 +100,64 @@ public class TeamMembersFragment extends Fragment {
 		gridArray.add(new Item(R.drawable.placeholder_team_members_1, "Mark*", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onSelfPicturePressed();
+
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_SELFPROFILE,0,null));
 			}
 		},true));
 		gridArray.add(new Item(R.drawable.placeholder_team_members_2,"Aiko*",new View.OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				mListener.onColleaguePicturePressed(0);
+
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_PROFILE,0,null));
 			}
 		},false));
 		gridArray.add(new Item(R.drawable.placeholder_team_members_5,"Vicky",new View.OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				mListener.onColleaguePicturePressed(0);
+
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_PROFILE,0,null));
 			}
 		},false));
 		gridArray.add(new Item(R.drawable.placeholder_team_members_3,"Alan",new View.OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				mListener.onColleaguePicturePressed(0);
+
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_PROFILE,0,null));
 			}
 		},false));
 		gridArray.add(new Item(R.drawable.placeholder_team_members_4,"James",new View.OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				mListener.onColleaguePicturePressed(0);
+
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_PROFILE,0,null));
 			}
 		},false));
 		gridArray.add(new Item(R.drawable.placeholder_team_members_6,"Mathilde",new View.OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				mListener.onColleaguePicturePressed(0);
+
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_PROFILE,0,null));
 			}
 		},false));
 		gridArray.add(new Item(R.drawable.placeholder_team_members_7,"Daniel",new View.OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				mListener.onColleaguePicturePressed(0);
+
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_PROFILE,0,null));
 			}
 		},false));
 		gridArray.add(new Item(R.drawable.placeholder_team_members_8,"Andrea",new View.OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				mListener.onColleaguePicturePressed(0);
+
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_PROFILE,0,null));
 			}
 		},false));
 
@@ -154,50 +165,50 @@ public class TeamMembersFragment extends Fragment {
 		gridArray.add(new Item(chatIcon, "Chat", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onChatButtonPressed();
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_CHAT,0,null));
 			}
 		}));
 		gridArray.add(new Item(mailIcon, "Mail", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onMailButtonPressed();
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_MAIL,0,null));
 			}
 		}));
 		gridArray.add(new Item(microphoneIcon, "Mic", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onMicButtonPressed();
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_MIC,0,null));
 			}
 		}));
 		gridArray.add(new Item(speakerIcon, "Speaker", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onSpeakerButtonPressed();
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_SPEAKER,0,null));
 			}
 		}));
 
 		gridArray.add(new Item(linksIcon, "Links", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onGuestButtonPressed();
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_GUEST,0,null));
 			}
 		}));
 		gridArray.add(new Item(activityIcon, "Activity", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onActivityButtonPressed();
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_ACTIVITY,0,null));
 			}
 		}));
 		gridArray.add(new Item(walletIcon, "Wallet", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onWalletButtonPressed();
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_WALLET,0,null));
 			}
 		}));
 		gridArray.add(new Item(images02Icon, "Video", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onImages02ButtonPressed();
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_IMAGES_02,0,null));
 			}
 		}));
 
@@ -205,25 +216,25 @@ public class TeamMembersFragment extends Fragment {
 		gridArray.add(new Item(documentsIcon, "Documents", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onDocumentsButtonPressed();
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_DOCS,0,null));
 			}
 		}));
 		gridArray.add(new Item(calendarIcon, "Calendar", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onCalendarButtonPressed();
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_CAL,0,null));
 			}
 		}));
 		gridArray.add(new Item(images01Icon, "Images", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onImages01ButtonPressed();
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_IMAGES_01,0,null));
 			}
 		}));
 		gridArray.add(new Item(mapsIcon, "Maps", new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mListener.onMapsButtonPressed();
+				mListener.onEventDispatched(new Event(Event.EVENT_NAVIGATION_MAPS,0,null));
 			}
 		}));
 
@@ -231,27 +242,6 @@ public class TeamMembersFragment extends Fragment {
 		customGridAdapter = new GridViewAdapter(getContext(), R.layout.row_grid, gridArray);
 		gridView.setAdapter(customGridAdapter);
 		return rootView;
-	}
-
-	public static TeamMembersFragment newInstance(String teamTitle, String teamDesc, int backgroundRes){
-		TeamMembersFragment fragment = new TeamMembersFragment();
-		Bundle params = new Bundle();
-		params.putString(FRAGMENT_PARAM_TITLE,teamTitle);
-		params.putString(FRAGMENT_PARAM_DESC,teamDesc);
-		params.putInt(FRAGMENT_PARAM_BACKGROUND,backgroundRes);
-		fragment.setArguments(params);
-		return fragment;
-	}
-
-	@Override
-	public void onAttach(Context context) {
-		super.onAttach(context);
-		if(context instanceof OnTeamMembersFragmentInteractionListener){
-			mListener = (OnTeamMembersFragmentInteractionListener) context;
-		}else{
-			throw new RuntimeException(context.toString()
-					+" must implement the OnTeamMembersFragmentInteractionListener.");
-		}
 	}
 
 	public interface OnTeamMembersFragmentInteractionListener{

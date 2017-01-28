@@ -1,59 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/wallet_background_holder"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/wallet_left_right_padding"
+        android:paddingRight="@dimen/wallet_left_right_padding"
+        android:paddingTop="@dimen/wallet_top_bottom_list_header_padding"
+        android:paddingBottom="@dimen/wallet_top_bottom_header_padding"
+        android:background="@color/colorWalletHeadings">
+        <ImageView
+            android:id="@+id/wallet_icon"
+            android:layout_width="@dimen/wallet_ic_size"
+            android:layout_height="@dimen/wallet_ic_size"
+            android:scaleType="centerCrop"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_wallet_noborder"
+            />
         <TextView
-            android:id="@+id/wallet_team_name"
+            android:id="@+id/wallet_shares"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textColor="#FFFFFFFF"
-            android:layout_weight="0"
-            android:background="@android:color/transparent"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/wallet_left_right_padding"
-                android:paddingRight="@dimen/wallet_left_right_padding"
-                android:paddingTop="@dimen/wallet_top_bottom_list_header_padding"
-                android:paddingBottom="@dimen/wallet_top_bottom_header_padding"
-                android:background="@color/colorWalletHeadings">
-                <ImageView
-                    android:id="@+id/wallet_icon"
-                    android:layout_width="@dimen/wallet_ic_size"
-                    android:layout_height="@dimen/wallet_ic_size"
-                    android:scaleType="centerCrop"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_wallet_noborder"
-                    />
-                    <TextView
-                        android:id="@+id/wallet_shares"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:gravity="center_horizontal"
-                        android:layout_below="@id/wallet_icon"
-                        android:textColor="@color/colorWalletHeadingsText"
-                        />
-            </RelativeLayout>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/wallet_menu"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorWalletMenuItemBackground"
-                />
-        </LinearLayout>
-    </LinearLayout>
-</FrameLayout>
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/wallet_icon"
+            android:textColor="@color/colorWalletHeadingsText"
+            />
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/wallet_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWalletMenuItemBackground"
+        />
+</LinearLayout>

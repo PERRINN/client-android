@@ -1,5 +1,6 @@
 package com.perrinn.client.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,9 +11,11 @@ import android.view.ViewGroup;
 
 import com.perrinn.client.R;
 import com.perrinn.client.adapters.MainPagerAdapter;
+import com.perrinn.client.beans.Event;
 import com.perrinn.client.beans.Team;
 import com.perrinn.client.helpers.ToggledViewPager;
 import com.perrinn.client.listeners.MultiScreensListener;
+import com.perrinn.client.listeners.OnEventDispatchedListener;
 
 import java.util.ArrayList;
 
@@ -20,7 +23,8 @@ import java.util.ArrayList;
  * Created by alessand.silacci on 15.01.2017.
  */
 
-public class MultiScreenFragment<T extends MultiScreenChildFragment>  extends Fragment{
+public class MultiScreenFragment<T extends MultiScreenChildFragment>  extends Fragment implements
+OnEventDispatchedListener{
     private static final String FRAGMENT_PARAM_TEAMINDEX = "com.perrinn.fragments.MultiScreenFragment.FRAGMENT_PARAM_TEAMINDEX";
     private static final String FRAGMENT_PARAM_TEAMS = "com.perrinn.fragments.MultiScreenFragment.FRAGMENT_PARAM_TEAMS";
     private Class<T> childType;
@@ -29,7 +33,7 @@ public class MultiScreenFragment<T extends MultiScreenChildFragment>  extends Fr
     protected MainPagerAdapter mMainAdapter;
 
     protected ArrayList<Team> mTeams;
-    protected MultiScreensListener mListener;
+    protected OnEventDispatchedListener mListener;
 
     @Nullable
     @Override
@@ -62,7 +66,7 @@ public class MultiScreenFragment<T extends MultiScreenChildFragment>  extends Fr
 
             @Override
             public void onPageSelected(int position) {
-                mListener.onPageChange(position);
+                mListener.onEventDispatched(new Event(Event.EVENT_PAGE_CHANGED,position,null));
             }
 
             @Override
@@ -93,11 +97,12 @@ public class MultiScreenFragment<T extends MultiScreenChildFragment>  extends Fr
 
         if(transit) {
             mFragmentViewPager.setCurrentItem(screenPosition);
-            //mListener.onPageCountChanged(mFragmentPagerTeamsAdapter.getCount());
-            //mListener.onPageChange(screenPosition);
+            mListener.onEventDispatched(new Event(Event.EVENT_PAGE_COUNT_CHANGED,mMainAdapter.getCount(),null));
+            mListener.onEventDispatched(new Event(Event.EVENT_PAGE_CHANGED,screenPosition,null));
         }else {
             //mListener.onPageChange(oldPagePosition);
             //mListener.onPageCountChanged(mFragmentPagerTeamsAdapter.getCount());
+            mListener.onEventDispatched(new Event(Event.EVENT_PAGE_COUNT_CHANGED,mMainAdapter.getCount(),null));
         }
     }
 
@@ -120,5 +125,19 @@ public class MultiScreenFragment<T extends MultiScreenChildFragment>  extends Fr
         return fragment;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof OnEventDispatchedListener){
+            mListener = (OnEventDispatchedListener) context;
+        }else{
+            throw new RuntimeException(context.toString()
+                    +" must implement the OnEventDispatchedListener.");
+        }
+    }
 
+    @Override
+    public void onEventDispatched(Event event) {
+        mListener.onEventDispatched(event);
+    }
 }

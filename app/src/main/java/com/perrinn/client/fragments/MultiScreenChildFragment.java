@@ -1,5 +1,6 @@
 package com.perrinn.client.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.perrinn.client.R;
+import com.perrinn.client.listeners.OnEventDispatchedListener;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -19,12 +21,13 @@ import com.squareup.picasso.Picasso;
 
 public class MultiScreenChildFragment extends Fragment {
 
-    private static final String FRAGMENT_PARAM_TEAMTITLE = "com.perrinn.client.fragments.MultiScreenChildFragment.FRAGMENT_PARAM_TEAMTITLE";
-    private static final String FRAGMENT_PARAM_BACKGROUNDRES = "com.perrinn.client.fragments.MultiScreenChildFragment.FRAGMENT_PARAM_BACKGROUNDRES";
+    protected static final String FRAGMENT_PARAM_TEAMTITLE = "com.perrinn.client.fragments.MultiScreenChildFragment.FRAGMENT_PARAM_TEAMTITLE";
+    protected static final String FRAGMENT_PARAM_BACKGROUNDRES = "com.perrinn.client.fragments.MultiScreenChildFragment.FRAGMENT_PARAM_BACKGROUNDRES";
     private ImageView mChildBackgroundHolder;
     private TextView mChildTeamName;
     private View mChildLayoutContent;
     protected int mIncludedLayout;
+    protected OnEventDispatchedListener mListener;
 
     @Nullable
     @Override
@@ -74,5 +77,16 @@ public class MultiScreenChildFragment extends Fragment {
             e.printStackTrace();
         }
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof OnEventDispatchedListener){
+            mListener = (OnEventDispatchedListener) context;
+        }else{
+            throw new RuntimeException(context.toString()
+                    +" must implement the OnEventDispatchedListener.");
+        }
     }
 }

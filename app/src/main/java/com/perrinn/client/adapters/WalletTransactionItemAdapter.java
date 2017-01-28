@@ -5,13 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import com.google.android.gms.wallet.Wallet;
 import com.perrinn.client.R;
 import com.perrinn.client.beans.Transaction;
-import com.perrinn.client.fragments.WalletScreensFragment;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;

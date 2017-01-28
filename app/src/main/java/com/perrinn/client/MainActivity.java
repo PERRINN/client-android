@@ -2,79 +2,57 @@ package com.perrinn.client;
 
 
 
-import android.*;
 import android.Manifest;
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.hardware.input.InputManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.inputmethod.InputMethod;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.wallet.fragment.WalletFragment;
 import com.perrinn.client.adapters.DockItemAdapter;
 import com.perrinn.client.adapters.MainPagerAdapter;
-import com.perrinn.client.beans.DockIndicator;
 
+import com.perrinn.client.beans.Event;
 import com.perrinn.client.beans.Member;
 import com.perrinn.client.beans.Team;
 import com.perrinn.client.fragments.ChatFragment;
 import com.perrinn.client.fragments.ChatScreensFragment;
-import com.perrinn.client.fragments.CreateNewProjectFragment;
-import com.perrinn.client.fragments.LandingFragment;
 import com.perrinn.client.fragments.LoginFragment;
 import com.perrinn.client.fragments.MapsFragment;
+import com.perrinn.client.fragments.MultiScreenFragment;
 import com.perrinn.client.fragments.ProfileSettingsScreensFragment;
 import com.perrinn.client.fragments.TeamFragment;
 import com.perrinn.client.fragments.ProfileFragment;
-import com.perrinn.client.fragments.ProjectFragment;
 import com.perrinn.client.fragments.TeamMateProfileFragment;
 import com.perrinn.client.fragments.TeamMembersFragment;
 import com.perrinn.client.fragments.TeamScreensFragment;
-import com.perrinn.client.fragments.TeamSettingsFragment;
 import com.perrinn.client.fragments.TeamSettingsScreensFragment;
-import com.perrinn.client.fragments.WalletScreensFragment;
 import com.perrinn.client.fragments.WalletTransacHistFragment;
 import com.perrinn.client.fragments.WalletTransacHistScreensFragment;
-import com.perrinn.client.helpers.DockItemMarginDecorator;
 import com.perrinn.client.helpers.DockManager;
 import com.perrinn.client.helpers.ToggledViewPager;
 import com.perrinn.client.listeners.InputInteractionListener;
 import com.perrinn.client.listeners.MultiScreensListener;
+import com.perrinn.client.listeners.OnEventDispatchedListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener, TeamScreensFragment.TeamScreensInteractionListener,
+public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener,
         InputInteractionListener, MultiScreensListener, TeamMateProfileFragment.OnPrivateChatButtonInteractionListener,
-        WalletScreensFragment.OnWalletScreensInteractionInteractionListener{
+        OnEventDispatchedListener
+        {
     private LinearLayout mDock;
     public RelativeLayout modifiedDock;
     private RecyclerView mPagesIndicatorsList;
@@ -102,8 +80,6 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     public static final int REQUEST_PERMISSIONS_READWRITE = 2;
     public static final int REQUEST_PERMISSIONS_WIFISTATE = 3;
 
-    private ToggledViewPager mFragmentPagerMain;
-    private MainPagerAdapter mFragmentPagerMainAdapter;
 
     private boolean isInSingleFragmentView;
     private String singleFragmentTag;
@@ -178,73 +154,73 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }
 
     // region Grid Buttons Listeners
-    @Override
+
     public void onChatButtonPressed() {
         addChatPage();
     }
 
-    @Override
+
     public void onMailButtonPressed() {
 
     }
 
-    @Override
+
     public void onCalendarButtonPressed() {
 
     }
 
-    @Override
+
     public void onActivityButtonPressed() {
 
     }
 
-    @Override
+
     public void onDocumentsButtonPressed() {
 
     }
 
-    @Override
+
     public void onGuestButtonPressed() {
 
     }
 
-    @Override
+
     public void onImages01ButtonPressed() {
 
     }
 
-    @Override
+
     public void onImages02ButtonPressed() {
 
     }
 
-    @Override
+
     public void onMapsButtonPressed() {
         addMapsFragment();
     }
 
-    @Override
+
     public void onMicButtonPressed() {
 
     }
 
-    @Override
+
     public void onSpeakerButtonPressed() {
 
     }
 
-    @Override
+
     public void onWalletButtonPressed() {
         addWalletsFragment();
     }
 
 
-    @Override
+
     public void onSelfPicturePressed() {
         addProfileSettingsFragment();
     }
 
-    @Override
+
     public void onColleaguePicturePressed(int colleagueID) {
         addTeamMateProfileFragment();
     }
@@ -277,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         }
         ((TeamScreensFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_TEAM_SCREENS)).setCurrentItem(position);
     }
-    @Override
+
     public void onPageCountChanged(int count) {
         /*int delta = mDockManager.getmTeams().size() - count;
         if (delta == 0) return;
@@ -295,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
             mDock.setVisibility(View.GONE);
     }
 
-    @Override
+
     public void onComplete() {
         this.mDock.setVisibility(View.VISIBLE);
     }
@@ -476,7 +452,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         if (!isFragmentActive(FRAGMENT_WALLET_SCREENS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
             getSupportFragmentManager().popBackStack();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, WalletScreensFragment.newInstance(mDockManager.getSelectedIndex(),mDockManager.getmTeams()), FRAGMENT_WALLET_SCREENS)
+                .add(R.id.fragment_container, MultiScreenFragment.<com.perrinn.client.fragments.WalletFragment>newInstance(mDockManager.getSelectedIndex(),mDockManager.getmTeams(), com.perrinn.client.fragments.WalletFragment.class), FRAGMENT_WALLET_SCREENS)
                 .addToBackStack(FRAGMENT_WALLET_SCREENS).commit();
         this.mDock.setVisibility(View.VISIBLE);
     }
@@ -487,7 +463,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         if (!isFragmentActive(FRAGMENT_WALLET_TRANSAC_HISTORY_SCREENS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
             getSupportFragmentManager().popBackStack();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, WalletTransacHistScreensFragment.newInstance(mDockManager.getSelectedIndex(),mDockManager.getmTeams()), FRAGMENT_WALLET_TRANSAC_HISTORY_SCREENS)
+                .add(R.id.fragment_container, MultiScreenFragment.<WalletTransacHistFragment>newInstance(mDockManager.getSelectedIndex(),mDockManager.getmTeams(),WalletTransacHistFragment.class), FRAGMENT_WALLET_TRANSAC_HISTORY_SCREENS)
                 .addToBackStack(FRAGMENT_WALLET_TRANSAC_HISTORY_SCREENS).commit();
         this.mDock.setVisibility(View.VISIBLE);
     }
@@ -496,7 +472,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
        // if (isFragmentActive(FRAGMENT_TEAM_SCREENS)) return;
         lastTag = FRAGMENT_TEAM_SCREENS;
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, TeamScreensFragment.newInstance(mDockManager.getmTeams()), FRAGMENT_TEAM_SCREENS)
+                .add(R.id.fragment_container, MultiScreenFragment.<TeamMembersFragment>newInstance(mDockManager.getSelectedIndex(),mDockManager.getmTeams(),TeamMembersFragment.class), FRAGMENT_TEAM_SCREENS)
                 .commit();
         //this.mDock.setVisibility(View.VISIBLE);
     }
@@ -633,7 +609,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }
 
 
-    @Override
+    //@Override
     public void onWalletTransactionHistoryClick() {
         addWalletTransacHistFragment();
     }
@@ -669,4 +645,54 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     public void onPressTeamScreenButton(View v) {
     }
 
+
+    @Override
+    public void onEventDispatched(Event event) {
+        switch(event.getWhat()){
+            case Event.EVENT_INTERACTION_PRIVATECHAT:
+                onPrivateChatInteraction((Member) event.getData().getParcelable("MEMBER")); // TODO: define where the constant should be
+                break;
+            case Event.EVENT_INTERACTION_INPUT:
+                onKeyboardStateChanged(event.getArg() == 0);
+                break;
+            case Event.EVENT_NAVIGATION_SELFPROFILE:
+                addProfileSettingsFragment();
+                break;
+            case Event.EVENT_NAVIGATION_PROFILE:
+                onColleaguePicturePressed(event.getArg());
+                break;
+            case Event.EVENT_NAVIGATION_CHAT:
+                addChatPage();
+                break;
+            case Event.EVENT_NAVIGATION_MAIL:
+                break;
+            case Event.EVENT_NAVIGATION_CAL:
+                break;
+            case Event.EVENT_NAVIGATION_ACTIVITY:
+                break;
+            case Event.EVENT_NAVIGATION_DOCS:
+                break;
+            case Event.EVENT_NAVIGATION_GUEST:
+                break;
+            case Event.EVENT_NAVIGATION_IMAGES_01:
+                break;
+            case Event.EVENT_NAVIGATION_IMAGES_02:
+                break;
+            case Event.EVENT_NAVIGATION_MAPS:
+                addMapsFragment();
+                break;
+            case Event.EVENT_NAVIGATION_MIC:
+                break;
+            case Event.EVENT_NAVIGATION_SPEAKER:
+                break;
+            case Event.EVENT_NAVIGATION_WALLET:
+                addWalletsFragment();
+                break;
+            case Event.EVENT_NAVIGATION_WALLET_HISTORY:
+                addWalletTransacHistFragment();
+                break;
+            default:
+                break;
+        }
+    }
 }

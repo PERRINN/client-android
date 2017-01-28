@@ -13,10 +13,12 @@ import com.perrinn.client.R;
 import com.perrinn.client.adapters.GridViewAdapter;
 import com.perrinn.client.adapters.MainPagerAdapter;
 import com.perrinn.client.beans.DockIndicator;
+import com.perrinn.client.beans.Event;
 import com.perrinn.client.beans.Team;
 import com.perrinn.client.helpers.DockManager;
 import com.perrinn.client.helpers.ToggledViewPager;
 import com.perrinn.client.listeners.MultiScreensListener;
+import com.perrinn.client.listeners.OnEventDispatchedListener;
 import com.perrinn.client.listeners.OnRenderCompleteListener;
 
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ public class TeamScreensFragment extends Fragment {
 
     private ToggledViewPager mFragmentPagerMain;
     private MainPagerAdapter mFragmentPagerMainAdapter;
-    private TeamScreensInteractionListener mListener;
+    private OnEventDispatchedListener mListener;
     private ArrayList<Team> mTeams;
     private int oldPagePosition;
 
@@ -49,7 +51,7 @@ public class TeamScreensFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                mListener.onPageChange(position);
+                mListener.onEventDispatched(new Event(Event.EVENT_PAGE_CHANGED,position,null));
             }
 
             @Override
@@ -76,7 +78,7 @@ public class TeamScreensFragment extends Fragment {
      * @param transit transition needed to the freshly added fragment.
      * */
     private void addNewTeamMembersFragment(String tag, boolean rebuild, boolean transit,String teamTitle, String teamDesc, int backgroundRes){
-        mFragmentPagerMainAdapter.addNewFragment(tag, TeamMembersFragment.newInstance(teamTitle,teamDesc,backgroundRes));
+       // mFragmentPagerMainAdapter.addNewFragment(tag, TeamMembersFragment.newInstance(teamTitle,teamDesc,backgroundRes));
         mFragmentPagerMainAdapter.notifyDataSetChanged();
 
 
@@ -89,11 +91,11 @@ public class TeamScreensFragment extends Fragment {
 
         if(transit) {
             mFragmentPagerMain.setCurrentItem(screenPosition);
-            mListener.onPageCountChanged(mFragmentPagerMainAdapter.getCount());
-            mListener.onPageChange(screenPosition);
+            mListener.onEventDispatched(new Event(Event.EVENT_PAGE_COUNT_CHANGED,mFragmentPagerMainAdapter.getCount(),null));
+            mListener.onEventDispatched(new Event(Event.EVENT_PAGE_CHANGED,screenPosition,null));
         }else {
-            mListener.onPageChange(oldPagePosition);
-            mListener.onPageCountChanged(mFragmentPagerMainAdapter.getCount());
+            mListener.onEventDispatched(new Event(Event.EVENT_PAGE_CHANGED,oldPagePosition,null));
+            mListener.onEventDispatched(new Event(Event.EVENT_PAGE_COUNT_CHANGED,mFragmentPagerMainAdapter.getCount(),null));
         }
     }
 
@@ -106,22 +108,18 @@ public class TeamScreensFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mListener.onComplete();
+        mListener.onEventDispatched(new Event(Event.EVENT_TEAMSCREENS_ONCOMPLETE,0,null));
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof TeamScreensInteractionListener){
-            mListener = (TeamScreensInteractionListener) context;
+        if(context instanceof OnEventDispatchedListener){
+            mListener = (OnEventDispatchedListener) context;
         }else{
             throw new RuntimeException(context.toString()
-                    +" must implement the TeamScreensInteractionListener.");
+                    +" must implement the OnEventDispatchedListener.");
         }
-    }
-
-    public interface TeamScreensInteractionListener extends TeamMembersFragment.OnTeamMembersFragmentInteractionListener, OnRenderCompleteListener,MultiScreensListener {
-        void onPageCountChanged(int count);
     }
 
     public static TeamScreensFragment newInstance(ArrayList<Team> teams){
