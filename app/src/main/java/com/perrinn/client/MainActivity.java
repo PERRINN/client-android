@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.hardware.input.InputManager;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
@@ -33,11 +35,17 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.gms.wallet.fragment.WalletFragment;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.perrinn.client.adapters.DockItemAdapter;
 import com.perrinn.client.adapters.MainPagerAdapter;
 import com.perrinn.client.beans.DockIndicator;
@@ -81,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     private ImageButton mPSB;
     private DockManager mDockManager;
     private FrameLayout mFragmentContainer;
+    private WifiManager mWifiManager;
+    private WifiInfo mWifiInfo;
     private static final String FRAGMENT_LOADING = "com.perrinn.client.fragments.LOADING_FRAGMENT";
     private static final String FRAGMENT_LANDING = "com.perrinn.client.fragments.LANDING_FRAGMENT";
     private static final String FRAGMENT_PROJECT_PAGE = "com.perrinn.client.fragments.PROJECT_FRAGMENT";
@@ -111,6 +121,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
     private String lastTag;
 
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+
     /*
     * //////////////////////////////////////////////////
     * // Overrided methods
@@ -135,14 +148,28 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         if (savedInstanceState == null) {
             initDock();
             initDockManager();
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
+           // Handler handler = new Handler();
+           /* handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     addTeamScreensFragment();
                 }
-            }, 1000);
+            }, 1000); */
         }
+        mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        mWifiInfo = mWifiManager.getConnectionInfo();
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null){
+                    addTeamScreensFragment();
+                }else{
+                    registerNewUser(mWifiInfo.getMacAddress().replace(':','_')+"@perrinn.com","password");
+                }
+            }
+        };
+        mAuth = FirebaseAuth.getInstance();
         askPermissions();
         mPagesIndicatorsList.setAdapter(new DockItemAdapter(this, mDockManager.getmTeams()));
         if(mFragmentContainer.getViewTreeObserver().isAlive())
@@ -296,6 +323,20 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mAuthStateListener != null){
+            mAuth.removeAuthStateListener(mAuthStateListener);
+        }
+    }
+
+    @Override
     public void onComplete() {
         this.mDock.setVisibility(View.VISIBLE);
     }
@@ -444,12 +485,38 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         }
     }
 
+    private void registerNewUser(String email, String password){
+        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this,new OnCompleteListener<AuthResult>(){
+
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(MainActivity.this, "Your account has been successfully created", Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(MainActivity.this, "Account not registered", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void signinUser(String email, String password){
+        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(!task.isSuccessful()){
+                    Toast.makeText(MainActivity.this, "Could not sign you in", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
     // region Fragment Swaps
     /**
      * This method is intended to create and load the LoginFragment in the main container
      * layout.
      */
     private void addLoginFragment() {
+        signinUser(mWifiInfo.getMacAddress()+"@perrinn.com","password");
         if (isFragmentActive(FRAGMENT_LOADING)) return;
         lastTag = FRAGMENT_LOADING;
         getSupportFragmentManager().beginTransaction()
