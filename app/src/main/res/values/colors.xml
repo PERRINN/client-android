@@ -29,4 +29,10 @@
     <color name="colorTeamMateProfilePromote">#FF0000FF</color>
     <color name="colorTeamMateProfileDiffer">#FF999999</color>
     <color name="colorPrivateChatStroke">#FFA1A1A1</color>
+    <color name="colorWalletHeadings">#FFD9D9D9</color>
+    <color name="colorWalletHeadingsText">#FF999999</color>
+    <color name="colorWalletNewTransaction">#FF0000FF</color>
+    <color name="colorWalletTransactionBackground">#FFFFFFFF</color>
+    <color name="colorWalletMenuItemBackground">#FFFFFFFF</color>
+    <color name="colorWalletMenuItemForeground">#FF0000FF</color>
 </resources>

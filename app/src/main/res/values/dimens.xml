@@ -6,4 +6,14 @@
     <dimen name="dock_indicator_right_margin">5dp</dimen>
     <dimen name="login_button_top_margin">16dp</dimen>
     <dimen name="perrinn_dock_height">120dp</dimen>
+    <dimen name="wallet_left_right_padding">4dp</dimen>
+    <dimen name="wallet_top_bottom_header_padding">2dp</dimen>
+    <dimen name="wallet_top_bottom_padding">6dp</dimen>
+    <dimen name="wallet_top_bottom_list_header_padding">8dp</dimen>
+    <dimen name="wallet_new_transaction_size">14sp</dimen>
+    <dimen name="wallet_total_amount_size">24sp</dimen>
+    <dimen name="wallet_total_shares_size">14sp</dimen>
+    <dimen name="wallet_ic_size">64dp</dimen>
+    <dimen name="wallet_menu_item_size">14sp</dimen>
+    <dimen name="wallet_menu_item_topbottom_margin">3dp</dimen>
 </resources>

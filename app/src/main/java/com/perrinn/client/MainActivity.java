@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.hardware.input.InputManager;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
@@ -33,10 +35,17 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.wallet.fragment.WalletFragment;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.perrinn.client.adapters.DockItemAdapter;
 import com.perrinn.client.adapters.MainPagerAdapter;
 import com.perrinn.client.beans.DockIndicator;
@@ -58,6 +67,9 @@ import com.perrinn.client.fragments.TeamMembersFragment;
 import com.perrinn.client.fragments.TeamScreensFragment;
 import com.perrinn.client.fragments.TeamSettingsFragment;
 import com.perrinn.client.fragments.TeamSettingsScreensFragment;
+import com.perrinn.client.fragments.WalletScreensFragment;
+import com.perrinn.client.fragments.WalletTransacHistFragment;
+import com.perrinn.client.fragments.WalletTransacHistScreensFragment;
 import com.perrinn.client.helpers.DockItemMarginDecorator;
 import com.perrinn.client.helpers.DockManager;
 import com.perrinn.client.helpers.ToggledViewPager;
@@ -69,13 +81,16 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoginFragment.LoginFragmentInteractionListener, TeamScreensFragment.TeamScreensInteractionListener,
-        InputInteractionListener, MultiScreensListener, TeamMateProfileFragment.OnPrivateChatButtonInteractionListener {
+        InputInteractionListener, MultiScreensListener, TeamMateProfileFragment.OnPrivateChatButtonInteractionListener,
+        WalletScreensFragment.OnWalletScreensInteractionInteractionListener{
     private LinearLayout mDock;
     public RelativeLayout modifiedDock;
     private RecyclerView mPagesIndicatorsList;
     private ImageButton mPSB;
     private DockManager mDockManager;
     private FrameLayout mFragmentContainer;
+    private WifiManager mWifiManager;
+    private WifiInfo mWifiInfo;
     private static final String FRAGMENT_LOADING = "com.perrinn.client.fragments.LOADING_FRAGMENT";
     private static final String FRAGMENT_LANDING = "com.perrinn.client.fragments.LANDING_FRAGMENT";
     private static final String FRAGMENT_PROJECT_PAGE = "com.perrinn.client.fragments.PROJECT_FRAGMENT";
@@ -89,10 +104,13 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     private static final String FRAGMENT_MAPS = "com.perrinn.client.fragments.FRAGMENT_MAPS";
     private static final String FRAGMENT_TEAM_MATE_PROFILE = "com.perrinn.client.fragments.FRAGMENT_TEAM_MATE_PROFILE";
     private static final String FRAGMENT_SINGLE_CHAT = "com.perrinn.client.fragments.FRAGMENT_CHAT";
+    private static final String FRAGMENT_WALLET_SCREENS = "com.perrinn.client.fragments.FRAGMENT_WALLET_SCREENS";
+    private static final String FRAGMENT_WALLET_TRANSAC_HISTORY_SCREENS = "com.perrinn.client.fragments.FRAGMENT_WALLET_TRANSAC_HISTORY_SCREENS";
 
     public static final int REQUEST_PERMISSIONS_READEXTERNAL_CAMERA = 0;
     public static final int REQUEST_PERMISSIONS_LOCATION = 1;
     public static final int REQUEST_PERMISSIONS_READWRITE = 2;
+    public static final int REQUEST_PERMISSIONS_WIFISTATE = 3;
 
     private ToggledViewPager mFragmentPagerMain;
     private MainPagerAdapter mFragmentPagerMainAdapter;
@@ -102,6 +120,9 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     private int oldDockPosition = 0;
 
     private String lastTag;
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     /*
     * //////////////////////////////////////////////////
@@ -127,14 +148,28 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         if (savedInstanceState == null) {
             initDock();
             initDockManager();
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
+           // Handler handler = new Handler();
+           /* handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     addTeamScreensFragment();
                 }
-            }, 1000);
+            }, 1000); */
         }
+        mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        mWifiInfo = mWifiManager.getConnectionInfo();
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null){
+                    addTeamScreensFragment();
+                }else{
+                    registerNewUser(mWifiInfo.getMacAddress().replace(':','_')+"@perrinn.com","password");
+                }
+            }
+        };
+        mAuth = FirebaseAuth.getInstance();
         askPermissions();
         mPagesIndicatorsList.setAdapter(new DockItemAdapter(this, mDockManager.getmTeams()));
         if(mFragmentContainer.getViewTreeObserver().isAlive())
@@ -227,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
     @Override
     public void onWalletButtonPressed() {
-
+        addWalletsFragment();
     }
 
 
@@ -285,6 +320,20 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
             mDock.setVisibility(View.VISIBLE);
         else
             mDock.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mAuthStateListener != null){
+            mAuth.removeAuthStateListener(mAuthStateListener);
+        }
     }
 
     @Override
@@ -416,7 +465,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     private void askPermissions(){
         // asking for permission
         if ((ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                || (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) ||
+                    (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_WIFI_STATE) != PackageManager.PERMISSION_GRANTED)) {
 
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
@@ -426,10 +476,38 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},
                         MainActivity.REQUEST_PERMISSIONS_READWRITE);
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_WIFI_STATE},
+                        MainActivity.REQUEST_PERMISSIONS_WIFISTATE);
             }
         }else{
             addLoginFragment();
         }
+    }
+
+    private void registerNewUser(String email, String password){
+        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this,new OnCompleteListener<AuthResult>(){
+
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(MainActivity.this, "Your account has been successfully created", Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(MainActivity.this, "Account not registered", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void signinUser(String email, String password){
+        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(!task.isSuccessful()){
+                    Toast.makeText(MainActivity.this, "Could not sign you in", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     // region Fragment Swaps
@@ -438,6 +516,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
      * layout.
      */
     private void addLoginFragment() {
+        signinUser(mWifiInfo.getMacAddress()+"@perrinn.com","password");
         if (isFragmentActive(FRAGMENT_LOADING)) return;
         lastTag = FRAGMENT_LOADING;
         getSupportFragmentManager().beginTransaction()
@@ -455,6 +534,28 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, MapsFragment.newInstance(mDockManager.getmTeams().get(mDockManager.getSelectedIndex())), FRAGMENT_MAPS)
                 .addToBackStack(FRAGMENT_MAPS).commit();
+        this.mDock.setVisibility(View.VISIBLE);
+    }
+
+    private void addWalletsFragment() {
+        if (isFragmentActive(FRAGMENT_WALLET_SCREENS)) return;
+        lastTag = FRAGMENT_WALLET_SCREENS;
+        if (!isFragmentActive(FRAGMENT_WALLET_SCREENS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStack();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, WalletScreensFragment.newInstance(mDockManager.getSelectedIndex(),mDockManager.getmTeams()), FRAGMENT_WALLET_SCREENS)
+                .addToBackStack(FRAGMENT_WALLET_SCREENS).commit();
+        this.mDock.setVisibility(View.VISIBLE);
+    }
+
+    private void addWalletTransacHistFragment() {
+        if (isFragmentActive(FRAGMENT_WALLET_TRANSAC_HISTORY_SCREENS)) return;
+        lastTag = FRAGMENT_WALLET_TRANSAC_HISTORY_SCREENS;
+        if (!isFragmentActive(FRAGMENT_WALLET_TRANSAC_HISTORY_SCREENS) && getSupportFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStack();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, WalletTransacHistScreensFragment.newInstance(mDockManager.getSelectedIndex(),mDockManager.getmTeams()), FRAGMENT_WALLET_TRANSAC_HISTORY_SCREENS)
+                .addToBackStack(FRAGMENT_WALLET_TRANSAC_HISTORY_SCREENS).commit();
         this.mDock.setVisibility(View.VISIBLE);
     }
 
@@ -598,6 +699,12 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         // TODO: implement join a team view
     }
 
+
+    @Override
+    public void onWalletTransactionHistoryClick() {
+        addWalletTransacHistFragment();
+    }
+
     public void onPressProfileButtonInteraction(View v) {
         //addNewProfilePage();
     }
@@ -628,4 +735,5 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
     public void onPressTeamScreenButton(View v) {
     }
+
 }
