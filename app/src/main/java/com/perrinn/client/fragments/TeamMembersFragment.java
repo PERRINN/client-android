@@ -42,13 +42,11 @@ public class TeamMembersFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_team_members,container,false);
 		mTextViewTeamName = (TextView) rootView.findViewById(R.id.textViewTeamName);
-		mTextViewMessageToTeam = (TextView) rootView.findViewById(R.id.textViewMessageToTeam);
 		mTeamMembersBackground = (ImageView) rootView.findViewById(R.id.team_members_background);
 		setRetainInstance(true);
 		Bundle args = getArguments();
 		if(args != null){
 			mTextViewTeamName.setText(args.getString(FRAGMENT_PARAM_TITLE).toUpperCase());
-			mTextViewMessageToTeam.setText(args.getString(FRAGMENT_PARAM_DESC));
 			//new AsyncBitmapLoader(getContext(),mTeamMembersBackground).execute(args.getInt(FRAGMENT_PARAM_BACKGROUND));
 			//BitmapLoaderUtils.loadBitmap(getContext(),args.getInt(FRAGMENT_PARAM_BACKGROUND),mTeamMembersBackground);
 			//new AsyncCachedBitmapLoader(getContext(),mTeamMembersBackground).execute(args.getInt(FRAGMENT_PARAM_BACKGROUND));

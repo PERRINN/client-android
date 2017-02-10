@@ -30,14 +30,6 @@
                     android:text="MARKETING"
                     android:id="@+id/textViewTeamName"
                     android:textColor="#FFFFFF" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:text="Preparing for our next event!"
-                    android:id="@+id/textViewMessageToTeam"
-                    android:layout_below="@+id/screenClock"
-                    android:textColor="#FFFFFF" />
             </LinearLayout>
             <TextClock
                 android:layout_width="wrap_content"
