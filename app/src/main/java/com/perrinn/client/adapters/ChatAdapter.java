@@ -98,11 +98,11 @@ public class ChatAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        boolean myMsg = chatMessage.getIsme() ;//Just a dummy check to simulate whether it me or other sender
-        holder.txtMessage.setText(chatMessage.getMessage());
+//        boolean myMsg = chatMessage.getIsme() ;//Just a dummy check to simulate whether it me or other sender
+        holder.txtMessage.setText(chatMessage.message);
 
         String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
-        holder.txtInfo.setText(Html.fromHtml("<font color=black> <b>" + chatMessage.getUsername() + "</b></font>" + " " + timeStamp));
+        holder.txtInfo.setText(Html.fromHtml("<font color=black> <b>" + chatMessage.username + "</b></font>" + " " + timeStamp));
 
         return convertView;
     }

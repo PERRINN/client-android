@@ -9,6 +9,7 @@ import java.util.Date;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GestureDetectorCompat;
@@ -30,6 +31,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.perrinn.client.adapters.ChatAdapter;
 import com.perrinn.client.R;
 import com.perrinn.client.beans.Team;
@@ -58,6 +65,12 @@ public class ChatFragment extends Fragment {
     private GestureDetectorCompat mDetector;
     private Team mTeam;
 
+    private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference mConversationsRef;
+    private DatabaseReference mNewConversationsRef;
+    private DatabaseReference mInboxRef;
+    private DatabaseReference mSendingRef;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -71,6 +84,38 @@ public class ChatFragment extends Fragment {
         mChatInputContainer = (LinearLayout) rootView.findViewById(R.id.chat_input_container);
         //sendBtn=(Button)rootView.findViewById(R.id.chatSendButton);
         messagesContainer.setAdapter(adapter);
+        mConversationsRef = mDatabase.getReference("conversations");
+        mNewConversationsRef = mConversationsRef.push();
+        mInboxRef = mConversationsRef.child("lk3f4fj3p4j");
+        mSendingRef = mConversationsRef.child("lk3f4fj3p4j");
+        mInboxRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                ChatMessage newMessage = dataSnapshot.getValue(ChatMessage.class);
+                if(newMessage == null) return;
+                displayMessage(newMessage);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         final InputMethodManager mImm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         mDetector = new GestureDetectorCompat(getContext(),new SwipeDownGestureListener(new SwipeDownGestureListener.SwipeDownListener() {
             @Override
@@ -137,17 +182,18 @@ public class ChatFragment extends Fragment {
                         return false;
                     }
 
-                    ChatMessage chatMessage = new ChatMessage();
+                    /*ChatMessage chatMessage = new ChatMessage();
                     chatMessage.setId(1);//dummy
                     chatMessage.setMessage(messageText);
 
                     chatMessage.setUsername("Nicolas ");
-                    chatMessage.setMe(true);
+                    chatMessage.setMe(true);*/
 
 
                     messageET.setText("");
-
-                    displayMessage(chatMessage);
+                    ChatMessage msg = new ChatMessage(0,true,messageText,"Nicolas",System.currentTimeMillis());
+                    mSendingRef.push().setValue(msg);
+                   // displayMessage(chatMessage);
                     return false;
                 }
 

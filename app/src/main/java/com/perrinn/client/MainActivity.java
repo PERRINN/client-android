@@ -286,13 +286,13 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     @Override
     public void onPageChange(int position) {
         updateDock(position);
-        ChatScreensFragment chatFragment = (ChatScreensFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_CHAT);
+        //ChatScreensFragment chatFragment = (ChatScreensFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_CHAT);
         ProfileSettingsScreensFragment profileSettingsFragment = (ProfileSettingsScreensFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_SETTINGS_PROFILE);
         TeamSettingsScreensFragment teamSettingsFragment = (TeamSettingsScreensFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_SETTINGS_TEAM);
         MapsFragment mapsFragment = (MapsFragment) getSupportFragmentManager().findFragmentByTag(FRAGMENT_MAPS);
-        if(chatFragment != null){
+       /* if(chatFragment != null){
             chatFragment.setCurrentItem(position);
-        }
+        }*/
         if(profileSettingsFragment != null){
             profileSettingsFragment.setCurrentItem(position);
         }
