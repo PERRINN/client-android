@@ -622,7 +622,7 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
             getSupportFragmentManager().popBackStack();
         lastTag = FRAGMENT_SINGLE_CHAT;
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, ChatFragment.newInstance(), FRAGMENT_CHAT)
+                .add(R.id.fragment_container, ChatFragment.newInstance("lk3f4fj3p4j"), FRAGMENT_CHAT)
                 .addToBackStack(null)
                 .commit();
     }

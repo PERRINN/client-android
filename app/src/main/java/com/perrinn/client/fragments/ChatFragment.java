@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 
 
 import android.content.Context;
@@ -51,6 +52,7 @@ import com.squareup.picasso.Picasso;
 
 public class ChatFragment extends Fragment {
     private static final String FRAGMENT_PARAM_TEAM = "com.perrinn.client.fragments.ChatFragment.FRAGMENT_PARAM_TEAM";
+    private static final String FRAGMENT_PARAM_CONVUSERKEY = "com.perrinn.client.fragments.ChatFragment.FRAGMENT_PARAM_CONVUSERKEY";
     private Button sendBtn;
     private ImageView mChatBackgroundHolder;
     private TextView mChatTeamName;
@@ -71,6 +73,8 @@ public class ChatFragment extends Fragment {
     private DatabaseReference mInboxRef;
     private DatabaseReference mSendingRef;
 
+    private String mToUserKey;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -84,21 +88,42 @@ public class ChatFragment extends Fragment {
         mChatInputContainer = (LinearLayout) rootView.findViewById(R.id.chat_input_container);
         //sendBtn=(Button)rootView.findViewById(R.id.chatSendButton);
         messagesContainer.setAdapter(adapter);
+        Bundle args = getArguments();
+        if(args != null){
+            mTeam = args.getParcelable(FRAGMENT_PARAM_TEAM);
+            mToUserKey = args.getString(FRAGMENT_PARAM_CONVUSERKEY);
+            if(mTeam != null) {
+                mChatTeamName.setText(mTeam.getName().toUpperCase());
+                Picasso.with(getContext()).load(mTeam.getBgres()).fit().into(mChatBackgroundHolder);
+            }else if(mToUserKey != null){
+                mChatTeamName.setVisibility(View.GONE);
+            }
+        }
         mConversationsRef = mDatabase.getReference("conversations");
-        mNewConversationsRef = mConversationsRef.push();
-        mInboxRef = mConversationsRef.child("lk3f4fj3p4j");
-        mSendingRef = mConversationsRef.child("lk3f4fj3p4j");
+        //mNewConversationsRef = mConversationsRef.push();
+        if(mToUserKey != null) {
+            mInboxRef = mConversationsRef.child(mToUserKey);
+            mSendingRef = mConversationsRef.child("lk3f4fj3p4j").child(mToUserKey);
+        }
         mInboxRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                ChatMessage newMessage = dataSnapshot.getValue(ChatMessage.class);
-                if(newMessage == null) return;
-                displayMessage(newMessage);
+                Iterator<DataSnapshot> itr = dataSnapshot.getChildren().iterator();
+                while(itr.hasNext()){
+                    ChatMessage newMessage = itr.next().getValue(ChatMessage.class);
+                    if(newMessage == null) return;
+                    displayMessage(newMessage);
+                }
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                Iterator<DataSnapshot> itr = dataSnapshot.getChildren().iterator();
+                while(itr.hasNext()){
+                    ChatMessage newMessage = itr.next().getValue(ChatMessage.class);
+                    if(newMessage == null) return;
+                    displayMessage(newMessage);
+                }
             }
 
             @Override
@@ -141,38 +166,6 @@ public class ChatFragment extends Fragment {
                 return false;
             }
         });
-
-        Bundle args = getArguments();
-        if(args != null){
-            mTeam = args.getParcelable(FRAGMENT_PARAM_TEAM);
-            mChatTeamName.setText(mTeam.getName().toUpperCase());
-            Picasso.with(getContext()).load(mTeam.getBgres()).fit().into(mChatBackgroundHolder);
-        }else{
-            mChatTeamName.setVisibility(View.GONE);
-        }
-
-
-        /*sendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String messageText = messageET.getText().toString();
-                if (TextUtils.isEmpty(messageText)) {
-                    return;
-                }
-
-                ChatMessage chatMessage = new ChatMessage();
-                chatMessage.setId(1);//dummy
-                chatMessage.setMessage(messageText);
-
-                chatMessage.setUsername("Nicolas ");
-                chatMessage.setMe(true);
-
-
-                messageET.setText("");
-
-                displayMessage(chatMessage);
-            }
-        });*/
         messageET.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -182,16 +175,9 @@ public class ChatFragment extends Fragment {
                         return false;
                     }
 
-                    /*ChatMessage chatMessage = new ChatMessage();
-                    chatMessage.setId(1);//dummy
-                    chatMessage.setMessage(messageText);
-
-                    chatMessage.setUsername("Nicolas ");
-                    chatMessage.setMe(true);*/
-
 
                     messageET.setText("");
-                    ChatMessage msg = new ChatMessage(0,true,messageText,"Nicolas",System.currentTimeMillis());
+                    ChatMessage msg = new ChatMessage(messageText,"Nicolas",System.currentTimeMillis());
                     mSendingRef.push().setValue(msg);
                    // displayMessage(chatMessage);
                     return false;
@@ -239,8 +225,11 @@ public class ChatFragment extends Fragment {
         return fragment;
     }
 
-    public static ChatFragment newInstance(){
+    public static ChatFragment newInstance(String convUserKey){
         ChatFragment fragment = new ChatFragment();
+        Bundle args = new Bundle();
+        args.putString(FRAGMENT_PARAM_CONVUSERKEY,convUserKey);
+        fragment.setArguments(args);
         return fragment;
     }
 

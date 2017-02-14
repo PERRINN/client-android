@@ -15,20 +15,13 @@ public class ChatMessage implements Parcelable{
  * //variables
  * /////////////////////////////////////////////////
  */
-    public long id;
-    public boolean isMe;
     public String message;
-    //private Long userId;
     public String username;
     public long time;
 
-    private ChatMessage(){
+    public ChatMessage(){}
 
-    }
-
-    public ChatMessage(long id, boolean isMe, String message, String username, long time) {
-        this.id = id;
-        this.isMe = isMe;
+    public ChatMessage(String message, String username, long time) {
         this.message = message;
         //this.userId = userId;
         this.username = username;
@@ -36,10 +29,6 @@ public class ChatMessage implements Parcelable{
     }
 
     public ChatMessage(Parcel source){
-        this.id = source.readLong();
-        boolean[] isMeA = new boolean[1];
-        source.readBooleanArray(isMeA);
-        this.isMe = isMeA[0];
         this.message = source.readString();
         this.username = source.readString();
         this.time = source.readLong();
@@ -47,13 +36,11 @@ public class ChatMessage implements Parcelable{
 
     @Override
     public int describeContents() {
-        return 5;
+        return 3;
     }
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeLong(id);
-        parcel.writeBooleanArray(new boolean[] {isMe});
         parcel.writeString(message);
         parcel.writeString(username);
         parcel.writeLong(time);
